@@ -1,0 +1,13 @@
+@startuml
+class DynamicDisplay {
+    draw_info()
+        screen
+    rect
+    size_x
+    size_y
+    gap_size
+    font
+    args
+    __init__()
+}
+@enduml

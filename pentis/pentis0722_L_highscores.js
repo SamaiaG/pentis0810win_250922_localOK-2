@@ -1,0 +1,1 @@
+[{"name": "Norbert Noname", "score": 45}, {"name": "sume", "score": 48}]

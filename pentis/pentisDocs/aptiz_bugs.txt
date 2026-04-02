@@ -1,0 +1,41 @@
+
+
+have to wait for the lock - like lock it for me
+
+auto repeat rate
+
+walk cakes - spin tables
+
+system 
+
+
+ab level 68 zu schnell
+
+
+hard drop - kan sich noch bewegen
+
+
+log file
+
+0721
+
+
+23k4 Lvl68
+
+
+2 scoreboard - L 
+
+
+Lvl in scoreboard 
+
+scoreboard Titel L on screen - design color
+
+std - lila
+L	- green
+Lu	- pink
+
+
+
+colors aktualisieren
+
+rechts links move - 1 uodate macht einen Schritt rl - leicht buggy

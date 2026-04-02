@@ -1,0 +1,101 @@
+{
+ "version": "auto-py-to-exe-configuration_v1",
+ "pyinstallerOptions": [
+  {
+   "optionDest": "noconfirm",
+   "value": true
+  },
+  {
+   "optionDest": "filenames",
+   "value": "C:/Users/dem/Documents/03_code/pentis0810_250922_localOK/pentis/pentis_081_local.py"
+  },
+  {
+   "optionDest": "onefile",
+   "value": true
+  },
+  {
+   "optionDest": "console",
+   "value": false
+  },
+  {
+   "optionDest": "icon_file",
+   "value": "C:/Users/dem/Documents/03_code/pentis0810_250922_localOK/pentis/block_ico.ico"
+  },
+  {
+   "optionDest": "clean_build",
+   "value": false
+  },
+  {
+   "optionDest": "strip",
+   "value": false
+  },
+  {
+   "optionDest": "noupx",
+   "value": false
+  },
+  {
+   "optionDest": "disable_windowed_traceback",
+   "value": false
+  },
+  {
+   "optionDest": "uac_admin",
+   "value": false
+  },
+  {
+   "optionDest": "uac_uiaccess",
+   "value": false
+  },
+  {
+   "optionDest": "argv_emulation",
+   "value": false
+  },
+  {
+   "optionDest": "bootloader_ignore_signals",
+   "value": false
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/dem/Documents/03_code/pentis0810_250922_localOK/pentis/colors.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/dem/Documents/03_code/pentis0810_250922_localOK/pentis/DynamicDisplay.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/dem/Documents/03_code/pentis0810_250922_localOK/pentis/endMenu.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/dem/Documents/03_code/pentis0810_250922_localOK/pentis/game.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/dem/Documents/03_code/pentis0810_250922_localOK/pentis/inoutput.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/dem/Documents/03_code/pentis0810_250922_localOK/pentis/optMenu.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/dem/Documents/03_code/pentis0810_250922_localOK/pentis/startMenu.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/dem/Documents/03_code/pentis0810_250922_localOK/pentis/utils.py;."
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/dem/Documents/03_code/pentis0810_250922_localOK/pentis/graphics;graphics/"
+  },
+  {
+   "optionDest": "datas",
+   "value": "C:/Users/dem/Documents/03_code/pentis0810_250922_localOK/pentis/sound;sound/"
+  }
+ ],
+ "nonPyinstallerOptions": {
+  "increaseRecursionLimit": true,
+  "manualArguments": ""
+ }
+}

@@ -1,4 +1,5 @@
 import pygame as pg
+import sys
 import inoutput as io
 from utils import START_MENU
 from utils import monitor_size90, monitor_size30, grid, clock, ost01 #toggleMusic #username
@@ -28,7 +29,8 @@ def endLoop(current_state, bool1, score, imageEnd):
         
         for event in pg.event.get(): # momentane Events
             if event.type == pg.QUIT:       # X - event vom Typ pg quit
-                bool1 = False
+                pg.quit()
+                sys.exit(0)
             
             if event.type == pg.KEYDOWN:        #    
                 if event.key == pg.K_RETURN:
@@ -46,10 +48,10 @@ def endLoop(current_state, bool1, score, imageEnd):
         textSurface_username_bg = pg.font.SysFont('Consolas', 42).render(f'{io.dataJS["10"]}', False, (100,100,100))        
         textSurface_score = pg.font.SysFont('Consolas', 42).render(f'Highscore  {score:,}', False, (231,151,4))
         textSurface_score_bg = pg.font.SysFont('Consolas', 42).render(f'Highscore  {score:,}', False, (100,100,100))
-        textSurface_enter = pg.font.SysFont('Consolas', 38).render(f'Press Enter to restart', False, (196,44,39))
-        textSurface_enter_bg = pg.font.SysFont('Consolas', 38).render(f'Press Enter to restart', False, (110,110,110))
-        textSurface_esc = pg.font.SysFont('Consolas', 34).render(f'Press ESC to end', False, (126,26,52))
-        textSurface_esc_bg = pg.font.SysFont('Consolas', 34).render(f'Press ESC to end', False, (80,80,80))
+        textSurface_enter = pg.font.SysFont('Consolas', 38).render(f'Press Enter to go to main menu', False, (196,44,39))
+        textSurface_enter_bg = pg.font.SysFont('Consolas', 38).render(f'Press Enter to go to main menu', False, (110,110,110))
+        textSurface_esc = pg.font.SysFont('Consolas', 34).render(f'Press ESC to close', False, (126,26,52))
+        textSurface_esc_bg = pg.font.SysFont('Consolas', 34).render(f'Press ESC to close', False, (80,80,80))
 
         screen.blit(textSurface_username_bg,((screen_width - textSurface_username_bg.get_width())//2, screen_height//2+1))
         screen.blit(textSurface_username,((screen_width - textSurface_username.get_width()) //2, screen_height//2))

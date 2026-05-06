@@ -1,0 +1,44 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+build/
+dist/
+*.spec
+
+# Local user files
+username.txt
+pentis0*_highscores.js
+grapefruit256*.json
+
+# Environment
+.env
+.venv
+venv/
+
+# Documentation files
+ARCHITECTURE_MAP.md
+DEVELOPER_GUIDE.md
+GAME_READY.md
+IMPROVEMENTS_SUMMARY.md
+PYTHON_PYGAME_REFERENCE.md
+README_PLAY.md
+DynamicDisplay_UML.txt
+inoutput_UML.txt
+
+# Note: highscores.json IS included (encrypted, safe to share)

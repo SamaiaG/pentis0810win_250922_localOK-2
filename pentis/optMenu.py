@@ -1,4 +1,5 @@
 import pygame as pg
+import sys
 
 import inoutput as io
 from inoutput import imageStart, toggleMusic, fontRusso
@@ -57,8 +58,8 @@ def optMenuLoop(current_state, bool1, screen, username):
         
         for event in pg.event.get(): # momentane Events
             if event.type == pg.QUIT:       # X - event vom Typ pg quit
-                current_state = END_SCREEN
-                bool1 = False  
+                pg.quit()
+                sys.exit(0)
                 
             
             elif event.type == pg.KEYDOWN:        # 

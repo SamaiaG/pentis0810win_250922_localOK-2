@@ -1,5 +1,6 @@
 import pygame as pg
 import os
+import sys
 from dataclasses import dataclass
 import random as rnd
 import colors as clr
@@ -403,14 +404,12 @@ def gameLoop(current_state, bool1, screen, username, score):
         while loop:
             for event in pg.event.get():
                 if event.type == pg.QUIT:
-                    loop = 0
+                    pg.quit()
+                    sys.exit(0)
                 if event.type == pg.KEYDOWN:
                     if event.key == pg.K_ESCAPE:
-                        loop = 0
-                        current_state = END_SCREEN   # wird v goameloop auch weiter in die main zurückggben
-                        goon = False # wird in der gameloop() zur (allg verwendeten bool1
-                        
-                        #print ("gamePause - ESC - goons 1-3:",goonStart, goon, goonEnd)
+                        pg.quit()
+                        sys.exit(0)
                     if event.key == pg.K_RETURN:
                         loop = 0
                         
@@ -670,8 +669,8 @@ def gameLoop(current_state, bool1, screen, username, score):
         # EVENT GET
         for event in pg.event.get(): # welche Events liegen momentan an
             if event.type == pg.QUIT:       # X - event vom Typ pg quit
-                bool1 = False
-                current_state = END_SCREEN
+                pg.quit()
+                sys.exit(0)
                
             if event.type == tetrominodown:     # = USEREVENT1
                 if not figur.update(1,0):       # 1 runter // + man kann func auch einf als if-Bedingung verwenden !!!
@@ -797,10 +796,8 @@ def gameLoop(current_state, bool1, screen, username, score):
                 #    print("speed key, repeat_rate_rl down",speed, repeat_rate_rl)                                              
                 
                 if event.key == pg.K_ESCAPE:
-                    #print("ESC - Highscore:", score)
-                    sfxMenu01.play()
-                    bool1, current_state = gamePause(current_state)
-                    #print ("after game Pause - ESC - goons 1-3:", bool1, current_state)
+                    pg.quit()
+                    sys.exit(0)
                 if event.key == pg.K_p:
                     sfxMenu01.play()
                     bool1, current_state = gamePause(current_state)

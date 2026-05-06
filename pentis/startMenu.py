@@ -1,4 +1,5 @@
 import pygame as pg
+import sys
 import inoutput as io
 from inoutput import imageStart, toggleMusic, fontRusso
 import colors as clr
@@ -33,8 +34,8 @@ def startMenuLoop(current_state, username):
         
         for event in pg.event.get(): # momentane Events
             if event.type == pg.QUIT:       # X - event vom Typ pg quit
-                current_state = END_SCREEN
-                bool1 = False  
+                pg.quit()
+                sys.exit(0)
                 
             
             elif event.type == pg.KEYDOWN:        # 
@@ -43,8 +44,8 @@ def startMenuLoop(current_state, username):
                 if event.key == pg.K_DOWN:
                     selected_option = (selected_option + 1) % len(options)
                 if event.key == pg.K_ESCAPE:
-                    current_state = END_SCREEN
-                    bool1 = False 
+                    pg.quit()
+                    sys.exit(0) 
 # menu engine                                                        
                 if event.key == pg.K_RETURN:
                     if selected_option == 0:  # Start game 
@@ -69,9 +70,8 @@ def startMenuLoop(current_state, username):
                         bool1 = False
                         
                     elif selected_option == 4: # quit
-                        #print("selected_option == 4: # quit")
-                        current_state = END_SCREEN
-                        bool1 = False 
+                        pg.quit()
+                        sys.exit(0) 
 
                 if event.key == pg.K_m:
                     toggleMusic()  

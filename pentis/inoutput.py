@@ -7,7 +7,7 @@ import json
 
 import colors as clr
 import cls_pentos as clsp
-from storage import highscores, readHighscoresJS
+from storage import readHighscoresJS
 
 
 #import utils
@@ -264,7 +264,7 @@ def inputBox2(screen, imageStart): # for username
     #screen = pg.display.set_mode((screen_width, screen_height))
     #pg.display.set_caption("Input Username")
 
-    strOut = "Please type your own username  (->Enter):"
+    strOut = "Please type your own username  (-> Enter):"
     # Set up the font
     font = pg.font.Font(fontRusso, 32)
 
@@ -279,7 +279,8 @@ def inputBox2(screen, imageStart): # for username
     while running:
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                running = False
+                pg.quit()
+                sys.exit(0)
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_RETURN:
                     # Store the user's input when press enter
@@ -343,7 +344,8 @@ def inputBoxDAS(selected_option, imageStart):
         
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                running = False
+                pg.quit()
+                sys.exit(0)
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_RETURN:
                     # Store the user's input when they press enter
@@ -410,112 +412,162 @@ def inputBoxDAS(selected_option, imageStart):
     
 def highscoreBox(screen, imageStart):
 
-    # Set up the screen - screen ist der Anzeigebereich dieser Funktion !!
-    screen_width = monitor_size[0] * 0.5
-    screen_height = monitor_size[1] * 0.45
-
-    lastScoreboard2509_nov = [{'score': 28418, 'name': 'adalaine'}, {'score': 5461, 'name': 'Beatrice Default'}, {'score': 5333, 'name': 'Norbert Noname'}, {'score': 2123, 'name': 'lnx02'}, {'score': 1117, 'name': 'will'}, {'score': 1055, 'name': 'Timati'}, {'score': 124, 'name': 'mol'}, {'score': 90, 'name': 'Streamus'}, {'score': 33, 'name': ''}, {'score': 23, 'name': 'creatos240526'}]
-    lastScoreboard2509_std = [{'score': 73171, 'name': 'Hepta'}, {'score': 68977, 'name': 'Mari'}, {'score': 64340, 'name': 'roncli'}, {'score': 59317, 'name': 'Aptiz712'}, {'score': 50099, 'name': 'acephoenix'}, {'score': 48617, 'name': 'Norbert Noname'}, {'score': 47253, 'name': 'hana'}, {'score': 42780, 'name': 'demfruit'}, {'score': 42205, 'name': 'cobra6731'}, {'score': 28923, 'name': 'perplexotic'}]
-    lastScoreboard2509_adv = [{'score': 40239, 'name': 'Aptiz712'}, {'score': 26824, 'name': 'pete'}, {'score': 20367, 'name': 'demfruit'}, {'score': 14634, 'name': 'xylo'}, {'score': 9742, 'name': 'Norbert Noname'}, {'score': 7345, 'name': 'C_the_Can'}, {'score': 2843, 'name': 'will'}, {'score': 66, 'name': 'Monteith'}, {'score': 12, 'name': 'Willem Default'}]
-    lastScoreboard2509_pro = [{'score': 28594, 'name': 'Aptiz712'}, {'score': 23735, 'name': 'demfruit'}, {'score': 11197, 'name': 'Norbert Noname'}, {'score': 9954, 'name': 'Tytris'}, {'score': 3329, 'name': 'Maestro Apfel'}, {'score': 1998, 'name': 'nji'}, {'score': 1285, 'name': 'Willem Default'}, {'score': 687, 'name': 'pete'}, {'score': 139, 'name': 'Darin'}, {'score': 84, 'name': 'will'}]
-    #lastScoreboard2509_adv = 
     highscores = readHighscoresJS()
-    #screen = pg.display.set_mode((screen_width, screen_height))
-    #pg.display.set_caption("Pentis Scoreboard")
-    dataMode = dataJS["11"] #Mode 9Nov 11std 12adv 13pro 
-    modeDict = {9: "Novice", 11: "Standart", 12: "Advanced", 13: "Pro"} # 0722 weil die DB für 0722 erstellt wurden   
-    scores = modeDict[dataMode]
-    print("inner HSBox scores",scores)
-    #scores = game_scores
-    #scores = highscores["Novice"]
-    scores = highscores
-    print("inner highscoresBox:scores: ",scores)
 
-    #scores = fiba.getHighscores(dataMode) # to show 1-10 switch line 304 height => 0.32 + datamode (std L Lu) argument
-    #scores = fiba.getHighscores20(dataMode)
+    modes = ["Novice", "Standard", "Advanced", "Pro"]
 
-    #strOut = "Please type your online username for the highscore list"
-    # Set up the font
-    
-    #input_box = pg.Rect(50, 50, 200, 32)
-    font = pg.font.Font(fontRusso, 36) #  "Name Score"
-    font2 = pg.font.Font(fontRoboto, 30)
-    
-    # Set up the loop variables
-    running = True
+    # map saved mode → index
+    dataMode = int(dataJS["11"])
+    modeDict = {9: 0, 11: 1, 12: 2, 13: 3}
+    current_index = modeDict.get(dataMode, 0)
+
+    font_title = pg.font.Font(fontRusso, 34)
+    font_header = pg.font.Font(fontRusso, 28)
+    font_body = pg.font.Font(fontRoboto, 24)
+    font_footer = pg.font.Font(fontRoboto, 20)
+
+    def ordinal_rank(rank):
+        if rank == 1: return "1st"
+        if rank == 2: return "2nd"
+        if rank == 3: return "3rd"
+        return f"{rank}th"
+
     clock = pg.time.Clock()
+    scroll_offset = 0
 
-    while running:
+    while True:
+        # ================= events =================
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                running = False
+                pg.quit()
+                sys.exit(0)
+
             elif event.type == pg.KEYDOWN:
-                if event.key == pg.K_RETURN:
-                    running = False
-                if event.key == pg.K_ESCAPE:
-                    running = False                    
-        
-        # Draw the screen
+                if event.key in (pg.K_RETURN, pg.K_ESCAPE):
+                    return
+
+                elif event.key == pg.K_RIGHT:
+                    current_index = (current_index + 1) % len(modes)
+                    scroll_offset = 0
+
+                elif event.key == pg.K_LEFT:
+                    current_index = (current_index - 1) % len(modes)
+                    scroll_offset = 0
+
+                elif event.key == pg.K_DOWN:
+                    scroll_offset += 1
+
+                elif event.key == pg.K_UP:
+                    scroll_offset -= 1
+
+            elif event.type == pg.MOUSEBUTTONDOWN:
+                if event.button == 4:
+                    scroll_offset -= 1
+                elif event.button == 5:
+                    scroll_offset += 1
+
+        # ================= data =================
+        current_mode = modes[current_index]
+
+        mode_scores = highscores.get(current_mode, {})
+        sorted_scores = sorted(
+            mode_scores.items(),
+            key=lambda item: item[1]["score"],
+            reverse=True
+        )
+
+        screen_width, screen_height = screen.get_size()
+
+        # ================= draw to disply =================
         screen.fill((255, 255, 255))
         screen.blit(imageStart, (0, 0))
-        
-        #pg.draw.rect(screen, (0, 0, 0), input_box, 2)
-        
-        sumH = 0.9# Summand (Hight nach unten) für scoreboard unter Pentis Title
-        print_screen_w = (screen_width)//3
-        lineSpace = 0.07
-        nameTitle = "Name"
-        text_surface = font.render(nameTitle, True, (0, 0, 0))
-        screen.blit(text_surface, (screen_width * 0.2 + print_screen_w, screen_height * (0.05+sumH)))
-        scoreTitle = "Score"
-        text_surface = font.render(scoreTitle, True, (0, 0, 0))
-        screen.blit(text_surface, (screen_width * 0.7 + print_screen_w, screen_height * (0.05+sumH)))
-        
-    #    for i in range(len(scores)):
-    #        
-    #        text_surface = font2.render(str(i+1), True, (0, 0, 0))
-    #        screen.blit(text_surface, (screen_width * 0.05 + print_screen_w, screen_height * (0.15+sumH) + screen_height * lineSpace*i))
-    #        
-    #        strOut = scores[i]["name"]
-    #        text_surface = font2.render(strOut, True, (0, 0, 0))
-    #        screen.blit(text_surface, (screen_width * 0.2 + print_screen_w, screen_height * (0.15+sumH) + screen_height * lineSpace*i))#
 
-    #        strOut2 = str(scores[i]["score"])
-    #        text_surface = font2.render(strOut2, True, (0, 0, 0))
-    #        screen.blit(text_surface, (screen_width * 0.7 + print_screen_w, screen_height * (0.15+sumH) + screen_height * lineSpace*i))    
-        i = 1
-        # Iterate through the "Novice" scores
-        modeDict[dataMode]
+        center_x = screen_width * 0.5
+        block_top = screen_height * 0.6
 
-        # Hole die Scores für den aktuellen Modus und sortiere sie nach Score
-        
-        #for player_name, score_data in scores["Novice"].items():
-        
-        #for player_name, score_data in scores[modeDict[dataMode]].items():
-        sorted_scores = sorted(scores[modeDict[dataMode]].items(), key=lambda item: item[1]["score"], reverse=True)
-        # Iteriere über die sortierten Scores
-        for i, (name, score_data) in enumerate(sorted_scores):
-            # Assign the player name
-            strOut = name["name"]
-            # Assign the score as a string
-            strOut2 = str(score_data["score"])
-    #        strOut = scores[i]["name"]
-            text_surface = font2.render(strOut, True, (0, 0, 0))
-            screen.blit(text_surface, (screen_width * 0.2 + print_screen_w, screen_height * (0.15+sumH) + screen_height * lineSpace*i))#
+        # TITLE
+        title = font_title.render(
+            f"SCOREBOARD - {current_mode.upper()}",
+            True, (20, 20, 20)
+        )
+        screen.blit(title, title.get_rect(center=(center_x, block_top - 60)))
 
-    #        strOut2 = str(scores[i]["score"])
-            text_surface = font2.render(strOut2, True, (0, 0, 0))
-            screen.blit(text_surface, (screen_width * 0.7 + print_screen_w, screen_height * (0.15+sumH) + screen_height * lineSpace*i))    
-            i += 1
+        # HEADERS
+        col_spacing = 220
+        rank_x  = center_x - col_spacing
+        name_x  = center_x
+        score_x = center_x + col_spacing
 
-            
-            # Print the results to check
-            #print(f"Player: {strOut}, Score: {strOut2}")
+        header_y = block_top
+
+        screen.blit(font_header.render("Rank", True, (20, 20, 20)),
+                    (rank_x - 40, header_y - 15))
+        screen.blit(font_header.render("Player", True, (20, 20, 20)),
+                    (name_x - 60, header_y - 15))
+        screen.blit(font_header.render("Score", True, (20, 20, 20)),
+                    (score_x - 40, header_y - 15))
+
+        # ROWS
+        row_start_y = header_y + 50
+        row_height = 40
+
+        max_visible = int((screen_height - row_start_y - 100) // row_height)
+        max_scroll = max(0, len(sorted_scores) - max_visible)
+
+        scroll_offset = max(0, min(scroll_offset, max_scroll))
+        visible = sorted_scores[scroll_offset:scroll_offset + max_visible]
+
+        if not visible:
+            txt = font_body.render("No scores available yet.", True, (120, 120, 120))
+            screen.blit(txt, txt.get_rect(center=(center_x, row_start_y)))
+        else:
+            for i, (name, data) in enumerate(visible, start=1):
+                y = row_start_y + (i - 1) * row_height
+                rank = i + scroll_offset
+                score = data.get("score", 0)
+
+                screen.blit(font_body.render(ordinal_rank(rank), True, (0, 0, 0)),
+                            (rank_x - 20, y))
+                screen.blit(font_body.render(name, True, (0, 0, 0)),
+                            (name_x - 60, y))
+                screen.blit(font_body.render(str(score), True, (0, 0, 0)),
+                            (score_x - 20, y))
+
+        # FOOTER (modes + exit aligned evenly)
+        footer_y = screen_height - 60
+
+        items = modes + ["Exit"]
+        total_items = len(items)
+
+        spacing = 150
+        start_x = center_x - ((total_items - 1) / 2) * spacing
+
+        for i, item in enumerate(items):
+            x = start_x + i * spacing
+
+            if item == "Exit":
+                text = "Back: ESC"
+                color = (120, 120, 120)
+            else:
+                is_active = (i == current_index)
+                text = f"[{item}]" if is_active else item
+                color = (34, 197, 94) if is_active else (140, 140, 140)
+
+            #exit hint
+            surf = font_footer.render(text, True, color)
+            screen.blit(surf, surf.get_rect(center=(x, footer_y)))
+
+        # SCROLL INFO
+        if max_scroll > 0:
+            info = font_footer.render(
+                f"{scroll_offset+1}-{scroll_offset+len(visible)} / {len(sorted_scores)}",
+                True, (120, 120, 120)
+            )
+            screen.blit(info, info.get_rect(center=(center_x, footer_y - 30)))
+
         pg.display.update()
-        
-        # Limit the frame rate
         clock.tick(30)
-
+    
 def modeOpts(screen, imageStart, infoL):            # Mode Options
     
     #print("inner modeBox dataJS",dataJS)
@@ -541,7 +593,8 @@ def modeOpts(screen, imageStart, infoL):            # Mode Options
         clock.tick(80)      
         for event in pg.event.get(): # momentane Events
             if event.type == pg.QUIT:       # X - event vom Typ pg quit
-                running = False  
+                pg.quit()
+                sys.exit(0)
             #MENU Options "KEY PRESSED ENGINE"
             elif event.type == pg.KEYDOWN:        # 
                 if event.key == pg.K_UP:
@@ -628,7 +681,8 @@ def pentosOpts(screen, imageStart, infoL):      #Pentominoes Options
         clock.tick(80)      
         for event in pg.event.get(): # momentane Events
             if event.type == pg.QUIT:       # X - event vom Typ pg quit
-                running = False  
+                pg.quit()
+                sys.exit(0)
             #MENU KEY PRESSED
             elif event.type == pg.KEYDOWN:        # 
                 if event.key == pg.K_UP:
@@ -726,8 +780,8 @@ def controlsBox(screen, imageStart):
         
         for event in pg.event.get(): # momentane Events
             if event.type == pg.QUIT:       # X - event vom Typ pg quit
-                #current_state = END_SCREEN
-                running = False  
+                pg.quit()
+                sys.exit(0)
                 
             
             elif event.type == pg.KEYDOWN:        # 
@@ -817,8 +871,8 @@ def DASBox(screen, imageStart):
         
         for event in pg.event.get(): # momentane Events
             if event.type == pg.QUIT:       # X - event vom Typ pg quit
-                #current_state = END_SCREEN
-                running = False  
+                pg.quit()
+                sys.exit(0)
                 
             
             elif event.type == pg.KEYDOWN:        # 
@@ -900,7 +954,8 @@ def infoBox(strOut):
     while running:
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                running = False
+                pg.quit()
+                sys.exit(0)
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_RETURN:
                     running = False
@@ -942,7 +997,8 @@ def keyBox():           # pg.init !!!
     while running:
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                running = False
+                pg.quit()
+                sys.exit(0)
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_RETURN:
                     running = False

@@ -1,17 +1,57 @@
 """Highscores storage module - manages local JSON-based score persistence"""
 import os
 import json
+import platform
 from pathlib import Path
+from cryptography.fernet import Fernet
 
 os.chdir(Path(__file__).parent)
 
+# Encryption key (Fernet-compatible base64-encoded 32-byte key)
+ENCRYPTION_KEY = b'NdXFi88mM5JX3V-XTgnbnHpMY5PwiCBDEI5SpyrPvfA='
+cipher = Fernet(ENCRYPTION_KEY)
+
+def encrypt_data(data):
+    """Encrypt JSON data"""
+    json_str = json.dumps(data, indent=4, ensure_ascii=False)
+    encrypted = cipher.encrypt(json_str.encode('utf-8'))
+    return encrypted
+
+def decrypt_data(encrypted_data):
+    """Decrypt JSON data"""
+    try:
+        decrypted = cipher.decrypt(encrypted_data)
+        return json.loads(decrypted.decode('utf-8'))
+    except Exception as e:
+        print(f"Error decrypting data: {e}")
+        return {}
+
+# Get platform-specific data directory
+def get_app_data_dir():
+    """Return platform-specific application data directory"""
+    system = platform.system()
+    
+    if system == 'Windows':
+        # Windows: C:\Users\<username>\AppData\Local\Pentis
+        app_data = os.getenv('LOCALAPPDATA')
+        if app_data:
+            return os.path.join(app_data, 'Pentis')
+        else:
+            return os.path.join(os.path.expanduser('~'), 'AppData', 'Local', 'Pentis')
+    elif system == 'Darwin':
+        # macOS: ~/Library/Application Support/Pentis
+        return os.path.join(os.path.expanduser('~'), 'Library', 'Application Support', 'Pentis')
+    else:
+        # Linux and others: ~/.local/share/pentis
+        return os.path.join(os.path.expanduser('~'), '.local', 'share', 'pentis')
+
 # Create Pentis directory if it doesn't exist
-pentis_dir = os.path.join(os.path.expanduser('~'), 'Pentis')
+pentis_dir = get_app_data_dir()
 os.makedirs(pentis_dir, exist_ok=True)
 
-file_path_iText = os.path.join(os.path.expanduser('~'), 'Pentis', 'iText.json')
+file_path_iText = os.path.join(pentis_dir, 'iText.json')
 # Create a file path to the highscores.json file
-file_path = os.path.join(os.path.expanduser('~'), 'Pentis', 'highscores.json')
+file_path = os.path.join(pentis_dir, 'highscores.json')
 
 
 def writeJS(data):
@@ -30,12 +70,12 @@ def readHighscoresJS():
     if not os.path.exists(file_path):
         return {}
     try:
-        with open(file_path, 'r') as file:
-            data = file.read()
-            if data:
-                return json.loads(data)
-    except (json.JSONDecodeError, IOError):
-        pass
+        with open(file_path, 'rb') as file:
+            encrypted_data = file.read()
+            if encrypted_data:
+                return decrypt_data(encrypted_data)
+    except Exception as e:
+        print(f"Error reading highscores: {e}")
     return {}
 
 
@@ -76,7 +116,8 @@ def addHighscoresJS(dataMode, name, score):
 
     # Save the updated highscores
     try:
-        with open(file_path, "w") as file:
-            json.dump(highscores, file, indent=4, ensure_ascii=False)
-    except IOError as e:
+        encrypted_data = encrypt_data(highscores)
+        with open(file_path, "wb") as file:
+            file.write(encrypted_data)
+    except Exception as e:
         print(f"Error saving highscore: {e}")

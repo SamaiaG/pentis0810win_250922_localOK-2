@@ -76,6 +76,7 @@ def readHighscoresJS():
                 return decrypt_data(encrypted_data)
     except Exception as e:
         print(f"Error reading highscores: {e}")
+        return {}
     return {}
 
 

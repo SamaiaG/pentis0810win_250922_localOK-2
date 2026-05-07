@@ -212,9 +212,19 @@ def fileReadKeys():
     return game_keys
 
 def fileRead(file_path_keys):
-    with open(file_path_keys, "r") as datei:
-        dictionary = json.load(datei)    
-    return dictionary
+    if not os.path.exists(file_path_keys):
+        os.makedirs(os.path.dirname(file_path_keys), exist_ok=True)
+        with open(file_path_keys, "w") as datei:
+            json.dump({}, datei)
+        return {}
+    try:
+        with open(file_path_keys, "r") as datei:
+            dictionary = json.load(datei)    
+        return dictionary
+    except json.JSONDecodeError:
+        with open(file_path_keys, "w") as datei:
+            json.dump({}, datei)
+        return {}
 #def fileWrite(game_scores): #
 #    # Data in eine JSON-Datei schreiben
 #    with open(file_path_data, "w") as datei:

@@ -424,6 +424,38 @@ def highscoreBox(screen, imageStart):
 
     highscores = readHighscoresJS()
 
+    # Hardcoded baseline scores (always present)
+    hardcoded = {
+        "Novice": [
+            {'score': 28418, 'name': 'adalaine'}, {'score': 5461, 'name': 'Beatrice Default'},
+            {'score': 5333, 'name': 'Norbert Noname'}, {'score': 2123, 'name': 'lnx02'},
+            {'score': 1117, 'name': 'will'}, {'score': 1055, 'name': 'Timati'},
+            {'score': 124, 'name': 'mol'}, {'score': 90, 'name': 'Streamus'},
+            {'score': 33, 'name': ''}, {'score': 23, 'name': 'creatos240526'}
+        ],
+        "Standard": [
+            {'score': 73171, 'name': 'Hepta'}, {'score': 68977, 'name': 'Mari'},
+            {'score': 64340, 'name': 'roncli'}, {'score': 59317, 'name': 'Aptiz712'},
+            {'score': 50099, 'name': 'acephoenix'}, {'score': 48617, 'name': 'Norbert Noname'},
+            {'score': 47253, 'name': 'hana'}, {'score': 42780, 'name': 'demfruit'},
+            {'score': 42205, 'name': 'cobra6731'}, {'score': 28923, 'name': 'perplexotic'}
+        ],
+        "Advanced": [
+            {'score': 40239, 'name': 'Aptiz712'}, {'score': 26824, 'name': 'pete'},
+            {'score': 20367, 'name': 'demfruit'}, {'score': 14634, 'name': 'xylo'},
+            {'score': 9742, 'name': 'Norbert Noname'}, {'score': 7345, 'name': 'C_the_Can'},
+            {'score': 2843, 'name': 'will'}, {'score': 66, 'name': 'Monteith'},
+            {'score': 12, 'name': 'Willem Default'}
+        ],
+        "Pro": [
+            {'score': 28594, 'name': 'Aptiz712'}, {'score': 23735, 'name': 'demfruit'},
+            {'score': 11197, 'name': 'Norbert Noname'}, {'score': 9954, 'name': 'Tytris'},
+            {'score': 3329, 'name': 'Maestro Apfel'}, {'score': 1998, 'name': 'nji'},
+            {'score': 1285, 'name': 'Willem Default'}, {'score': 687, 'name': 'pete'},
+            {'score': 139, 'name': 'Darin'}, {'score': 84, 'name': 'will'}
+        ],
+    }
+
     modes = ["Novice", "Standard", "Advanced", "Pro"]
 
     # map saved mode → index
@@ -446,7 +478,6 @@ def highscoreBox(screen, imageStart):
     scroll_offset = 0
 
     while True:
-        # ================= events =================
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
@@ -455,18 +486,14 @@ def highscoreBox(screen, imageStart):
             elif event.type == pg.KEYDOWN:
                 if event.key in (pg.K_RETURN, pg.K_ESCAPE):
                     return
-
                 elif event.key == pg.K_RIGHT:
                     current_index = (current_index + 1) % len(modes)
                     scroll_offset = 0
-
                 elif event.key == pg.K_LEFT:
                     current_index = (current_index - 1) % len(modes)
                     scroll_offset = 0
-
                 elif event.key == pg.K_DOWN:
                     scroll_offset += 1
-
                 elif event.key == pg.K_UP:
                     scroll_offset -= 1
 
@@ -479,35 +506,45 @@ def highscoreBox(screen, imageStart):
         # ================= data =================
         current_mode = modes[current_index]
 
+        # Merge: start with hardcoded entries as {name: {score}} dict
+        merged = {}
+        for entry in hardcoded.get(current_mode, []):
+            name = entry['name']
+            # Use name as key; if duplicate names exist keep the higher score
+            if name not in merged or entry['score'] > merged[name]['score']:
+                merged[name] = {'score': entry['score']}
+
+        # Overlay with saved scores (saved score wins if higher)
         mode_scores = highscores.get(current_mode, {})
+        for name, data in mode_scores.items():
+            if name not in merged or data['score'] > merged[name]['score']:
+                merged[name] = {'score': data['score']}
+
         sorted_scores = sorted(
-            mode_scores.items(),
-            key=lambda item: item[1]["score"],
+            merged.items(),
+            key=lambda item: item[1]['score'],
             reverse=True
         )
 
         screen_width, screen_height = screen.get_size()
 
-        # ================= draw to disply =================
+        # ================= draw =================
         screen.fill((255, 255, 255))
         screen.blit(imageStart, (0, 0))
 
         center_x = screen_width * 0.5
         block_top = screen_height * 0.6
 
-        # TITLE
         title = font_title.render(
             f"SCOREBOARD - {current_mode.upper()}",
             True, (20, 20, 20)
         )
         screen.blit(title, title.get_rect(center=(center_x, block_top - 60)))
 
-        # HEADERS
         col_spacing = 220
         rank_x  = center_x - col_spacing
         name_x  = center_x
         score_x = center_x + col_spacing
-
         header_y = block_top
 
         screen.blit(font_header.render("Rank", True, (20, 20, 20)),
@@ -517,13 +554,10 @@ def highscoreBox(screen, imageStart):
         screen.blit(font_header.render("Score", True, (20, 20, 20)),
                     (score_x - 40, header_y - 15))
 
-        # ROWS
         row_start_y = header_y + 50
         row_height = 40
-
         max_visible = int((screen_height - row_start_y - 100) // row_height)
         max_scroll = max(0, len(sorted_scores) - max_visible)
-
         scroll_offset = max(0, min(scroll_offset, max_scroll))
         visible = sorted_scores[scroll_offset:scroll_offset + max_visible]
 
@@ -534,7 +568,7 @@ def highscoreBox(screen, imageStart):
             for i, (name, data) in enumerate(visible, start=1):
                 y = row_start_y + (i - 1) * row_height
                 rank = i + scroll_offset
-                score = data.get("score", 0)
+                score = data.get('score', 0)
 
                 screen.blit(font_body.render(ordinal_rank(rank), True, (0, 0, 0)),
                             (rank_x - 20, y))
@@ -543,18 +577,14 @@ def highscoreBox(screen, imageStart):
                 screen.blit(font_body.render(str(score), True, (0, 0, 0)),
                             (score_x - 20, y))
 
-        # FOOTER (modes + exit aligned evenly)
         footer_y = screen_height - 60
-
         items = modes + ["Exit"]
         total_items = len(items)
-
         spacing = 150
         start_x = center_x - ((total_items - 1) / 2) * spacing
 
         for i, item in enumerate(items):
             x = start_x + i * spacing
-
             if item == "Exit":
                 text = "Back: ESC"
                 color = (120, 120, 120)
@@ -562,12 +592,9 @@ def highscoreBox(screen, imageStart):
                 is_active = (i == current_index)
                 text = f"[{item}]" if is_active else item
                 color = (34, 197, 94) if is_active else (140, 140, 140)
-
-            #exit hint
             surf = font_footer.render(text, True, color)
             screen.blit(surf, surf.get_rect(center=(x, footer_y)))
 
-        # SCROLL INFO
         if max_scroll > 0:
             info = font_footer.render(
                 f"{scroll_offset+1}-{scroll_offset+len(visible)} / {len(sorted_scores)}",
@@ -577,7 +604,7 @@ def highscoreBox(screen, imageStart):
 
         pg.display.update()
         clock.tick(30)
-    
+           
 def modeOpts(screen, imageStart, infoL):            # Mode Options
     
     #print("inner modeBox dataJS",dataJS)

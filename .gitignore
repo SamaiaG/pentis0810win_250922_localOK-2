@@ -19,7 +19,9 @@ Thumbs.db
 # Build artifacts
 build/
 dist/
-*.spec
+
+# Keep spec files tracked (needed to reproduce builds on other machines)
+# *.spec
 
 # Local user files
 username.txt

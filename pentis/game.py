@@ -238,14 +238,8 @@ def gameLoop(current_state, bool1, screen, username, score):
                         
                     
                         if self.zeile <= 0 and s1 >= 0  and s1 < spalten:               # MUSS nciht geknüpft an Tastendruck !?
-                            global bool1
                             self.bool2lab = False
-                            bool1 = False
-                            current_state = END_SCREEN
-                            #print("**********self.zeile <= 0:************* ",score)
-
-                            #print("valid 0", self.bool2lab, current_state, bool1, score)               
-                            return bool1, score #, current_state
+                            return False
 
 
                         
@@ -378,49 +372,102 @@ def gameLoop(current_state, bool1, screen, username, score):
         return lines, lines**2*100
 
 
-    def gamePause(current_state):
-        loop = 1
-        goon = True
-        #screen_width, screen_height = screen.get_size()
-        pg.draw.rect(screen, clr.blk, (0, 0, screen_width, screen_height))                
-        textpause = pg.font.SysFont(io.fontRusso, gamefont).render("Pause", False, (255,255,255), (80,80,80))
-        textp_rect = textpause.get_rect()
-        textp_rect.center = ((screen_width) //2, screen_height*0.4)
-        screen.blit(textpause, textp_rect)
-        textpause = pg.font.SysFont(io.fontRusso, gamefont).render("Enter to resume", False, (255,255,255), (0,0,0))
-        textp_rect = textpause.get_rect()
-        textp_rect.center = ((screen_width) //2, screen_height*0.5)
-        screen.blit(textpause, textp_rect)
-        textpause = pg.font.SysFont(io.fontRusso, gamefont).render("ESC to quit", False, (255,255,255), (0,0,0))
-        textp_rect = textpause.get_rect()
-        textp_rect.center = ((screen_width) //2, screen_height*0.6)
-        screen.blit(textpause, textp_rect)
-        #text_surface = font.render(strOut, True, (0, 0, 0))
-        #text_rect = text_surface.get_rect() 
-        #text_rect.center = ((screen_width) //2, screen_height*0.6)
-        #screen.blit(text_surface, text_rect)        
-        
+    def quitConfirm():
+        saved = screen.copy()
+        confirm_options = ["YES", "NO"]
+        selected = 1
 
-        while loop:
+        overlay = pg.Surface((screen_width, screen_height), pg.SRCALPHA)
+        overlay.fill((0, 0, 0, 160))
+
+        box_w = int(screen_width * 0.5)
+        box_h = int(screen_height * 0.28)
+        box_x = (screen_width - box_w) // 2
+        box_y = (screen_height - box_h) // 2
+
+        while True:
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     pg.quit()
                     sys.exit(0)
-                if event.type == pg.KEYDOWN:
-                    if event.key == pg.K_ESCAPE:
-                        pg.quit()
-                        sys.exit(0)
-                    if event.key == pg.K_RETURN:
-                        loop = 0
-                        
-                        #print ("gamePause - return - goons 1-3:",goonStart, goon, goonEnd)
-                    if event.key == pg.K_p:
-                        loop = 0
-                        
-                        #print ("gamePause - p - goons 1-3:",goonStart, goon, goonEnd)
-            pg.display.update()
+                elif event.type == pg.KEYDOWN:
+                    if event.key in (pg.K_LEFT, pg.K_UP):
+                        selected = (selected - 1) % len(confirm_options)
+                    elif event.key in (pg.K_RIGHT, pg.K_DOWN):
+                        selected = (selected + 1) % len(confirm_options)
+                    elif event.key == pg.K_RETURN:
+                        if selected == 0:
+                            pg.quit()
+                            sys.exit(0)
+                        else:
+                            return
+                    elif event.key == pg.K_ESCAPE:
+                        return
+
+            screen.blit(saved, (0, 0))
+            screen.blit(overlay, (0, 0))
+
+            pg.draw.rect(screen, (20, 20, 20), (box_x, box_y, box_w, box_h))
+            pg.draw.rect(screen, clr.gry3, (box_x, box_y, box_w, box_h), 2)
+
+            q_font = pg.font.SysFont(io.fontRusso, gamefont)
+            line1 = q_font.render("Are you sure you want to", False, clr.wht)
+            line2 = q_font.render("quit and exit the game?", False, clr.wht)
+            screen.blit(line1, ((screen_width - line1.get_width()) // 2, box_y + int(box_h * 0.1)))
+            screen.blit(line2, ((screen_width - line2.get_width()) // 2, box_y + int(box_h * 0.35)))
+
+            for i, option in enumerate(confirm_options):
+                if i == selected:
+                    btn = font.render(option, True, clr.wht, clr.purple)
+                else:
+                    btn = font.render(option, True, clr.gry2)
+                btn_x = screen_width // 2 + (i * 2 - 1) * int(box_w * 0.22) - btn.get_width() // 2
+                btn_y = box_y + int(box_h * 0.68)
+                screen.blit(btn, (btn_x, btn_y))
+
+            pg.display.flip()
             clock.tick(60)
-        return goon, current_state
+
+    def gamePause(current_state):
+        pause_options = ["RESUME", "END GAME"]
+        selected = 0
+        option_spacing = 60
+
+        while True:
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    quitConfirm()
+                elif event.type == pg.KEYDOWN:
+                    if event.key == pg.K_UP:
+                        selected = (selected - 1) % len(pause_options)
+                    elif event.key == pg.K_DOWN:
+                        selected = (selected + 1) % len(pause_options)
+                    elif event.key in (pg.K_RETURN, pg.K_p):
+                        if selected == 0:
+                            return True, current_state
+                        else:
+                            return False, END_SCREEN
+                    elif event.key == pg.K_ESCAPE:
+                        return True, current_state
+
+            screen.blit(io.imageStart, (0, 0))
+
+            title_surf = pg.font.SysFont(io.fontRusso, gamefont * 2).render("PAUSED", True, clr.purple)
+            title_rect = title_surf.get_rect()
+            title_rect.center = (screen_width // 2, int(screen_height * 0.57))
+            screen.blit(title_surf, title_rect)
+
+            for i, option in enumerate(pause_options):
+                if i == selected:
+                    text = font.render(option, True, clr.wht, clr.purple)
+                else:
+                    text = font.render(option, True, clr.blk)
+                text_rect = text.get_rect()
+                text_rect.center = (screen_width // 2, int(screen_height * 0.72) + i * option_spacing)
+                screen.blit(text, text_rect)
+
+            pg.display.flip()
+            clock.tick(60)
 
 
 
@@ -582,13 +629,8 @@ def gameLoop(current_state, bool1, screen, username, score):
     key_time_3 = 0
 
     
-    bool2labTet = figur.bool2lab
-    #print("pre while(bool1) in gameloop()", bool2labTet, figur.bool2lab)
-
-
     while bool1:
-        bool2labTet = figur.bool2lab        # figur instanced at 378
-        #print("start in while(bool1) in gameloop()", bool2labTet, figur.bool2lab) # !!Dauerfeuer printed!!
+        #print("start while bool1")
         #print("start while bool1") => wird unendlich ausgegeben -> wenn x quit: geht in main 5 Start Game
         clock.tick(80)      # variable clock soll nur dann die Schleife durchlaufen, wenn best Zeit vergangen ist -> ergibt 20 Bilder/sec
                             # wegen set_timer 500ms ist die framerate 80 egal
@@ -669,83 +711,57 @@ def gameLoop(current_state, bool1, screen, username, score):
         # EVENT GET
         for event in pg.event.get(): # welche Events liegen momentan an
             if event.type == pg.QUIT:       # X - event vom Typ pg quit
-                pg.quit()
-                sys.exit(0)
+                quitConfirm()
                
             if event.type == tetrominodown:     # = USEREVENT1
                 if not figur.update(1,0):       # 1 runter // + man kann func auch einf als if-Bedingung verwenden !!!
                                                               # die func WIRD ausgeführt UND dient dann 
                     objToGrid()
-                    if bool2labTet == False:
+                    if not figur.bool2lab:
                         bool1 = False
                         current_state = END_SCREEN
-                    #print("not figur.update:", bool2labTet, bool1, current_state)
-                    #if figur.valid
+                    else:
+                        dropstep = dropstep + 1
+                        score += pentoPoints
+                        lines, lineScore = fullLines()
+                        score += lineScore
+                        level = level + lines
 
-                    #objToGrid() ursprüngl standart Position !!!!
-                    dropstep = dropstep + 1 # Count pentominoes
-                    #oneScore = pentoPoints - figur.spalte
-                    score += pentoPoints # - figur.spalte
-                    lines, lineScore = fullLines()         #rnd.randrange(11)
-                    #print("lines number:", lines)
-                    score += lineScore
-                    level = level + lines                    #+ lines
-                        
-                    if lines >= 1:
-                        print("lineScore:", lineScore)
-                        if level >= 1 and level <= 21:
-                            speed = speed - (speedOn * 15 * lines)# 3 hoch lines 
-                            #print("Level 1-21",speed)
-                        elif level >= 22 and level <= 31:
-                            speed = speed - (speedOn * 12 * lines)# 3 hoch lines 
-                            #print("Level 22-31",speed)
-                        elif level >= 32 and level <= 51:
-                            speed = speed - (speedOn * 8 * lines)# 3 hoch lines * pracON
-                            if speed <=69:
-                                speed = 69                
-                            #print("Level 32-51",speed) 
-                        elif level >= 52 and level <= 71:
-                            speed = speed - (speedOn * 6 * lines)# 3 hoch lines ? 
-                            if speed <=69:
-                                speed = 69
-                            #print("Level 52-71",speed)   
-                        elif level >= 72 and level <= 101:
-                            speed = speed - (speedOn * 5 * lines)# 3 hoch lines ? 
-                            if speed <=69:
-                                speed = 69
-                            print("Level 72-101",speed) 
-                        elif level >= 102 and level <= 131:
-                            speed = speed - (speedOn * 4 * lines)# 3 hoch lines ? 
-                            if speed <=69:
-                                speed = 69
-                            print("Level 102-131",speed) 
-                        elif level >= 132 and level <= 161:
-                            speed = speed - (speedOn * 3 * lines)# 3 hoch lines ? 
-                            if speed <=69:
-                                speed = 69
-                            print("Level 132-161",speed)                             
-                        else: 
-                            speed = speed - (speedOn * 2 * lines)
-                            if speed <=69:
-                                speed = 69                
-                            
-                            print("else",speed)
+                        if lines >= 1:
+                            if level >= 1 and level <= 21:
+                                speed = speed - (speedOn * 15 * lines)
+                            elif level >= 22 and level <= 31:
+                                speed = speed - (speedOn * 12 * lines)
+                            elif level >= 32 and level <= 51:
+                                speed = speed - (speedOn * 8 * lines)
+                                if speed <= 69:
+                                    speed = 69
+                            elif level >= 52 and level <= 71:
+                                speed = speed - (speedOn * 6 * lines)
+                                if speed <= 69:
+                                    speed = 69
+                            elif level >= 72 and level <= 101:
+                                speed = speed - (speedOn * 5 * lines)
+                                if speed <= 69:
+                                    speed = 69
+                            elif level >= 102 and level <= 131:
+                                speed = speed - (speedOn * 4 * lines)
+                                if speed <= 69:
+                                    speed = 69
+                            elif level >= 132 and level <= 161:
+                                speed = speed - (speedOn * 3 * lines)
+                                if speed <= 69:
+                                    speed = 69
+                            else:
+                                speed = speed - (speedOn * 2 * lines)
+                                if speed <= 69:
+                                    speed = 69
+                            pg.time.set_timer(tetrominodown, speed)
 
-                        pg.time.set_timer(tetrominodown, speed)
-                        
-                        #print("ds", dropstep, "s:",score, "l:", level, "sp:", speed,"rr:", repeat_rate_rl, "id:",initial_delay)
-                    
-                    
-                    #print("pre randNext:",randint, randlist)
-                    #figur = figurnext
-                    randint, randlist, randintnext  = randNext(randlist) # , randintnext, randlistnext
-                    #print("after randNext:", randlist, "next: ", randint, "next: ",randintnext)
-                    #objToGrid() - gab extreme CleanLines- teilweise kommen Lines dazu oder passiert nichts
-                    figur = Tetromino(tetrominoes[randint])
-                    tetrominoes = nextPentos
-                    figurnext = NextTet(nextPentos[randintnext])
-                    #print("Tetro: ", Tetromino(tetrominoes[randint]))
-                    #print("nextPento: ", NextTet(nextPentos[randintnext]))
+                        randint, randlist, randintnext = randNext(randlist)
+                        figur = Tetromino(tetrominoes[randint])
+                        tetrominoes = nextPentos
+                        figurnext = NextTet(nextPentos[randintnext])
                     
             
             if event.type == speedup:           # # = USEREVENT2
@@ -796,8 +812,8 @@ def gameLoop(current_state, bool1, screen, username, score):
                 #    print("speed key, repeat_rate_rl down",speed, repeat_rate_rl)                                              
                 
                 if event.key == pg.K_ESCAPE:
-                    pg.quit()
-                    sys.exit(0)
+                    sfxMenu01.play()
+                    bool1, current_state = gamePause(current_state)
                 if event.key == pg.K_p:
                     sfxMenu01.play()
                     bool1, current_state = gamePause(current_state)

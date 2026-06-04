@@ -108,9 +108,7 @@ def optMenuLoop(current_state, bool1, screen, username):
                     elif selected_option == 3: # controls
                         #game_keys = {}
                         #print("The controls setup is not available yet")
-                        game_keys = io.controlsBox(screen, imageStart)
-                        #print(game_keys[str(10)])
-                        #io.fileWriteKeys(game_keys)
+                        io.game_keys = io.controlsBox(screen, imageStart)
                         #print("selectedOption:" + username)
                         selected_option = 0                        
                     elif selected_option == 4: 

@@ -150,13 +150,24 @@ iText = {
 # diese beiden dict sind NUR für den ersten Start - danach vollk. sinnlos (oder wenn username.txt gelöscht wurde !)
                                     # da sie Z 108 dataJS = fileReadData() geladen werden
 game_keys = {
-    0: "Left", 10: pg.K_LEFT,
-    1: "Right", 11: pg.K_RIGHT,
-    2: "Down", 12: pg.K_DOWN,
-    3: "Rotate CCW", 13: pg.K_y,
-    4: "Rotate CW", 14: pg.K_x,
-    5: "Rotate 180°", 15: pg.K_a,
-    6: "Smash", 16: pg.K_SPACE,
+    0: "Left",             10: pg.K_LEFT,
+    1: "Right",            11: pg.K_RIGHT,
+    2: "Down",             12: pg.K_DOWN,
+    3: "R Counter-Clock",  13: pg.K_z,
+    4: "R Clockwise",      14: pg.K_x,
+    5: "R 180",            15: pg.K_c,
+    6: "Smash",            16: pg.K_SPACE,
+}
+
+# Snapshot of defaults — used by Reset Keys; kept as strings to match JSON structure
+DEFAULT_KEYS = {
+    "0": "Left",            "10": pg.K_LEFT,
+    "1": "Right",           "11": pg.K_RIGHT,
+    "2": "Down",            "12": pg.K_DOWN,
+    "3": "R Counter-Clock", "13": pg.K_z,
+    "4": "R Clockwise",     "14": pg.K_x,
+    "5": "R 180",           "15": pg.K_c,
+    "6": "Smash",           "16": pg.K_SPACE,
 }
 
 dataJS = {
@@ -207,9 +218,10 @@ def fileReadData():
         dataJS = json.load(datei)    
     return dataJS
 def fileReadKeys():
+    if not os.path.exists(file_path_keys):
+        fileWriteKeys(game_keys)
     with open(file_path_keys, "r") as datei:
-        game_keys = json.load(datei)    
-    return game_keys
+        return json.load(datei)
 
 def fileRead(file_path_keys):
     if not os.path.exists(file_path_keys):
@@ -786,93 +798,121 @@ def pentosOpts(screen, imageStart, infoL):      #Pentominoes Options
     return numPents, competOn
 
 def controlsBox(screen, imageStart):
-    # Set up the screen
-    
-    #screen_width = monitor_size[0] #* 0.5
-    #screen_height = monitor_size[1] #* 0.45
-    #screen = pg.display.set_mode((screen_width, screen_height))
-    #pg.display.set_caption("Set Controls")
-    
+    font       = pg.font.Font(fontRusso, 30)
+    font_hint  = pg.font.Font(fontRusso, 20)
 
-    #strOut = "Please type your online username for the highscore list"
-    # Set up the font
-    
-    #input_box = pg.Rect(50, 50, 200, 32)
-    font = pg.font.Font(fontRusso, 30)
-        
-    #options = ["Right", "Left", "Down", "Hard Drop", "Rotate"] 
-    
-    game_keys_len = 7
-
+    NUM_ACTIONS  = 7
+    RESET_OPTION = 7
+    num_rows        = 8
     selected_option = 0
-    # Set up menu variables
-    option_spacing = 40
-    capturing = False  # A flag to indicate when we're capturing a new key
-    running = True
+    option_spacing  = 40
+    capturing       = False
     clock = pg.time.Clock()
 
-    while running:               #bool1 == True
-        clock.tick(80)      
-        #print("while goonStart")
-        
-        for event in pg.event.get(): # momentane Events
-            if event.type == pg.QUIT:       # X - event vom Typ pg quit
+    conflict_msg   = ""
+    conflict_timer = 0
+
+    while True:
+        clock.tick(80)
+
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
                 pg.quit()
                 sys.exit(0)
-                
-            
-            elif event.type == pg.KEYDOWN:        # 
 
-                if event.key == pg.K_ESCAPE:
-                    #print("ESC - Highscore:", score)
-                    running = False  
-                                                        
-                if event.key == pg.K_RETURN:
-                    #print("Game started:", score)
-                    running = False
-                elif capturing and event.key != pg.K_RETURN:
-                    # Update the selected game key with the new key
-                    #game_keys[(selected_option, 0)] = game_keys[(selected_option, 1)]
-                    
-                    game_keys[str((selected_option+10))] = event.key   # pg.key.name(event.key)
-                    #print(selected_option)
-                    capturing = False  
-                              
+            elif event.type == pg.KEYDOWN:
+                if capturing:
+                    if event.key == pg.K_ESCAPE:
+                        capturing = False
+                        conflict_msg = ""
+                    else:
+                        conflict = next(
+                            (game_keys[str(j)] for j in range(NUM_ACTIONS)
+                             if j != selected_option and game_keys[str(j + 10)] == event.key),
+                            None
+                        )
+                        if conflict:
+                            conflict_msg = f"\'{pg.key.name(event.key)}\' already used by {conflict}!"
+                            conflict_timer = 180
+                        else:
+                            game_keys[str(selected_option + 10)] = event.key
+                            conflict_msg = ""
+                            capturing = False
+                else:
+                    if event.key in (pg.K_ESCAPE, pg.K_RETURN):
+                        fileWriteKeys(game_keys)
+                        return game_keys
+                    elif event.key == pg.K_UP:
+                        selected_option = (selected_option - 1) % num_rows
+                    elif event.key == pg.K_DOWN:
+                        selected_option = (selected_option + 1) % num_rows
+                    elif event.key == pg.K_SPACE:
+                        if selected_option == RESET_OPTION:
+                            game_keys.update(DEFAULT_KEYS)
+                            fileWriteKeys(game_keys)
+                            conflict_msg = "Keys reset to defaults!"
+                            conflict_timer = 180
+                        else:
+                            capturing = True
+                            conflict_msg = ""
+                    elif event.key == pg.K_m:
+                        toggleMusic()
 
+        if conflict_timer > 0:
+            conflict_timer -= 1
+        else:
+            conflict_msg = ""
 
-
-                if event.key == pg.K_m:
-                    toggleMusic()  #-> ggf eine Ebene höher ins optMenu !?
-           
-                
-        screen.fill((255,255,255))        # füllen mit Schwarz
         screen.blit(imageStart, (0, 0))
-        # Display menu options
-        #print("len dict:", len(game_keys.items))
-        
-        for i in range(game_keys_len):
-            
-            key = i
-            action_key = i + 10
-            #key_pair = game_keys[i], pg.key.name(game_keys[i+10])
-            #key_pair = game_keys[(i, 0)], pg.key.name(int(game_keys[(i, 1)]))
-            if i == selected_option:
-                # Highlight selected option
-                text = font.render(f"{game_keys[str(i)]}:{pg.key.name(game_keys[str(i+10)])}", True, clr.wht, clr.purple)
-                #text = font.render(f"{key_pair[0]}: {key_pair[1]}", True, clr.wht, clr.purple)
-            else:
-                text = font.render(f"{game_keys[str(key)]}:{pg.key.name(game_keys[str(action_key)])}", True, (0, 0, 0))
-            text_rect = text.get_rect()
-            text_rect.center = ((screen_width) //2, screen_height*0.55 + i * option_spacing)      #  - textSurface_score.get_width()
-            screen.blit(text, text_rect) 
-        
-        textSurface = pg.font.SysFont('OCR A Extended', 23).render("m - music on/off", False, (50,50,50))
-        screen.blit(textSurface,(screen_width*0.85, screen_height*0.9))
 
-        
-            # pygame malt erst unsichbar im HG - erst nach Vorne (gleichzeitig ein neuer HB screeen) -flip - kein flackern
+        # Layout: 2 columns, 4 rows each
+        # Left col (0–3): Left, Right, Down, R Counter-Clock
+        # Right col (4–6 + Reset): R Clockwise, R 180, Smash, Reset Keys
+        col1_x    = int(screen_width * 0.28)
+        col2_x    = int(screen_width * 0.72)
+        start_y   = int(screen_height * 0.58)
+        row_gap   = 50
+
+        # Divider line between columns
+        mid_x = screen_width // 2
+        pg.draw.line(screen, clr.gry1, (mid_x, start_y - 45), (mid_x, start_y + 3 * row_gap + 20), 1)
+
+        for i in range(NUM_ACTIONS):
+            action_name = game_keys[str(i)]
+            key_name    = pg.key.name(game_keys[str(i + 10)])
+            label       = f"{action_name}:  {key_name}"
+
+            col_x = col1_x if i < 4 else col2_x
+            row   = i if i < 4 else i - 4
+            y     = start_y + row * row_gap
+
+            if i == selected_option:
+                if capturing:
+                    label = f"{action_name}:  [ press a key... ]"
+                    text = font.render(label, True, clr.wht, clr.red1)
+                else:
+                    text = font.render(label, True, clr.wht, clr.purple)
+            else:
+                text = font.render(label, True, clr.blk)
+
+            screen.blit(text, text.get_rect(center=(col_x, y)))
+
+        # Reset Keys — bottom of right column
+        reset_y    = start_y + 3 * row_gap
+        reset_text = font.render("RESET KEYS", True,
+                                 clr.wht if selected_option == RESET_OPTION else clr.blk,
+                                 clr.purple if selected_option == RESET_OPTION else None)
+        screen.blit(reset_text, reset_text.get_rect(center=(col2_x, reset_y)))
+
+        if conflict_msg:
+            warn_surf = font_hint.render(conflict_msg, True, clr.red2)
+            screen.blit(warn_surf, warn_surf.get_rect(center=(screen_width // 2, int(screen_height * 0.92))))
+
+        hint = "up/down navigate    SPACE assign/reset    ESC / ENTER save & exit"
+        hint_surf = font_hint.render(hint, True, clr.gry1)
+        screen.blit(hint_surf, hint_surf.get_rect(center=(screen_width // 2, int(screen_height * 0.88))))
+
         pg.display.flip()
-    return game_keys
 
 def DASBox(screen, imageStart):
     # Set up the screen

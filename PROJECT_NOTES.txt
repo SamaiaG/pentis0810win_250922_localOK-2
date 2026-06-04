@@ -52,6 +52,10 @@ Merge dev into main (only when changes are confirmed):
     git checkout main
     git merge dev
 
+Merge owner into main (only when changes are confirmed):
+    git checkout main
+    git merge owner
+
 Update your local branch with latest from main:
     git checkout dev
     git merge main

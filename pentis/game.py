@@ -793,13 +793,11 @@ def gameLoop(current_state, bool1, screen, username, score):
                                                                       
                 #if event.key == pg.K_RIGHT and pg.K_DOWN:
 
-                if event.key == io.game_keys[str((13))] or event.key == pg.K_z or event.key == pg.K_s:
-                    figur.rotate() 
-                    #sfxRot01.play() 
-                if event.key == io.game_keys[str((14))] or event.key == pg.K_d or event.key == pg.K_UP:
+                if event.key == io.game_keys[str(13)]:
+                    figur.rotate()
+                if event.key == io.game_keys[str(14)]:
                     figur.rotateCW()
-                    #sfxRot02.play() 
-                if event.key == io.game_keys[str((15))]:
+                if event.key == io.game_keys[str(15)]:
                     figur.rotate180()
                     #sfxRot180.play()   
                 #if event.key == pg.K_u:

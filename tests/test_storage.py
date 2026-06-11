@@ -3,6 +3,7 @@ Tests for storage.py — highscore persistence and encryption.
 
 Run from the project root:
     python3 -m pytest tests/
+    python3 -m pytest tests/test_storage.py::test_new_score_is_saved -v
 """
 import sys
 import os

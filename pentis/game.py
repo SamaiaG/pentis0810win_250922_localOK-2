@@ -374,7 +374,7 @@ def gameLoop(current_state, bool1, screen, username, score):
 
     def quitConfirm():
         saved = screen.copy()
-        confirm_options = ["QUIT", "RESUME"]
+        confirm_options = [io.t("confirm", "quit"), io.t("confirm", "resume")]
         selected = 1
 
         overlay = pg.Surface((screen_width, screen_height), pg.SRCALPHA)
@@ -411,8 +411,8 @@ def gameLoop(current_state, bool1, screen, username, score):
             pg.draw.rect(screen, clr.gry3, (box_x, box_y, box_w, box_h), 2)
 
             q_font = pg.font.SysFont(io.fontRusso, gamefont)
-            line1 = q_font.render("Are you sure you want to", False, clr.wht)
-            line2 = q_font.render("quit and exit the game?", False, clr.wht)
+            line1 = q_font.render(io.t("confirm", "line1"), False, clr.wht)
+            line2 = q_font.render(io.t("confirm", "quit_q"), False, clr.wht)
             screen.blit(line1, ((screen_width - line1.get_width()) // 2, box_y + int(box_h * 0.1)))
             screen.blit(line2, ((screen_width - line2.get_width()) // 2, box_y + int(box_h * 0.35)))
 
@@ -430,7 +430,7 @@ def gameLoop(current_state, bool1, screen, username, score):
 
     def endGameConfirm():
         saved = screen.copy()
-        confirm_options = ["END GAME", "RESUME"]
+        confirm_options = [io.t("confirm", "end_game"), io.t("confirm", "resume")]
         selected = 1
 
         overlay = pg.Surface((screen_width, screen_height), pg.SRCALPHA)
@@ -463,8 +463,8 @@ def gameLoop(current_state, bool1, screen, username, score):
             pg.draw.rect(screen, clr.gry3, (box_x, box_y, box_w, box_h), 2)
 
             q_font = pg.font.SysFont(io.fontRusso, gamefont)
-            line1 = q_font.render("Are you sure you want to", False, clr.wht)
-            line2 = q_font.render("end the current game?", False, clr.wht)
+            line1 = q_font.render(io.t("confirm", "line1"), False, clr.wht)
+            line2 = q_font.render(io.t("confirm", "end_q"), False, clr.wht)
             screen.blit(line1, ((screen_width - line1.get_width()) // 2, box_y + int(box_h * 0.1)))
             screen.blit(line2, ((screen_width - line2.get_width()) // 2, box_y + int(box_h * 0.35)))
 
@@ -482,7 +482,7 @@ def gameLoop(current_state, bool1, screen, username, score):
 
     def newGameConfirm():
         saved = screen.copy()
-        confirm_options = ["NEW GAME", "RESUME"]
+        confirm_options = [io.t("confirm", "new_game"), io.t("confirm", "resume")]
         selected = 1
 
         overlay = pg.Surface((screen_width, screen_height), pg.SRCALPHA)
@@ -515,8 +515,8 @@ def gameLoop(current_state, bool1, screen, username, score):
             pg.draw.rect(screen, clr.gry3, (box_x, box_y, box_w, box_h), 2)
 
             q_font = pg.font.SysFont(io.fontRusso, gamefont)
-            line1 = q_font.render("Are you sure you want to", False, clr.wht)
-            line2 = q_font.render("start a new game?", False, clr.wht)
+            line1 = q_font.render(io.t("confirm", "line1"), False, clr.wht)
+            line2 = q_font.render(io.t("confirm", "new_q"), False, clr.wht)
             screen.blit(line1, ((screen_width - line1.get_width()) // 2, box_y + int(box_h * 0.1)))
             screen.blit(line2, ((screen_width - line2.get_width()) // 2, box_y + int(box_h * 0.35)))
 
@@ -533,7 +533,7 @@ def gameLoop(current_state, bool1, screen, username, score):
             clock.tick(60)
 
     def gamePause(current_state):
-        pause_options = ["RESUME", "END GAME", "NEW GAME"]
+        pause_options = [io.t("Pause", "resume"), io.t("Pause", "end_game"), io.t("Pause", "new_game")]
         selected = 0
         option_spacing = 60
 
@@ -560,7 +560,7 @@ def gameLoop(current_state, bool1, screen, username, score):
 
             screen.blit(io.imageStart, (0, 0))
 
-            title_surf = pg.font.SysFont(io.fontRusso, gamefont * 2).render("PAUSED", True, clr.purple)
+            title_surf = pg.font.SysFont(io.fontRusso, gamefont * 2).render(io.t("Pause", "title"), True, clr.purple)
             title_rect = title_surf.get_rect()
             title_rect.center = (screen_width // 2, int(screen_height * 0.57))
             screen.blit(title_surf, title_rect)
@@ -926,6 +926,8 @@ def gameLoop(current_state, bool1, screen, username, score):
                     #print ("after game pause - p - goons 1-3:", bool1, current_state)
                 if event.key == pg.K_m:
                     toggleMusic()
+                if event.key == pg.K_h:
+                    io.helpScreen(screen)
                     
                 #if event.key == pg.K_f:
                 #    pg.display.toggle_fullscreen()
@@ -963,21 +965,22 @@ def gameLoop(current_state, bool1, screen, username, score):
         textSurface = pg.font.SysFont(io.fontRusso, gamefont).render(f'{score:,}', False, (255,255,255))
         screen.blit(textSurface,(screen_width*infoW01, screen_height*0.32))
         #screen.blit(textSurface,(breite //8 - textSurface.get_width() // 2, 30))
-        textSurface = pg.font.SysFont(io.fontRusso, gamefont).render(f'Level: {level:}', False, (150,150,150))
+        textSurface = pg.font.SysFont(io.fontRusso, gamefont).render(io.t("game", "level") + f' {level:}', False, (150,150,150))
         screen.blit(textSurface,(screen_width*infoW01, screen_height*0.42))
         #*******
-        textSurface = pg.font.SysFont(io.fontRusso, 36).render("Username: " + io.dataJS["10"], False, (150,150,150)) 
-        screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH01))  
-        textSurface = pg.font.SysFont(io.fontRusso, gamefont).render("Pentominoes: " + io.iText["en"]["Pentos"][str((io.dataJS["11"]))], False, (150,150,150))
-        screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH02))               
-        textSurface = pg.font.SysFont(io.fontRusso, gamefont).render("Mode: " + io.iText["en"]["Mode"][str(io.dataJS["14"])], False, (150,150,150))
-        screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH03))           
-            
+        textSurface = pg.font.SysFont(io.fontRusso, 36).render(io.t("game", "username") + " " + io.dataJS["10"], False, (150,150,150))
+        screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH01))
+        textSurface = pg.font.SysFont(io.fontRusso, gamefont).render(io.t("game", "pentominoes") + " " + io.t("Pentos", str(io.dataJS["11"])), False, (150,150,150))
+        screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH02))
+        textSurface = pg.font.SysFont(io.fontRusso, gamefont).render(io.t("game", "mode") + " " + io.t("Mode", str(io.dataJS["14"])), False, (150,150,150))
+        screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH03))
 
-        textSurface = pg.font.SysFont(io.fontRusso, gamefont).render("Initial Delay: " + str(io.dataJS["12"]), False, (150,150,150))
-        screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH04))    
-        textSurface = pg.font.SysFont(io.fontRusso, gamefont).render("Repeat Rate: " + str(io.dataJS["13"]), False, (150,150,150))
-        screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH05)) 
+        textSurface = pg.font.SysFont(io.fontRusso, gamefont).render(io.t("game", "initial_delay") + " " + str(io.dataJS["12"]), False, (150,150,150))
+        screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH04))
+        textSurface = pg.font.SysFont(io.fontRusso, gamefont).render(io.t("game", "repeat_rate") + " " + str(io.dataJS["13"]), False, (150,150,150))
+        screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH05))
+        textSurface = pg.font.SysFont(io.fontRusso, gamefont).render(io.t("game", "help"), False, (80, 80, 80))
+        screen.blit(textSurface,(screen_width*infoW01, screen_height*0.88)) 
 
         #print("game-Z811: abstand//monitor_size90[1]", abstand, monitor_size90, screen, screen_width, screen_height )           
 

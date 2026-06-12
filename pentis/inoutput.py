@@ -63,85 +63,265 @@ imageStart = pg.transform.scale(imageStart, monitor_size90)
 iText = {
   "en": {
     "sM": {
-      "01": "Start",
-      "02": "Username",
-      "03": "Scoreboard", #TNM Plan
-      "04": "Options",
-      "05": "Quit"
+      "01": "START GAME",
+      "02": "USERNAME",
+      "03": "SCOREBOARD",
+      "04": "OPTIONS",
+      "05": "QUIT",
+      "username_warn": "-> Please set your own username !!",
     },
     "oM": {
       "1": "Mode",
       "2": "Pentominoes",
       "3": "DAS",
       "4": "Controls",
-      "5": "Main Menu"
+      "5": "Language",
+      "6": "Back",
     },
     "Mode": {
-      "0": "Practice'",
-      "1": "Competitive'",
+      "0": "Practice",
+      "1": "Competitive",
       "2": "Increment",
       "3": "Combat",
-    }, 
+    },
     "Mode_subinfo": {
       "0": "speedup and scoreboard-save OFF",
       "1": "speedup and scoreboard-save ON",
       "2": "not in this release",
       "3": "not in this release",
-    },    
-    "Pentos": {       # Pentominoes
-      "9": "Novice",
-      "10": "lab 10",  
+    },
+    "Pentos": {
+      "9":  "Novice",
+      "10": "lab 10",
       "11": "Standard",
       "12": "Advanced - L",
       "13": "Pro - Lu",
       "14": "Hard",
-
-    }, 
+    },
     "DAS": {
       "1": "Initial Delay",
-      "2": "Repeat Rate"
-
-    },    
+      "2": "Repeat Rate",
+    },
     "Controls": {
       "0": "Left",
       "1": "Right",
       "2": "Down",
       "3": "Rotate CCW",
       "4": "Rotate CW",
-      "5": "Rotate 180°",
-      "6": "Smash"
-      
+      "5": "Rotate 180",
+      "6": "Smash",
     },
-    "lbl": {        # label
-      "1": "Lab 1",
-      "2": "Lab 2",
-      "3": "Lab 3",
-      "4": "Lab 4",
-      "5": "lab 5",
-      "9": "Novicecomp",
-      "10": "lab 10 comp",  
+    "lbl": {
+      "1":  "Lab 1",
+      "2":  "Lab 2",
+      "3":  "Lab 3",
+      "4":  "Lab 4",
+      "5":  "lab 5",
+      "9":  "Novicecomp",
+      "10": "lab 10 comp",
       "11": "Standardcomp",
       "12": "Advanced - Lcomp",
       "13": "Pro - Lucomp",
-      "14": "Hardcomp",        
+      "14": "Hardcomp",
     },
-
     "Pause": {
-      "1": "Pause",
-      "2": "Enter to resume",
-      "3": "ESC to quit"
-    },    
-
+      "title":    "PAUSED",
+      "resume":   "RESUME",
+      "end_game": "END GAME",
+      "new_game": "NEW GAME",
+    },
+    "confirm": {
+      "line1":    "Are you sure you want to",
+      "quit_q":   "quit and exit the game?",
+      "end_q":    "end the current game?",
+      "new_q":    "start a new game?",
+      "quit":     "QUIT",
+      "resume":   "RESUME",
+      "end_game": "END GAME",
+      "new_game": "NEW GAME",
+    },
+    "game": {
+      "level":         "Level:",
+      "username":      "Username:",
+      "pentominoes":   "Pentominoes:",
+      "mode":          "Mode:",
+      "initial_delay": "Initial Delay:",
+      "repeat_rate":   "Repeat Rate:",
+      "help":          "H  Help",
+    },
     "eM": {
-      "01": "Game started"
-    },    
-          
-    "Game": {
-      "01": "Game started"
-    }
+      "highscore": "Highscore",
+      "enter":     "Press Enter to go to main menu",
+      "esc":       "Press ESC to close",
+    },
+    "help": {
+      "title": "HELP",
+      "close": "ESC / ENTER  to close",
+    },
   },        # english end
+
+  "de": {
+    "sM": {
+      "01": "SPIEL STARTEN",
+      "02": "BENUTZERNAME",
+      "03": "BESTENLISTE",
+      "04": "OPTIONEN",
+      "05": "BEENDEN",
+      "username_warn": "-> Bitte eigenen Benutzernamen setzen !!",
+    },
+    "oM": {
+      "1": "Modus",
+      "2": "Pentominoes",
+      "3": "DAS",
+      "4": "Steuerung",
+      "5": "Sprache",
+      "6": "Zurück",
+    },
+    "Mode": {
+      "0": "Übung",
+      "1": "Wettbewerb",
+      "2": "Ansteigend",
+      "3": "Kampf",
+    },
+    "Mode_subinfo": {
+      "0": "Beschleunigung und Speichern AUS",
+      "1": "Beschleunigung und Speichern AN",
+      "2": "nicht in dieser Version",
+      "3": "nicht in dieser Version",
+    },
+    "Pentos": {
+      "9":  "Anfaenger",
+      "10": "lab 10",
+      "11": "Standard",
+      "12": "Fortgeschritten - L",
+      "13": "Profi - Lu",
+      "14": "Schwer",
+    },
+    "DAS": {
+      "1": "Anfangsverz.",
+      "2": "Wiederholrate",
+    },
+    "Controls": {
+      "0": "Links",
+      "1": "Rechts",
+      "2": "Runter",
+      "3": "Drehen (links)",
+      "4": "Drehen (rechts)",
+      "5": "Drehen 180",
+      "6": "Smash",
+    },
+    "lbl": {
+      "1":  "Lab 1",
+      "2":  "Lab 2",
+      "3":  "Lab 3",
+      "4":  "Lab 4",
+      "5":  "lab 5",
+      "9":  "Novicecomp",
+      "10": "lab 10 comp",
+      "11": "Standardcomp",
+      "12": "Advanced - Lcomp",
+      "13": "Pro - Lucomp",
+      "14": "Hardcomp",
+    },
+    "Pause": {
+      "title":    "PAUSE",
+      "resume":   "WEITER",
+      "end_game": "SPIEL BEENDEN",
+      "new_game": "NEUES SPIEL",
+    },
+    "confirm": {
+      "line1":    "Bist du sicher, dass du",
+      "quit_q":   "das Spiel beenden moechtest?",
+      "end_q":    "die Partie beenden moechtest?",
+      "new_q":    "ein neues Spiel starten moechtest?",
+      "quit":     "BEENDEN",
+      "resume":   "WEITER",
+      "end_game": "SPIEL BEENDEN",
+      "new_game": "NEUES SPIEL",
+    },
+    "game": {
+      "level":         "Level:",
+      "username":      "Benutzer:",
+      "pentominoes":   "Pentominoes:",
+      "mode":          "Modus:",
+      "initial_delay": "Anfangsverz.:",
+      "repeat_rate":   "Wiederholrate:",
+      "help":          "H  Hilfe",
+    },
+    "eM": {
+      "highscore": "Bestpunktzahl",
+      "enter":     "Enter druecken fuer Hauptmenue",
+      "esc":       "ESC druecken zum Schliessen",
+    },
+    "help": {
+      "title": "HILFE",
+      "close": "ESC / ENTER  zum Schliessen",
+    },
+  },        # german end
+
 }           # iText end
 
+current_lang = "en"
+
+def t(section, key):
+    return iText[current_lang][section][key]
+
+LANGUAGES = {"en": "English", "de": "Deutsch"}
+
+def langSelector(screen):
+    global current_lang
+    pg.event.clear([pg.KEYDOWN, pg.KEYUP])
+
+    lang_keys = list(LANGUAGES.keys())
+    selected  = lang_keys.index(current_lang)
+
+    font_title = pg.font.Font(fontRusso, 30)
+    font_btn   = pg.font.Font(fontRusso, 24)
+
+    sw, sh = screen.get_size()
+    box_w  = int(sw * 0.5)
+    box_h  = int(sh * 0.28)
+    box_x  = (sw - box_w) // 2
+    box_y  = (sh - box_h) // 2
+
+    lang_clock = pg.time.Clock()
+
+    while True:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+                sys.exit(0)
+            elif event.type == pg.KEYDOWN:
+                if event.key in (pg.K_LEFT, pg.K_UP):
+                    selected = (selected - 1) % len(lang_keys)
+                elif event.key in (pg.K_RIGHT, pg.K_DOWN):
+                    selected = (selected + 1) % len(lang_keys)
+                elif event.key == pg.K_RETURN:
+                    current_lang = lang_keys[selected]
+                    dataJS["lang"] = current_lang
+                    fileWriteData(dataJS)
+                    return
+                elif event.key == pg.K_ESCAPE:
+                    return
+
+        screen.blit(imageStart, (0, 0))
+        pg.draw.rect(screen, (20, 20, 20), (box_x, box_y, box_w, box_h))
+        pg.draw.rect(screen, clr.gry3,     (box_x, box_y, box_w, box_h), 2)
+
+        title_surf = font_title.render(t("oM", "5"), True, clr.purple)
+        screen.blit(title_surf, title_surf.get_rect(center=(sw // 2, box_y + int(box_h * 0.22))))
+
+        for i, key in enumerate(lang_keys):
+            label = LANGUAGES[key]
+            if i == selected:
+                btn = font_btn.render(label, True, clr.wht, clr.purple)
+            else:
+                btn = font_btn.render(label, True, clr.gry2)
+            btn_x = sw // 2 + (i * 2 - 1) * int(box_w * 0.22) - btn.get_width() // 2
+            screen.blit(btn, (btn_x, box_y + int(box_h * 0.60)))
+
+        pg.display.flip()
+        lang_clock.tick(60)
 
 
 #infoL = DynamicDisplay(screen, screen_width*0.01, screen_height*0.8, 100, 150) #  modeStr, diffStr, usernameStr
@@ -245,7 +425,8 @@ def fileRead(file_path_keys):
 
 
 #game_configs
-dataJS = fileReadData()     # bei jeden Start werden die Dateien in ~/Pentis eingelesen 
+dataJS = fileReadData()     # bei jeden Start werden die Dateien in ~/Pentis eingelesen
+current_lang = dataJS.get("lang", "en")
 game_keys = fileReadKeys()
 game_scores = fileRead(file_path_scores) 
 print("loaded game_scores in io",game_scores)
@@ -432,6 +613,36 @@ def inputBoxDAS(selected_option, imageStart):
         clock.tick(30)
     return newValue
     
+def helpScreen(screen):
+    pg.event.clear([pg.KEYDOWN, pg.KEYUP])
+
+    font_title  = pg.font.Font(fontRusso, 34)
+    font_footer = pg.font.Font(fontRusso, 18)
+
+    help_clock = pg.time.Clock()
+
+    while True:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+                sys.exit(0)
+            elif event.type == pg.KEYDOWN:
+                if event.key in (pg.K_ESCAPE, pg.K_RETURN):
+                    return
+
+        sw, sh = screen.get_size()
+        screen.blit(imageStart, (0, 0))
+
+        title_surf = font_title.render(t("help", "title"), True, clr.purple)
+        screen.blit(title_surf, title_surf.get_rect(center=(sw * 0.5, sh * 0.55)))
+
+        footer = font_footer.render(t("help", "close"), True, (80, 80, 80))
+        screen.blit(footer, footer.get_rect(center=(sw * 0.5, sh * 0.96)))
+
+        pg.display.flip()
+        help_clock.tick(60)
+
+
 def highscoreBox(screen, imageStart):
 
     highscores = readHighscoresJS()

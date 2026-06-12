@@ -9,7 +9,7 @@ from inoutput import toggleMusic, restartMusic
 
 #import firebaseRW as fiba
 
-from utils import START_MENU, END_SCREEN
+from utils import START_MENU, END_SCREEN, GAME
 from utils import abstand, monitor_size, monitor_size90, monitor_size30, screen, screen_width, screen_height, bilder, bilder2, font, clock, ost02 
 #from cls_pentos import Pentominoes, num_pentominoes
 import optMenu as oM
@@ -374,7 +374,7 @@ def gameLoop(current_state, bool1, screen, username, score):
 
     def quitConfirm():
         saved = screen.copy()
-        confirm_options = ["YES", "NO"]
+        confirm_options = ["QUIT", "RESUME"]
         selected = 1
 
         overlay = pg.Surface((screen_width, screen_height), pg.SRCALPHA)
@@ -428,8 +428,112 @@ def gameLoop(current_state, bool1, screen, username, score):
             pg.display.flip()
             clock.tick(60)
 
+    def endGameConfirm():
+        saved = screen.copy()
+        confirm_options = ["END GAME", "RESUME"]
+        selected = 1
+
+        overlay = pg.Surface((screen_width, screen_height), pg.SRCALPHA)
+        overlay.fill((0, 0, 0, 160))
+
+        box_w = int(screen_width * 0.5)
+        box_h = int(screen_height * 0.28)
+        box_x = (screen_width - box_w) // 2
+        box_y = (screen_height - box_h) // 2
+
+        while True:
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    pg.quit()
+                    sys.exit(0)
+                elif event.type == pg.KEYDOWN:
+                    if event.key in (pg.K_LEFT, pg.K_UP):
+                        selected = (selected - 1) % len(confirm_options)
+                    elif event.key in (pg.K_RIGHT, pg.K_DOWN):
+                        selected = (selected + 1) % len(confirm_options)
+                    elif event.key == pg.K_RETURN:
+                        return selected == 0
+                    elif event.key == pg.K_ESCAPE:
+                        return False
+
+            screen.blit(saved, (0, 0))
+            screen.blit(overlay, (0, 0))
+
+            pg.draw.rect(screen, (20, 20, 20), (box_x, box_y, box_w, box_h))
+            pg.draw.rect(screen, clr.gry3, (box_x, box_y, box_w, box_h), 2)
+
+            q_font = pg.font.SysFont(io.fontRusso, gamefont)
+            line1 = q_font.render("Are you sure you want to", False, clr.wht)
+            line2 = q_font.render("end the current game?", False, clr.wht)
+            screen.blit(line1, ((screen_width - line1.get_width()) // 2, box_y + int(box_h * 0.1)))
+            screen.blit(line2, ((screen_width - line2.get_width()) // 2, box_y + int(box_h * 0.35)))
+
+            for i, option in enumerate(confirm_options):
+                if i == selected:
+                    btn = font.render(option, True, clr.wht, clr.purple)
+                else:
+                    btn = font.render(option, True, clr.gry2)
+                btn_x = screen_width // 2 + (i * 2 - 1) * int(box_w * 0.22) - btn.get_width() // 2
+                btn_y = box_y + int(box_h * 0.68)
+                screen.blit(btn, (btn_x, btn_y))
+
+            pg.display.flip()
+            clock.tick(60)
+
+    def newGameConfirm():
+        saved = screen.copy()
+        confirm_options = ["NEW GAME", "RESUME"]
+        selected = 1
+
+        overlay = pg.Surface((screen_width, screen_height), pg.SRCALPHA)
+        overlay.fill((0, 0, 0, 160))
+
+        box_w = int(screen_width * 0.5)
+        box_h = int(screen_height * 0.28)
+        box_x = (screen_width - box_w) // 2
+        box_y = (screen_height - box_h) // 2
+
+        while True:
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    pg.quit()
+                    sys.exit(0)
+                elif event.type == pg.KEYDOWN:
+                    if event.key in (pg.K_LEFT, pg.K_UP):
+                        selected = (selected - 1) % len(confirm_options)
+                    elif event.key in (pg.K_RIGHT, pg.K_DOWN):
+                        selected = (selected + 1) % len(confirm_options)
+                    elif event.key == pg.K_RETURN:
+                        return selected == 0
+                    elif event.key == pg.K_ESCAPE:
+                        return False
+
+            screen.blit(saved, (0, 0))
+            screen.blit(overlay, (0, 0))
+
+            pg.draw.rect(screen, (20, 20, 20), (box_x, box_y, box_w, box_h))
+            pg.draw.rect(screen, clr.gry3, (box_x, box_y, box_w, box_h), 2)
+
+            q_font = pg.font.SysFont(io.fontRusso, gamefont)
+            line1 = q_font.render("Are you sure you want to", False, clr.wht)
+            line2 = q_font.render("start a new game?", False, clr.wht)
+            screen.blit(line1, ((screen_width - line1.get_width()) // 2, box_y + int(box_h * 0.1)))
+            screen.blit(line2, ((screen_width - line2.get_width()) // 2, box_y + int(box_h * 0.35)))
+
+            for i, option in enumerate(confirm_options):
+                if i == selected:
+                    btn = font.render(option, True, clr.wht, clr.purple)
+                else:
+                    btn = font.render(option, True, clr.gry2)
+                btn_x = screen_width // 2 + (i * 2 - 1) * int(box_w * 0.22) - btn.get_width() // 2
+                btn_y = box_y + int(box_h * 0.68)
+                screen.blit(btn, (btn_x, btn_y))
+
+            pg.display.flip()
+            clock.tick(60)
+
     def gamePause(current_state):
-        pause_options = ["RESUME", "END GAME"]
+        pause_options = ["RESUME", "END GAME", "NEW GAME"]
         selected = 0
         option_spacing = 60
 
@@ -445,8 +549,12 @@ def gameLoop(current_state, bool1, screen, username, score):
                     elif event.key in (pg.K_RETURN, pg.K_p):
                         if selected == 0:
                             return True, current_state
+                        elif selected == 1:
+                            if endGameConfirm():
+                                return False, END_SCREEN
                         else:
-                            return False, END_SCREEN
+                            if newGameConfirm():
+                                return False, GAME
                     elif event.key == pg.K_ESCAPE:
                         return True, current_state
 

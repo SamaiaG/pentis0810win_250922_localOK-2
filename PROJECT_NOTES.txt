@@ -1,0 +1,85 @@
+================================================================
+PENTIS PROJECT NOTES
+================================================================
+
+PROJECT OWNER
+-------------
+Martin
+
+DEV
+-------------
+Samy
+
+
+
+----------------------------------------------------------------
+BRANCH STRUCTURE
+----------------------------------------------------------------
+
+main        - stable, production-ready code
+              DO NOT push directly to main.
+              Changes go to main only after they are reviewed
+              and confirmed by the project owner.
+
+dev         - active development branch
+              All new features and fixes are worked on here.
+
+owner       - project owner reference branch
+              Used by Martin to review and track progress and do some chagnes if he has time =)
+
+----------------------------------------------------------------
+GIT BASICS
+----------------------------------------------------------------
+
+Check which branch you are on:
+    git branch
+
+Switch to a branch:
+    git checkout dev
+    git checkout owner
+    git checkout main
+
+See what changed:
+    git status
+    git diff
+
+Stage and commit your work:
+    git add <file>
+    git add . (to add all files)
+    git commit -m "short description of what changed"
+
+Merge dev into main (only when changes are confirmed):
+    git checkout main
+    git merge dev
+
+Merge owner into main (only when changes are confirmed):
+    git checkout main
+    git merge owner
+
+Update your local branch with latest from main:
+    git checkout dev
+    git merge main
+
+
+----------------------------------------------------------------
+RULES
+----------------------------------------------------------------
+
+1. main branch is locked for direct edits.
+   Only merge into main when the owner confirms changes are ready.
+
+2. All development happens on dev.
+
+3. Never force-push to main.
+
+4. Test before merging.
+
+
+----------------------------------------------------------------
+LINKS
+----------------------------------------------------------------
+
+https://grapefruit256.itch.io/pentis
+
+
+================================================================

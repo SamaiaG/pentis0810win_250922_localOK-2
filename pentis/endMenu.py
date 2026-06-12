@@ -46,12 +46,12 @@ def endLoop(current_state, bool1, score, imageEnd):
 
         textSurface_username = pg.font.SysFont('Consolas', 42).render(f'{io.dataJS["10"]}', False, (231,151,4))
         textSurface_username_bg = pg.font.SysFont('Consolas', 42).render(f'{io.dataJS["10"]}', False, (100,100,100))        
-        textSurface_score = pg.font.SysFont('Consolas', 42).render(f'Highscore  {score:,}', False, (231,151,4))
-        textSurface_score_bg = pg.font.SysFont('Consolas', 42).render(f'Highscore  {score:,}', False, (100,100,100))
-        textSurface_enter = pg.font.SysFont('Consolas', 38).render(f'Press Enter to go to main menu', False, (196,44,39))
-        textSurface_enter_bg = pg.font.SysFont('Consolas', 38).render(f'Press Enter to go to main menu', False, (110,110,110))
-        textSurface_esc = pg.font.SysFont('Consolas', 34).render(f'Press ESC to close', False, (126,26,52))
-        textSurface_esc_bg = pg.font.SysFont('Consolas', 34).render(f'Press ESC to close', False, (80,80,80))
+        textSurface_score = pg.font.SysFont('Consolas', 42).render(f'{io.t("eM", "highscore")}  {score:,}', False, (231,151,4))
+        textSurface_score_bg = pg.font.SysFont('Consolas', 42).render(f'{io.t("eM", "highscore")}  {score:,}', False, (100,100,100))
+        textSurface_enter = pg.font.SysFont('Consolas', 38).render(io.t("eM", "enter"), False, (196,44,39))
+        textSurface_enter_bg = pg.font.SysFont('Consolas', 38).render(io.t("eM", "enter"), False, (110,110,110))
+        textSurface_esc = pg.font.SysFont('Consolas', 34).render(io.t("eM", "esc"), False, (126,26,52))
+        textSurface_esc_bg = pg.font.SysFont('Consolas', 34).render(io.t("eM", "esc"), False, (80,80,80))
 
         screen.blit(textSurface_username_bg,((screen_width - textSurface_username_bg.get_width())//2, screen_height//2+1))
         screen.blit(textSurface_username,((screen_width - textSurface_username.get_width()) //2, screen_height//2))

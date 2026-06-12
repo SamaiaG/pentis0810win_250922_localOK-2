@@ -31,24 +31,25 @@ screen = pg.display.set_mode((screen_width, screen_height))
 global numPentos    #11=std  12=L  13=u
 numPentos = 13
 
-options = ["Mode", "Pentominoes", "DAS", "Controls", "Back"]        # "Options"
-
 option_spacing = 50
 competOn = 1
 goonStart, goon, goonEnd = True, True, False
-
-modeStr = "Mode: " + io.iText["en"]["Mode"][str(io.dataJS["14"])]
-diffStr = "Pentominoes: " + io.iText["en"]["Pentos"][str((io.dataJS["11"]))]
-usernameStr = "Username: " + io.dataJS["10"]
 
 infoL = DynamicDisplay(screen, screen_width*0.01, screen_height*0.8, 100, 150) #  modeStr, diffStr, usernameStr
 infoR = DynamicDisplay(screen, screen_width*0.8, screen_height*0.8, 100, 150) #  "p - pause", "m - music on/off", "space - smash"
 
 #***************************************goonStart************************************************
 
-def optMenuLoop(current_state, bool1, screen, username):
+def _build_opts():
+    oM = io.iText[io.current_lang]
+    options     = [oM["oM"][str(i)] for i in range(1, 7)]
+    modeStr     = oM["game"]["mode"]        + " " + oM["Mode"][str(io.dataJS["14"])]
+    diffStr     = oM["game"]["pentominoes"] + " " + oM["Pentos"][str(io.dataJS["11"])]
+    usernameStr = oM["game"]["username"]    + " " + io.dataJS["10"]
+    return options, modeStr, diffStr, usernameStr
 
-    # Set up menu variables
+def optMenuLoop(current_state, bool1, screen, username):
+    options, modeStr, diffStr, usernameStr = _build_opts()
     selected_option = 0
     
 
@@ -111,8 +112,11 @@ def optMenuLoop(current_state, bool1, screen, username):
                         io.game_keys = io.controlsBox(screen, imageStart)
                         #print("selectedOption:" + username)
                         selected_option = 0                        
-                    elif selected_option == 4: 
-                        #print("selected_option optMenu == 4: # back")
+                    elif selected_option == 4:
+                        io.langSelector(screen)
+                        options, modeStr, diffStr, usernameStr = _build_opts()
+
+                    elif selected_option == 5:
                         current_state = START_MENU
                         bool1 = False
                         
@@ -133,15 +137,12 @@ def optMenuLoop(current_state, bool1, screen, username):
             text_rect.center = ((screen_width) //2, screen_height*0.6 + i * option_spacing)      #  - textSurface_score.get_width()
             screen.blit(text, text_rect) 
 
-        modeStr = "Mode: " + io.iText["en"]["Mode"][str(io.dataJS["14"])]
-        diffStr = "Pentominoes: " + io.iText["en"]["Pentos"][str((io.dataJS["11"]))]
-        usernameStr = "Username: " + io.dataJS["10"]        
         infoL.draw_info(modeStr, diffStr, usernameStr)
-        infoR.draw_info("p - pause", "m - music on/off", "space - smash")     
+        infoR.draw_info(io.t("game", "help"))
         
         
         if io.dataJS["10"] == "Norbert Noname":
-            textSurface = pg.font.SysFont('OCR A Extended', 26).render("-> Please set your own username !!", False, clr.red3)
+            textSurface = pg.font.SysFont('OCR A Extended', 26).render(io.t("sM", "username_warn"), False, clr.red3)
             screen.blit(textSurface,(screen_width*0.01, screen_height*0.93)) 
         
             # pygame malt erst unsichbar im HG - erst nach Vorne (gleichzeitig ein neuer HB screeen) -flip - kein flackern

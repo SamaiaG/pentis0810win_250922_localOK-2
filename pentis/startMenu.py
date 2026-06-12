@@ -16,7 +16,6 @@ screen = pg.display.set_mode(monitor_size90)
 
 #print("in StartMenu.py - import utils: 2 - monitor_size90, screen, screen_width, screen_height:",  monitor_size90, screen, screen_width, screen_height)
 # Define menu options
-options = ["START GAME", "USERNAME", "SCOREBOARD", "OPTIONS", "QUIT"]        # "Options"
 option_spacing = 50
 
 infoL = DynamicDisplay(screen, screen_width*0.01, screen_height*0.8, 100, 150) #  modeStr, diffStr, usernameStr
@@ -26,7 +25,8 @@ infoR = DynamicDisplay(screen, screen_width*0.8, screen_height*0.8, 100, 150) # 
 #***************************************startMenuLoop************************************************
 
 def startMenuLoop(current_state, username):
-    # Set up menu variables
+    sM = io.iText[io.current_lang]["sM"]
+    options = [sM["01"], sM["02"], sM["03"], sM["04"], sM["05"]]
     selected_option = 0
     bool1 = True
     while (bool1):               
@@ -45,7 +45,9 @@ def startMenuLoop(current_state, username):
                     selected_option = (selected_option + 1) % len(options)
                 if event.key == pg.K_ESCAPE:
                     pg.quit()
-                    sys.exit(0) 
+                    sys.exit(0)
+                if event.key == pg.K_h:
+                    io.helpScreen(screen)
 # menu engine                                                        
                 if event.key == pg.K_RETURN:
                     if selected_option == 0:  # Start game 
@@ -94,11 +96,11 @@ def startMenuLoop(current_state, username):
         diffStr = "Pentominoes: " + io.iText["en"]["Pentos"][str((io.dataJS["11"]))]
         usernameStr = "Username: " + io.dataJS["10"]        
         infoL.draw_info(modeStr, diffStr, usernameStr)
-        infoR.draw_info("p - pause", "m - music on/off", "space - smash")
+        infoR.draw_info("H  Help")
         
 
         if io.dataJS["10"] == "Norbert Noname":
-            textSurface = pg.font.SysFont(fontRusso, 26).render("-> Please set your own username !!", False, clr.red3)
+            textSurface = pg.font.SysFont(fontRusso, 26).render(io.t("sM", "username_warn"), False, clr.red3)
             screen.blit(textSurface,(screen_width*0.01, screen_height*0.93)) 
             # pygame malt erst unsichbar im HG - erst nach Vorne (gleichzeitig ein neuer HB screeen) -flip - kein flackern
         pg.display.flip()

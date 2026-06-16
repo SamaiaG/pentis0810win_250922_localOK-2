@@ -147,7 +147,7 @@ iText = {
       "mode":          "Mode:",
       "initial_delay": "Initial Delay:",
       "repeat_rate":   "Repeat Rate:",
-      "help":          "H  Help",
+      "help":          "H - Help",
     },
     "eM": {
       "highscore": "Highscore",
@@ -190,7 +190,7 @@ iText = {
       "3": "nicht in dieser Version",
     },
     "Pentos": {
-      "9":  "Anfaenger",
+      "9":  "Anfänger",
       "10": "lab 10",
       "11": "Standard",
       "12": "Fortgeschritten - L",
@@ -231,9 +231,9 @@ iText = {
     },
     "confirm": {
       "line1":    "Bist du sicher, dass du",
-      "quit_q":   "das Spiel beenden moechtest?",
-      "end_q":    "die Partie beenden moechtest?",
-      "new_q":    "ein neues Spiel starten moechtest?",
+      "quit_q":   "das Spiel beenden möchtest?",
+      "end_q":    "die Partie beenden möchtest?",
+      "new_q":    "ein neues Spiel starten möchtest?",
       "quit":     "BEENDEN",
       "resume":   "WEITER",
       "end_game": "SPIEL BEENDEN",
@@ -246,18 +246,117 @@ iText = {
       "mode":          "Modus:",
       "initial_delay": "Anfangsverz.:",
       "repeat_rate":   "Wiederholrate:",
-      "help":          "H  Hilfe",
+      "help":          "H - Hilfe",
     },
     "eM": {
       "highscore": "Bestpunktzahl",
-      "enter":     "Enter druecken fuer Hauptmenue",
-      "esc":       "ESC druecken zum Schliessen",
+      "enter":     "Enter drücken fuer Hauptmenue",
+      "esc":       "ESC drücken zum Schliessen",
     },
     "help": {
       "title": "HILFE",
       "close": "ESC / ENTER  zum Schliessen",
     },
   },        # german end
+
+  "ro": {
+    "sM": {
+      "01": "INCEPE JOCUL",
+      "02": "UTILIZATOR",
+      "03": "CLASAMENT",
+      "04": "OPTIUNI",
+      "05": "IESIRE",
+      "username_warn": "-> Va rugam sa setati propriul nume de utilizator !!",
+    },
+    "oM": {
+      "1": "Mod",
+      "2": "Pentominouri",
+      "3": "DAS",
+      "4": "Controale",
+      "5": "Limba",
+      "6": "Inapoi",
+    },
+    "Mode": {
+      "0": "Practica",
+      "1": "Competitiv",
+      "2": "Incrementat",
+      "3": "Combat",
+    },
+    "Mode_subinfo": {
+      "0": "accelerare si salvare dezactivate",
+      "1": "accelerare si salvare activate",
+      "2": "nu in aceasta versiune",
+      "3": "nu in aceasta versiune",
+    },
+    "Pentos": {
+      "9":  "Incepator",
+      "10": "lab 10",
+      "11": "Standard",
+      "12": "Avansat - L",
+      "13": "Pro - Lu",
+      "14": "Dificil",
+    },
+    "DAS": {
+      "1": "Intarziere initiala",
+      "2": "Rata de repetare",
+    },
+    "Controls": {
+      "0": "Stanga",
+      "1": "Dreapta",
+      "2": "Jos",
+      "3": "Rotire (stanga)",
+      "4": "Rotire (dreapta)",
+      "5": "Rotire 180",
+      "6": "Smash",
+    },
+    "lbl": {
+      "1":  "Lab 1",
+      "2":  "Lab 2",
+      "3":  "Lab 3",
+      "4":  "Lab 4",
+      "5":  "lab 5",
+      "9":  "Novicecomp",
+      "10": "lab 10 comp",
+      "11": "Standardcomp",
+      "12": "Avansat - Lcomp",
+      "13": "Pro - Lucomp",
+      "14": "Dificilcomp",
+    },
+    "Pause": {
+      "title":    "PAUZA",
+      "resume":   "CONTINUA",
+      "end_game": "SFARSIT JOC",
+      "new_game": "JOC NOU",
+    },
+    "confirm": {
+      "line1":    "Esti sigur ca vrei sa",
+      "quit_q":   "iesi din joc?",
+      "end_q":    "termini jocul curent?",
+      "new_q":    "incepi un joc nou?",
+      "quit":     "IESIRE",
+      "resume":   "CONTINUA",
+      "end_game": "SFARSIT JOC",
+      "new_game": "JOC NOU",
+    },
+    "game": {
+      "level":         "Nivel:",
+      "username":      "Utilizator:",
+      "pentominoes":   "Pentominouri:",
+      "mode":          "Mod:",
+      "initial_delay": "Intarziere initiala:",
+      "repeat_rate":   "Rata de repetare:",
+      "help":          "H  Ajutor",
+    },
+    "eM": {
+      "highscore": "Scor maxim",
+      "enter":     "Apasa Enter pentru meniu principal",
+      "esc":       "Apasa ESC pentru a inchide",
+    },
+    "help": {
+      "title": "AJUTOR",
+      "close": "ESC / ENTER  pentru a inchide",
+    },
+  },        # romanian end
 
 }           # iText end
 
@@ -266,7 +365,7 @@ current_lang = "en"
 def t(section, key):
     return iText[current_lang][section][key]
 
-LANGUAGES = {"en": "English", "de": "Deutsch"}
+LANGUAGES = {"en": "English", "de": "Deutsch", "ro": "Romana"}
 
 def langSelector(screen):
     global current_lang
@@ -278,11 +377,13 @@ def langSelector(screen):
     font_title = pg.font.Font(fontRusso, 30)
     font_btn   = pg.font.Font(fontRusso, 24)
 
-    sw, sh = screen.get_size()
-    box_w  = int(sw * 0.5)
-    box_h  = int(sh * 0.28)
-    box_x  = (sw - box_w) // 2
-    box_y  = (sh - box_h) // 2
+    sw, sh     = screen.get_size()
+    n          = len(lang_keys)
+    item_gap   = 44
+    box_w      = int(sw * 0.4)
+    box_h      = 80 + n * item_gap
+    box_x      = (sw - box_w) // 2
+    box_y      = (sh - box_h) // 2
 
     lang_clock = pg.time.Clock()
 
@@ -293,9 +394,9 @@ def langSelector(screen):
                 sys.exit(0)
             elif event.type == pg.KEYDOWN:
                 if event.key in (pg.K_LEFT, pg.K_UP):
-                    selected = (selected - 1) % len(lang_keys)
+                    selected = (selected - 1) % n
                 elif event.key in (pg.K_RIGHT, pg.K_DOWN):
-                    selected = (selected + 1) % len(lang_keys)
+                    selected = (selected + 1) % n
                 elif event.key == pg.K_RETURN:
                     current_lang = lang_keys[selected]
                     dataJS["lang"] = current_lang
@@ -309,16 +410,18 @@ def langSelector(screen):
         pg.draw.rect(screen, clr.gry3,     (box_x, box_y, box_w, box_h), 2)
 
         title_surf = font_title.render(t("oM", "5"), True, clr.purple)
-        screen.blit(title_surf, title_surf.get_rect(center=(sw // 2, box_y + int(box_h * 0.22))))
+        screen.blit(title_surf, title_surf.get_rect(center=(sw // 2, box_y + 28)))
 
+        items_top = box_y + 60
         for i, key in enumerate(lang_keys):
             label = LANGUAGES[key]
             if i == selected:
                 btn = font_btn.render(label, True, clr.wht, clr.purple)
             else:
                 btn = font_btn.render(label, True, clr.gry2)
-            btn_x = sw // 2 + (i * 2 - 1) * int(box_w * 0.22) - btn.get_width() // 2
-            screen.blit(btn, (btn_x, box_y + int(box_h * 0.60)))
+            btn_x = (sw - btn.get_width()) // 2
+            btn_y = items_top + i * item_gap
+            screen.blit(btn, (btn_x, btn_y))
 
         pg.display.flip()
         lang_clock.tick(60)

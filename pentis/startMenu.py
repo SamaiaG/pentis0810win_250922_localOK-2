@@ -1,20 +1,16 @@
 import pygame as pg
 import sys
 import inoutput as io
-from inoutput import imageStart, toggleMusic, fontRusso
+from inoutput import imageStart, toggleMusic
 import colors as clr
-from utils import GAME, USERNAME, SCOREBOARD, OPTIONS, START_MENU, END_SCREEN
+from utils import GAME, OPTIONS, START_MENU
 from utils import monitor_size90, screen, screen_width, screen_height, font, clock, ost01 # toggleMusic            # pygame pg auch in die utils
-#import firebaseRW as fiba
 from DynamicDisplay import DynamicDisplay
-#print("in StartMenu.py - import io: imageStart", imageStart)
 # nur 20 Bilder/sec - nicht 200std
-#print("in StartMenu.py - import utils: 1 - monitor_size90, screen, screen_width, screen_height:",  monitor_size90, screen, screen_width, screen_height)
 pg.init()
 screen = pg.display.set_mode(monitor_size90)
 
 
-#print("in StartMenu.py - import utils: 2 - monitor_size90, screen, screen_width, screen_height:",  monitor_size90, screen, screen_width, screen_height)
 # Define menu options
 option_spacing = 50
 
@@ -57,7 +53,6 @@ def startMenuLoop(current_state, username):
                     elif selected_option == 1: # input username
                         username = io.inputBox2(screen, imageStart)
                         io.dataJS["10"] = username
-                        #print("after inputBox2 - io.dataJS[10]:" + io.dataJS["10"])
                         selected_option = 0
                         # no bool1 = False ===> still in this
                          

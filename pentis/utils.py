@@ -1,6 +1,4 @@
 import pygame as pg
-#print("BoF - utils")
-#import inoutput as io
 import os
 from pathlib import Path
 os.chdir(Path(__file__).parent)
@@ -15,13 +13,11 @@ print(monitor_size)
 screen = pg.display.set_mode(monitor_size90)
 screen_width, screen_height = screen.get_size()
 
-#print("in utils.py - NO import: monitor_size90, screen, screen_width, screen_height, NO imageStart:",  monitor_size90, screen, screen_width, screen_height)
 
 pg.display.set_caption("Pentis 0.8.1 beta")
 
 abstand = 30        # 1 Block zum Quadrat - Blockbreite = Blockhoehe = abstand
 abstand = monitor_size90[1] // 32
-#print("abstand//monitor_size90[1]", abstand)
 spalten = 16
 zeilen = 32
 breite = abstand * spalten
@@ -77,7 +73,3 @@ goon, goonOptions, goonEnd = True, True, True
 displayInit = pg.display.get_init
 
 displaySurface = pg.display.get_surface
-#print("utils: displayInit, displaySurface ", displayInit, displaySurface )
-
-#pg.quit()
-#print("EoF - utils")

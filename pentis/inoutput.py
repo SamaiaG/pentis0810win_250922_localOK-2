@@ -1,5 +1,4 @@
 import pygame as pg
-#import firebaseRW as fiba
 import os, sys
 from pathlib import Path
 
@@ -10,13 +9,9 @@ import cls_pentos as clsp
 from storage import readHighscoresJS
 
 
-#import utils
 
 
-#from utils import GAME, USERNAME, SCOREBOARD, OPTIONS, START_MENU, END_SCREEN
-#from utils import imageStart #monitor_size90
 os.chdir(Path(__file__).parent)
-#print("BoF - inoutput")
 
 pg.init()
 
@@ -33,7 +28,6 @@ if os.name == 'nt':  # Windows
     imageStart = pg.image.load("graphics\\title3.png")
     imageStartAlpha = pg.image.load("graphics\\title3.png").convert_alpha()
 
-    #print("in io.py - NO import: monitor_size90, screen, screen_width, screen_height, imageStart:",  monitor_size90, screen, screen_width, screen_height, imageStart)
 
     font3 = pg.font.Font("graphics\\OCRAEXT.TTF")
     fontStrOCR = "graphics\\OCRAEXT.TTF"
@@ -47,7 +41,6 @@ else:  # Linux oder andere
     imageStart = pg.image.load("graphics/title3.png")
     imageStartAlpha = pg.image.load("graphics/title3.png").convert_alpha()
 
-    #print("in io.py - NO import: monitor_size90, screen, screen_width, screen_height, imageStart:",  monitor_size90, screen, screen_width, screen_height, imageStart)
 
     font3 = pg.font.Font("graphics/OCRAEXT.TTF")
     fontStrOCR = "graphics/OCRAEXT.TTF"
@@ -270,7 +263,7 @@ iText = {
       "01": "ÎNCEPE JOCUL",
       "02": "UTILIZATOR",
       "03": "CLASAMENT",
-      "04": "OPȚIUNI",
+      "04": "OPŢIUNI",
       "05": "IEȘIRE",
       "username_warn": "-> Vă rugăm să setați propriul nume de utilizator !!",
     },
@@ -477,7 +470,6 @@ file_path_scores = os.path.join(os.path.expanduser('~'), 'Pentis', 'pentis0722_L
 # check if the file exists, if not create it
 if not os.path.exists(file_path_data):
     os.makedirs(os.path.dirname(file_path_data), exist_ok=True)
-    #print(file_path_data)
 
     with open(file_path_data, "w") as datei:            #Zeile legt json Datei an, auch wenn next line falsch ist
         json.dump(dataJS, datei)   
@@ -530,7 +522,6 @@ def fileRead(file_path_keys):
             json.dump({}, datei)
         return {}
 #def fileWrite(game_scores): #
-#    # Data in eine JSON-Datei schreiben
 #    with open(file_path_data, "w") as datei:
 #        json.dump(game_scores, datei)
 
@@ -565,13 +556,11 @@ def displayInfo():
 
 def sInfoBox(dict):
     textSurface = pg.font.SysFont('OCR A Extended', 23).render(dict[j], False, (50,50,50))
-    #screen.blit(textSurface,((screen_width) //2.5, screen_height*0.7))    
     # ==> screen + s_w h in io global definieren
 
 
 
 def inputBox2(screen, imageStart): # for username
-    #print("io:inputBox2")
     # Set up the screen
     screen_width = monitor_size[0] * 0.8            # 320
     screen_height = monitor_size[1] * 0.8          # 240
@@ -601,7 +590,6 @@ def inputBox2(screen, imageStart): # for username
                     # Store the user's input when press enter
                     username = input_text
                     dataJS[str(10)] = username
-                    #print(dataJS)
                     fileWriteData(dataJS) 
                     input_text = ''
                     running = False
@@ -621,7 +609,6 @@ def inputBox2(screen, imageStart): # for username
         screen.blit(text_surface, (screen_width * 0.4, screen_height * 0.6))
         pg.draw.rect(screen, (0, 0, 0), input_box, 2)
         text_surface = font.render(input_text, True, (0, 0, 0))
-        #screen.blit(text_surface, (input_box.x + 5, input_box.y + 5))
         screen.blit(text_surface, (screen_width * 0.4, screen_height * 0.65))
         pg.display.update()
         
@@ -630,7 +617,6 @@ def inputBox2(screen, imageStart): # for username
     return username
 
 def inputBoxDAS(selected_option, imageStart):
-    #print("io:inputBoxDAS")
     # Set up the screen
     #screen_width = monitor_size[0] * 0.8            # 320
     #screen_height = monitor_size[1] * 0.8          # 240
@@ -647,7 +633,6 @@ def inputBoxDAS(selected_option, imageStart):
 
     #box_rect = input_box.get_rect() 
     #box_rect.center = ((screen_width) //2, screen_height*0.6)
-    #screen.blit(text_surface, box_rect)
 
     input_text = ''
     
@@ -667,13 +652,10 @@ def inputBoxDAS(selected_option, imageStart):
                     if int(input_text) >=11 and int(input_text) <= 99:
                         newValue = input_text
                         dataJS[str(selected_option + 12)] = newValue
-                        #print(dataJS)
                         fileWriteData(dataJS)                    
                         input_text = ''
-                        #print("dataJS[12] = newValue changed: " + newValue)
                         running = False
                     else:
-                        #print("Your new DAS value is NOT between 11 and 99")
                         input_text = ''
 
 
@@ -690,13 +672,11 @@ def inputBoxDAS(selected_option, imageStart):
                     itd = input_text.isdigit()
                     if itd == False:
                         input_text = input_text[:-1]
-                        #print(len(input_text))    
                         
                     itl = len(input_text)
                     if itl >= 3: # und digit und Zahlenbereich !!!
                         
                         input_text = input_text[:-1]
-                        #print(len(input_text))
                     #if input_text.isdigit() and len(input_text) <= 2:
 
         
@@ -709,7 +689,6 @@ def inputBoxDAS(selected_option, imageStart):
         text_rect = text_surface.get_rect() 
         text_rect.center = ((screen_width) //2, screen_height*0.6)
         screen.blit(text_surface, text_rect)
-        #screen.blit(text_surface, ((screen_width) //2, screen_height * 0.5))
 
         pg.draw.rect(screen, (0, 0, 0), input_box, 2) #==> 269
         #pg.draw.rect(screen, (0, 0, 0), box_rect, 2) #==> 269
@@ -942,7 +921,6 @@ def highscoreBox(screen, imageStart):
            
 def modeOpts(screen, imageStart, infoL):            # Mode Options
     
-    #print("inner modeBox dataJS",dataJS)
 
     #strOut = "Please type your online username for the highscore list"
 
@@ -1016,7 +994,6 @@ def modeOpts(screen, imageStart, infoL):            # Mode Options
         if k <=10:
             k =11
         # Display info left
-        #print("j=====>", j)
 
         # LEFT bottom info
         modeStr = "Mode: " + iText["en"]["Mode"][str(competOn)]
@@ -1077,7 +1054,6 @@ def pentosOpts(screen, imageStart, infoL):      #Pentominoes Options
                     elif selected_option == 3: # Lu Pro
                         numPents = 13
                         j = 13
-                        #print("numPents:", numPents, dataJS)
                         
                 if event.key == pg.K_m:
                     toggleMusic()  
@@ -1109,7 +1085,6 @@ def pentosOpts(screen, imageStart, infoL):      #Pentominoes Options
         text_rect.center = ((screen_width) //2, screen_height*0.9)
         screen.blit(text, text_rect)
         
-        #print("j=====>", j)
         
         modeStr = "Mode: " + iText["en"]["Mode"][str(competOn)]
         diffStr = "Pentominoes: " + iText["en"]["Pentos"][str(numPents)]     # [str((dataJS["11"]))]
@@ -1267,7 +1242,6 @@ def DASBox(screen, imageStart):
 
     while running:               #bool1 == True
         clock.tick(80)      
-        #print("while goonStart")
         
         for event in pg.event.get(): # momentane Events
             if event.type == pg.QUIT:       # X - event vom Typ pg quit
@@ -1278,23 +1252,18 @@ def DASBox(screen, imageStart):
             elif event.type == pg.KEYDOWN:        # 
                 if event.key == pg.K_UP:
                     selected_option = (selected_option - 1) % len(DASval)
-                    #print(selected_option, DASval)
                 if event.key == pg.K_DOWN:
                     selected_option = (selected_option + 1) % len(DASval)
-                    #print(selected_option, DASval)
                 if event.key == pg.K_ESCAPE:
-                    #print("ESC - Highscore:", score)
                     running = False  
                                                         
                 if event.key == pg.K_RETURN:
-                    #print("Game started:", score)
                     capturing = True
                     newValue = inputBoxDAS(selected_option, imageStart)
                 elif capturing and event.key != pg.K_RETURN:
                     # Update the selected game key with the new key
                     # Speichern in dict
                     #dataJS[12] = newValue
-                    #print("dataJS vor capturing false in DASBox ", dataJS)
                     #fileWriteData(dataJS)
                     capturing = False  
                               
@@ -1309,7 +1278,6 @@ def DASBox(screen, imageStart):
         screen.fill((255,255,255))        # füllen mit Schwarz
         screen.blit(imageStart, (0, 0))
         # Display menu options
-        #print("len dict:", len(game_keys.items))
         for i in range(len(DASval)):            #for num in -  for i in dataDAS_len:
 
             key = i
@@ -1324,8 +1292,6 @@ def DASBox(screen, imageStart):
             text_rect.center = ((screen_width) //2, screen_height*0.6 + i * option_spacing)      #  - textSurface_score.get_width()
             screen.blit(text, text_rect) 
         
-        #textSurface = pg.font.SysFont('OCR A Extended', 23).render("m - music on/off", False, (50,50,50))
-        #screen.blit(textSurface,(screen_width*0.85, screen_height*0.9))
 
         
             # pygame malt erst unsichbar im HG - erst nach Vorne (gleichzeitig ein neuer HB screeen) -flip - kein flackern
@@ -1438,12 +1404,9 @@ def keyBox():           # pg.init !!!
 #displayInit = pg.display.get_init
 
 #displaySurface = pg.display.get_surface
-#print("io before pg.quit: displayInit, displaySurface ", displayInit, displaySurface )
 
 pg.quit()
 
 #displayInit = pg.display.get_init
 
 #displaySurface = pg.display.get_surface
-#print("io after pg.quit: displayInit, displaySurface ", displayInit, displaySurface )
-#print("EoF - inoutput")

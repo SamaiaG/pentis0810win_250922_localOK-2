@@ -7,14 +7,10 @@ import colors as clr
 import inoutput as io
 from inoutput import toggleMusic, restartMusic
 
-#import firebaseRW as fiba
 
 from utils import START_MENU, END_SCREEN, GAME
-from utils import abstand, monitor_size, monitor_size90, monitor_size30, screen, screen_width, screen_height, bilder, bilder2, font, clock, ost02 
-#from cls_pentos import Pentominoes, num_pentominoes
-import optMenu as oM
+from utils import abstand, monitor_size90, monitor_size30, screen, screen_width, screen_height, bilder, font, clock, ost02 
 
-#print("BoF - game")
 
 #   UserEvent #   speedup
 
@@ -23,7 +19,6 @@ ue1 = pg.time.set_timer(speedup, 20000) # alle 30 sec(30000) geht speed up
 
 pause = pg.USEREVENT+3
 #pg.time.set_timer(pause,)
-#print("game-Z27: abstand//monitor_size90[1]", abstand, monitor_size90, screen)
 
 def gameLoop(current_state, bool1, screen, username, score):
     
@@ -31,7 +26,6 @@ def gameLoop(current_state, bool1, screen, username, score):
     level = 1
     pentoPoints = 3
     
-    #print("game-gameLoop-Z35: abstand//monitor_size90[1]", abstand, monitor_size90, screen)
     #************************EVENTS*******************************************
 
     #   UserEvent tetrominodown(usereventID)
@@ -186,7 +180,6 @@ def gameLoop(current_state, bool1, screen, username, score):
             
         def show(self):
             #alle Zellen durchgehen bis 199 - Positionsfindung
-            #print(self.netet)
             for n, farbe in enumerate(self.netet):
                 if farbe > 0:           # nur was zeichnen wenn ein anderer Wert als 0 vorkommt
                     y = (self.zeile  + n // 5) * abstand    # n in Wert umwandeln - und eine zeile/Spalte herausfinden - nicht Spalte weil nur 4x4
@@ -214,7 +207,6 @@ def gameLoop(current_state, bool1, screen, username, score):
                     
                     screen.blit(bilder[farbe], (x,y)) # aus liste der Bilder ein Bild herausnehmen
                     
-                    #screen.blit(bilder[farbe],(x+150,y))
             # greift nat wieder auf obj variablen zu - > desw self
         
         #zeilen spalten = gesamte Anzahl Zeilen Spalten
@@ -234,7 +226,6 @@ def gameLoop(current_state, bool1, screen, username, score):
                     #    >= 20(unten screenout)   li screen   re screen        collision detect -> block - in grid schon eine farbe vorhanden
                     if z1 >= zeilen         or s1 < 0       or s1 >= spalten or grid[z1 * spalten + s1] > 0:        #  - wär ausserhalb screen
                                                                             #grid ist 1D - Stelle inn der Grid an der ein Tetr existiert- z1,s1 geht nicht - 
-                        #print("sth alreary there - future Zeile/Spalte:",z, z1,s,s1)
                         
                     
                         if self.zeile <= 0 and s1 >= 0  and s1 < spalten:               # MUSS nciht geknüpft an Tastendruck !?
@@ -245,9 +236,7 @@ def gameLoop(current_state, bool1, screen, username, score):
                         
                         return False #, bool1, score, current_state #kann nicht zeichnen weil es schon was gibt oder screen out
 
-            #print("inner valid(): valid 2", self, current_state, bool1, score )
             return True # nichts da - kann reinzeichnen
-        #print("after valid() self.bool2labTet", bool2lab)
         def valid2(self, z, s): # z s - nicht aktuelle sondern (zu prüfende) zukünftige Position
             for n, farbe in enumerate(self.tet): # alle elemente der tetromino liste durchgehen
                 if farbe > 0: # (0=sw -> >0 - eine Farbe also tetromino)
@@ -256,7 +245,6 @@ def gameLoop(current_state, bool1, screen, username, score):
                     #    >= 20(unten screenout)   li screen   re screen        collision detect -> block - in grid schon eine farbe vorhanden
                     if z1 >= zeilen         or s1 < 0       or s1 >= spalten or grid[z1 * spalten + s1] > 0:        #  - wär ausserhalb screen
                                                                             #grid ist 1D - Stelle inn der Grid an der ein Tetr existiert- z1,s1 geht nicht - 
-                        #print("sth alreary there - future Zeile/Spalte:",z, z1,s,s1)
                         
                         return False #kann nicht zeichnen weil es schon was gibt oder screen out
                 
@@ -280,7 +268,6 @@ def gameLoop(current_state, bool1, screen, username, score):
             if self.valid(self.zeile + zoff, self.spalte + soff): #   valid check nach dem rotate ->
                 self.zeile += zoff
                 self.spalte += soff
-                #print("inner update()self.spalte:", self.zeile)
                 return True # tet konnte bewegt werden
             
             return False # ist unten angekommen - später mit ! update ausgelöst
@@ -305,7 +292,6 @@ def gameLoop(current_state, bool1, screen, username, score):
                 s = n % 5
                 #new = (4-s)*5+z
                 self.tet[(4-s)*5+z] = farbe # verändern an best Pos den Wert
-                #print(n, new, farbe)
             if not self.valid(self.zeile, self.spalte):
                 self.tet = saveTet.copy() # Ursprungszustand gesichert - wenn nciht valid - quasi kein rotate
 
@@ -316,10 +302,8 @@ def gameLoop(current_state, bool1, screen, username, score):
                 s = n % 5
                 new = s * 5 + (4 - z)
                 self.tet[new] = farbe
-                #print(n, new, farbe)
             if not self.valid(self.zeile, self.spalte):
                 self.tet = saveTet.copy() # Ursprungszustand gesichert - wenn nciht valid - quasi kein rotate
-                #print("self.tet: ", self.tet)  
 
         def rotate180(self):
             saveTet = self.tet.copy()
@@ -335,7 +319,6 @@ def gameLoop(current_state, bool1, screen, username, score):
 
 
     def objToGrid():
-        #print("inner objectToGrid(): ",current_state, bool1, screen, username, score)
         for n, farbe in enumerate(figur.tet): # nicht merh self , weil es ist ja schon die Instanz
             if farbe > 0:
                 z = figur.zeile + n // 5    # ZeilenPos der Figur
@@ -584,38 +567,28 @@ def gameLoop(current_state, bool1, screen, username, score):
 #***********************************************************goon************************************************
 #def gameLoop(goon, figur, figurnext, randlist, screen, username):
     #numPentosLab = 7
-    #print("Please enter the number of pentominoes you want to play with (only 2-13 possible !)")
     #numPentosLab = int(numPentosLab)  # String in Ganzzahl (Integer) umwandeln
-    #print("You set the number of pentominoes to:", numPentosLab)
     #io.dataJS[str(11)] = numPentosLab
 
 
-    randlist = rnd.sample(range(0,io.dataJS[str(11)]),io.dataJS[str(11)]) # 10 soll = oM.numPentos
-    #print("oM.numPentos - start game 433:", io.dataJS[str(11)])
+    randlist = rnd.sample(range(0,io.dataJS[str(11)]),io.dataJS[str(11)])
 
     def randNext(randlist):
         if len(randlist) >= 1: #ggf >=1 !!
-            #print("randlist", randlist, len(randlist))
             randint = randlist.pop(0)   #!!!!! und geh dann AUCH in die ==1 Schleife !!!
-            #print("Pento", randint)
 
             if len(randlist) > 1:   # ggf >=1
                 preview = randlist[0]
-                #print("Preview:", preview)
 
         if len(randlist) == 1: # wenn nur noch 1 Element in randlist
             preview = randlist[0] # das preview muss irgendwie next randint werden
-            #print("preview len2--> len1", preview)
             
         if len(randlist) == 0:
             #randint = preview
             newrandlist = rnd.sample(range(0, io.dataJS[str(11)]), io.dataJS[str(11)]) # soll = cls_pentos num_pentominoes
 
-            #print("randlist == 1 neu list: ", newrandlist, len(newrandlist))  
             preview = newrandlist[0] 
-            #print("Preview newradnlist:", preview)         
             randlist = newrandlist
-            #print("Preview len 0:")
 
         return randint, randlist, preview #, randintnext, randlistnext
         
@@ -623,16 +596,12 @@ def gameLoop(current_state, bool1, screen, username, score):
     #tetRandom = rnd.randrange(10)
 
             #class      list
-    #print("pre figur 0 and 2:")
-    #print("first randlist:", randlist)
     randint = randlist.pop(0)
-    #print("first randint:", randint, randlist)
 
     #global figur, figurnext
     
     figur = Tetromino(tetrominoes[randint]) # obj angelegt mit namen figur - 1. Pentomino
     randint = randlist[0]
-    #print("first preview randint:", randint, randlist)
     figurnext = NextTet(nextPentos[randint])        # dreht sich auch wenn figur = fihurenext
     #figurDisplay = NextTet(tetrominoes[2]) 
 
@@ -708,7 +677,6 @@ def gameLoop(current_state, bool1, screen, username, score):
     #repDelay = 120
     #repIntervall = 50
 
-    #print("repeatKey pre GOON: delay, intervall",repDelay,repIntervall)
 
     pg.key.set_repeat()
 
@@ -738,15 +706,12 @@ def gameLoop(current_state, bool1, screen, username, score):
 
     
     while bool1:
-        #print("start while bool1")
-        #print("start while bool1") => wird unendlich ausgegeben -> wenn x quit: geht in main 5 Start Game
         clock.tick(80)      # variable clock soll nur dann die Schleife durchlaufen, wenn best Zeit vergangen ist -> ergibt 20 Bilder/sec
                             # wegen set_timer 500ms ist die framerate 80 egal
         lineScore = 0
         lines = 0
 
         keys = pg.key.get_pressed()
-        #print("keys:",keys)
 
         # Handle key RIGHT
         if keys[pg.K_RIGHT]:
@@ -759,18 +724,15 @@ def gameLoop(current_state, bool1, screen, username, score):
                 if pg.time.get_ticks() - key_time_1 > repeat_rate_rl:
                     # Repeat the action
                     figur.update(0,1)
-                    #print("Key 1 repeated", key_time_1, repeat_rate_rl)
                     key_time_1 = pg.time.get_ticks()
             else: # 1st Step
                 # Start the key press - geht erstmal hier rein wenn SPACE pressed - >state1 = True UND time1 = Startzeit wann SPACE gedrückt wurde
-                #print("Key 1 pressed", key_time_1, repeat_rate_rl)
                 key_state_1 = True
                 key_time_1 = pg.time.get_ticks() + initial_delay # Add initial delay
 
         else:
             # End the key press
             if key_state_1:
-                #print("Key 1 released", key_time_1, repeat_rate_rl)
                 key_state_1 = False
 
         # Handle key 2
@@ -781,18 +743,15 @@ def gameLoop(current_state, bool1, screen, username, score):
                 if pg.time.get_ticks() - key_time_2 > repeat_rate_rl:
                     # Repeat the action
                     figur.update(0,-1)
-                    #print("Key 2 repeated", key_time_2, repeat_rate_rl)
                     key_time_2 = pg.time.get_ticks()
             else:
                 # Start the key press
-                #print("Key 2 pressed", key_time_2, repeat_rate_rl)
                 key_state_2 = True
                 key_time_2 = pg.time.get_ticks() + initial_delay # Add initial delay
 
         else:
             # End the key press
             if key_state_2:
-                #print("Key 2 released", key_time_2, repeat_rate_rl)
                 key_state_2 = False               
 
         if keys[pg.K_DOWN]:
@@ -802,18 +761,15 @@ def gameLoop(current_state, bool1, screen, username, score):
                 if pg.time.get_ticks() - key_time_3 > repeat_rate_down:
                     # Repeat the action
                     figur.update(1,0)
-                    #print("Key 2 repeated", key_time_3, repeat_rate_down)
                     key_time_3 = pg.time.get_ticks()
             else:
                 # Start the key press
-                #print("Key 2 pressed", key_time_3, repeat_rate_down)
                 key_state_3 = True
                 key_time_3 = pg.time.get_ticks()
 
         else:
             # End the key press
             if key_state_3:
-                #print("Key 2 released", key_time_3, repeat_rate_down)
                 key_state_3 = False  
 
         # EVENT GET
@@ -909,13 +865,9 @@ def gameLoop(current_state, bool1, screen, username, score):
                     figur.rotate180()
                     #sfxRot180.play()   
                 #if event.key == pg.K_u:
-                #    #speed = speed - 100 
                 #    repeat_rate_rl = repeat_rate_rl - 10
-                #    print("speed key, repeat_rate_rl up",speed, repeat_rate_rl)                                              
                 #if event.key == pg.K_j:
-                #    #speed = speed + 100  
                 #    repeat_rate_rl = repeat_rate_rl + 10        
-                #    print("speed key, repeat_rate_rl down",speed, repeat_rate_rl)                                              
                 
                 if event.key == pg.K_ESCAPE:
                     sfxMenu01.play()
@@ -923,7 +875,6 @@ def gameLoop(current_state, bool1, screen, username, score):
                 if event.key == pg.K_p:
                     sfxMenu01.play()
                     bool1, current_state = gamePause(current_state)
-                    #print ("after game pause - p - goons 1-3:", bool1, current_state)
                 if event.key == pg.K_m:
                     toggleMusic()
                 if event.key == pg.K_h:
@@ -956,15 +907,11 @@ def gameLoop(current_state, bool1, screen, username, score):
         
         pg.draw.rect(screen, clr.gry0, (breite, 0, hoehe*2, breite ),2)
         pg.draw.rect(screen, clr.gry0, (breite, breite, hoehe*2, breite ),2)
-        #textSurface = pg.font.SysFont(io.fontRusso, 20).render(f'{io.dataJS["10"]:}', False, (150,150,150))
-        #screen.blit(textSurface,(breite * 0.33, 5)) 
-        #print(textSurface.get_width())      automatic font sizes 
 
 
         
         textSurface = pg.font.SysFont(io.fontRusso, gamefont).render(f'{score:,}', False, (255,255,255))
         screen.blit(textSurface,(screen_width*infoW01, screen_height*0.32))
-        #screen.blit(textSurface,(breite //8 - textSurface.get_width() // 2, 30))
         textSurface = io.get_font(gamefont).render(io.t("game", "level") + f' {level:}', False, (150,150,150))
         screen.blit(textSurface,(screen_width*infoW01, screen_height*0.42))
         #*******
@@ -982,27 +929,20 @@ def gameLoop(current_state, bool1, screen, username, score):
         textSurface = io.get_font(gamefont).render(io.t("game", "help"), False, (80, 80, 80))
         screen.blit(textSurface,(screen_width*infoW01, screen_height*0.88)) 
 
-        #print("game-Z811: abstand//monitor_size90[1]", abstand, monitor_size90, screen, screen_width, screen_height )           
 
         #def show():
             #alle Zellen durchgehen bis 199 - Positionsfindung
             
         #for n, farbe in enumerate(nextPentos[7]):
         #    if farbe >= 0:           # nur was zeichnen wenn ein anderer Wert als 0 vorkommt
-        #        #print("n, Farbe", n, farbe)
         #        y = ((screen_height) //2 + n // 5) * 20    # n in Wert umwandeln - und eine zeile/Spalte herausfinden - nicht Spalte weil nur 4x4
         #        x = ((screen_width) //2 + n % 5) * 20    # in pixel koord -> mit abstand also quadratblock arbeiten
         #        
-        #        screen.blit(bilder[farbe], ((screen_width) //2, (screen_height) //2)) # aus liste der Bilder ein Bild herausnehmen
         #show()
-        #screen.blit(bilder[nextPentos[6]], ((screen_width) //2, (screen_height) //2)) - bilder next pentos vorher auf surface bekommen
             # pygame malt erst unsichbar im HG - erst nach Vorne (gleichzeitig ein neuer HB screeen) -flip - kein flackern
         pg.display.flip()       # 100/200 mal pro sekunde wird bildschirm durchlaufen - +1 - in 1 Sec 200 Zeilen runter
     io.dataJS[str(13)] = str(repeat_rate_rl)
-    #print(io.dataJS)
     io.fileWriteData(io.dataJS)
     
-    #print ("last - after game while", current_state, bool1)
     return current_state, score
 
-#print("EoF - game")

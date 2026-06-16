@@ -2,28 +2,17 @@ import pygame as pg
 import sys
 
 import inoutput as io
-from inoutput import imageStart, toggleMusic, fontRusso
+from inoutput import imageStart, toggleMusic
 import colors as clr
-from utils import GAME, USERNAME, SCOREBOARD, OPTIONS, START_MENU, END_SCREEN
+from utils import START_MENU
 from utils import monitor_size90, screen, screen_width, screen_height, font, clock #toggleMusic            # pygame pg auch in die utils
-#import firebaseRW as fiba
 from DynamicDisplay import DynamicDisplay
 
 
-#print("BoF - optMenu")
-# nur 20 Bilder/sec - nicht 200std
-#imageStart = pg.image.load("graphics\\title3.png")
-
-#screen = pg.display.set_mode(monitor_size90)
-#screen_width, screen_height = screen.get_size()
-
-#imageStart = pg.transform.scale(imageStart, (monitor_size90))
 
 pg.init()
 
 #ost01 = 'sound\schwesternliebe1.mp3'
-#pg.mixer.music.load(ost01)
-#pg.mixer.music.play(-1,0.0,0)
 
 screen = pg.display.set_mode((screen_width, screen_height))
 # Define menu options
@@ -55,7 +44,6 @@ def optMenuLoop(current_state, bool1, screen, username):
 
     while (bool1):               #bool1 == True
         clock.tick(80)      
-        #print("while goonStart")
         
         for event in pg.event.get(): # momentane Events
             if event.type == pg.QUIT:       # X - event vom Typ pg quit
@@ -70,37 +58,27 @@ def optMenuLoop(current_state, bool1, screen, username):
                 if event.key == pg.K_DOWN:
                     selected_option = (selected_option + 1) % len(options)
                 if event.key == pg.K_ESCAPE:
-                    #print("ESC - Highscore:", score)
                     current_state = START_MENU
                     bool1 = False
  
                                                         
                 if event.key == pg.K_RETURN:
-                    #print("Game started:", score)
                     if selected_option == 0:        # mode
-                        #print("io.dataJS - 1: ",io.dataJS)
-                        #print(io.dataJS[str(11)])
                         numPentos = io.dataJS[str(11)]
                         numPentos, competOn = io.modeOpts(screen, imageStart, infoL)
-                        #print("numPentos in optMenu after io.modeOpts:", numPentos)
                         io.dataJS[str(11)] = numPentos
                         io.dataJS[str(14)] = competOn
                         io.fileWriteData(io.dataJS)
                         
-                        #print("io.dataJS - 2: ",io.dataJS)
                         
 
                     elif selected_option == 1:        # pentominoes - "definded by the Number (and diversity of pentominoes )"
-                        #print("io.dataJS - 1: ",io.dataJS)
-                        #print(io.dataJS[str(11)])
                         numPentos = io.dataJS[str(11)]
                         numPentos, competOn = io.pentosOpts(screen, imageStart, infoL)
-                        #print("numPentos in optMenu after io.pentosOpts:", numPentos)
                         io.dataJS[str(11)] = numPentos
                         io.dataJS[str(14)] = competOn
                         io.fileWriteData(io.dataJS)
                         
-                        #print("io.dataJS - 2: ",io.dataJS)
 
 
                     elif selected_option == 2: # DAS
@@ -108,9 +86,7 @@ def optMenuLoop(current_state, bool1, screen, username):
 
                     elif selected_option == 3: # controls
                         #game_keys = {}
-                        #print("The controls setup is not available yet")
                         io.game_keys = io.controlsBox(screen, imageStart)
-                        #print("selectedOption:" + username)
                         selected_option = 0                        
                     elif selected_option == 4:
                         io.langSelector(screen)
@@ -149,4 +125,3 @@ def optMenuLoop(current_state, bool1, screen, username):
         pg.display.flip()
     return current_state
 
-#print("EoF - optMenu")

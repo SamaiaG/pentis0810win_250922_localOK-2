@@ -56,6 +56,12 @@ else:  # Linux oder andere
     fontRoboto = "graphics/Roboto-Medium.ttf"
     fontRusso = "graphics/Prototype.ttf"
 
+LANG_FONTS = {
+    "en": fontRusso,
+    "de": fontRusso,
+    "ro": fontRoboto,
+}
+
 
 imageStart = pg.transform.scale(imageStart, monitor_size90)
 
@@ -85,8 +91,8 @@ iText = {
       "3": "Combat",
     },
     "Mode_subinfo": {
-      "0": "speedup and scoreboard-save OFF",
-      "1": "speedup and scoreboard-save ON",
+      "0": "speedup and scoreboard save - OFF",
+      "1": "speedup and scoreboard save - ON",
       "2": "not in this release",
       "3": "not in this release",
     },
@@ -184,8 +190,8 @@ iText = {
       "3": "Kampf",
     },
     "Mode_subinfo": {
-      "0": "Beschleunigung und Speichern AUS",
-      "1": "Beschleunigung und Speichern AN",
+      "0": "Beschleunigung und Speichern - AUS",
+      "1": "Beschleunigung und Speichern - AN",
       "2": "nicht in dieser Version",
       "3": "nicht in dieser Version",
     },
@@ -250,7 +256,7 @@ iText = {
     },
     "eM": {
       "highscore": "Bestpunktzahl",
-      "enter":     "Enter drücken fuer Hauptmenue",
+      "enter":     "Enter drücken für Hauptmenü",
       "esc":       "ESC drücken zum Schliessen",
     },
     "help": {
@@ -261,12 +267,12 @@ iText = {
 
   "ro": {
     "sM": {
-      "01": "INCEPE JOCUL",
+      "01": "ÎNCEPE JOCUL",
       "02": "UTILIZATOR",
       "03": "CLASAMENT",
-      "04": "OPTIUNI",
-      "05": "IESIRE",
-      "username_warn": "-> Va rugam sa setati propriul nume de utilizator !!",
+      "04": "OPȚIUNI",
+      "05": "IEȘIRE",
+      "username_warn": "-> Vă rugăm să setați propriul nume de utilizator !!",
     },
     "oM": {
       "1": "Mod",
@@ -274,22 +280,22 @@ iText = {
       "3": "DAS",
       "4": "Controale",
       "5": "Limba",
-      "6": "Inapoi",
+      "6": "Înapoi",
     },
     "Mode": {
-      "0": "Practica",
+      "0": "Practică",
       "1": "Competitiv",
       "2": "Incrementat",
       "3": "Combat",
     },
     "Mode_subinfo": {
-      "0": "accelerare si salvare dezactivate",
-      "1": "accelerare si salvare activate",
-      "2": "nu in aceasta versiune",
-      "3": "nu in aceasta versiune",
+      "0": "accelerare și salvare - DEZACTIVARE",
+      "1": "accelerare și salvare - ACTIVARE",
+      "2": "nu în această versiune",
+      "3": "nu în această versiune",
     },
     "Pentos": {
-      "9":  "Incepator",
+      "9":  "Începător",
       "10": "lab 10",
       "11": "Standard",
       "12": "Avansat - L",
@@ -297,14 +303,14 @@ iText = {
       "14": "Dificil",
     },
     "DAS": {
-      "1": "Intarziere initiala",
+      "1": "Întârziere inițială",
       "2": "Rata de repetare",
     },
     "Controls": {
-      "0": "Stanga",
+      "0": "Stânga",
       "1": "Dreapta",
       "2": "Jos",
-      "3": "Rotire (stanga)",
+      "3": "Rotire (stânga)",
       "4": "Rotire (dreapta)",
       "5": "Rotire 180",
       "6": "Smash",
@@ -323,19 +329,19 @@ iText = {
       "14": "Dificilcomp",
     },
     "Pause": {
-      "title":    "PAUZA",
-      "resume":   "CONTINUA",
-      "end_game": "SFARSIT JOC",
+      "title":    "PAUZĂ",
+      "resume":   "CONTINUĂ",
+      "end_game": "SFÂRȘIT JOC",
       "new_game": "JOC NOU",
     },
     "confirm": {
-      "line1":    "Esti sigur ca vrei sa",
-      "quit_q":   "iesi din joc?",
+      "line1":    "Ești sigur că vrei să",
+      "quit_q":   "ieși din joc?",
       "end_q":    "termini jocul curent?",
-      "new_q":    "incepi un joc nou?",
-      "quit":     "IESIRE",
-      "resume":   "CONTINUA",
-      "end_game": "SFARSIT JOC",
+      "new_q":    "începi un joc nou?",
+      "quit":     "IEȘIRE",
+      "resume":   "CONTINUĂ",
+      "end_game": "SFÂRȘIT JOC",
       "new_game": "JOC NOU",
     },
     "game": {
@@ -343,18 +349,18 @@ iText = {
       "username":      "Utilizator:",
       "pentominoes":   "Pentominouri:",
       "mode":          "Mod:",
-      "initial_delay": "Intarziere initiala:",
+      "initial_delay": "Întârziere inițială:",
       "repeat_rate":   "Rata de repetare:",
-      "help":          "H  Ajutor",
+      "help":          "H - Ajutor",
     },
     "eM": {
       "highscore": "Scor maxim",
-      "enter":     "Apasa Enter pentru meniu principal",
-      "esc":       "Apasa ESC pentru a inchide",
+      "enter":     "Apasă Enter pentru meniu principal",
+      "esc":       "Apasă ESC pentru a închide",
     },
     "help": {
       "title": "AJUTOR",
-      "close": "ESC / ENTER  pentru a inchide",
+      "close": "ESC / ENTER  pentru a închide",
     },
   },        # romanian end
 
@@ -365,7 +371,10 @@ current_lang = "en"
 def t(section, key):
     return iText[current_lang][section][key]
 
-LANGUAGES = {"en": "English", "de": "Deutsch", "ro": "Romana"}
+def get_font(size):
+    return pg.font.Font(LANG_FONTS.get(current_lang, fontRusso), size)
+
+LANGUAGES = {"en": "English", "de": "Deutsch", "ro": "Română"}
 
 def langSelector(screen):
     global current_lang
@@ -374,8 +383,7 @@ def langSelector(screen):
     lang_keys = list(LANGUAGES.keys())
     selected  = lang_keys.index(current_lang)
 
-    font_title = pg.font.Font(fontRusso, 30)
-    font_btn   = pg.font.Font(fontRusso, 24)
+    font_title = get_font(30)
 
     sw, sh     = screen.get_size()
     n          = len(lang_keys)
@@ -415,10 +423,11 @@ def langSelector(screen):
         items_top = box_y + 60
         for i, key in enumerate(lang_keys):
             label = LANGUAGES[key]
+            lang_font = pg.font.Font(LANG_FONTS.get(key, fontRusso), 24)
             if i == selected:
-                btn = font_btn.render(label, True, clr.wht, clr.purple)
+                btn = lang_font.render(label, True, clr.wht, clr.purple)
             else:
-                btn = font_btn.render(label, True, clr.gry2)
+                btn = lang_font.render(label, True, clr.gry2)
             btn_x = (sw - btn.get_width()) // 2
             btn_y = items_top + i * item_gap
             screen.blit(btn, (btn_x, btn_y))

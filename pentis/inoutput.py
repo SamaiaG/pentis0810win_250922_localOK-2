@@ -67,7 +67,8 @@ iText = {
       "03": "SCOREBOARD",
       "04": "OPTIONS",
       "05": "QUIT",
-      "username_warn": "-> Please set your own username !!",
+      "username_warn":  "Please set your own username!",
+      "input_username": "Please set your own username  (-> Enter):",
     },
     "oM": {
       "1": "Mode",
@@ -93,13 +94,14 @@ iText = {
       "9":  "Novice",
       "10": "lab 10",
       "11": "Standard",
-      "12": "Advanced - L",
-      "13": "Pro - Lu",
+      "12": "Advanced",
+      "13": "Pro",
       "14": "Hard",
     },
     "DAS": {
       "1": "Initial Delay",
       "2": "Repeat Rate",
+      "input": "New DAS value (11-99)  (-> Enter):",
     },
     "Controls": {
       "0": "Left",
@@ -109,6 +111,11 @@ iText = {
       "4": "Rotate CW",
       "5": "Rotate 180",
       "6": "Smash",
+      "press_key":    "press a key...",
+      "already_used": "already used by",
+      "reset_done":   "Keys reset to defaults!",
+      "reset_btn":    "RESET KEYS",
+      "hint":         "up/down navigate    SPACE assign/reset    ESC/ENTER save & exit",
     },
     "lbl": {
       "1":  "Lab 1",
@@ -157,6 +164,14 @@ iText = {
       "title": "HELP",
       "close": "ESC / ENTER  to close",
     },
+    "scoreboard": {
+      "title":     "SCOREBOARD",
+      "rank":      "Rank",
+      "player":    "Player",
+      "score":     "Score",
+      "no_scores": "No scores available yet.",
+      "back":      "Back: ESC",
+    },
   },        # english end
 
   "de": {
@@ -166,7 +181,8 @@ iText = {
       "03": "BESTENLISTE",
       "04": "OPTIONEN",
       "05": "BEENDEN",
-      "username_warn": "-> Bitte eigenen Benutzernamen setzen !!",
+      "username_warn":  "Bitte eigenen Benutzernamen setzen!",
+      "input_username": "Bitte Benutzernamen eingeben  (-> Enter):",
     },
     "oM": {
       "1": "Modus",
@@ -183,8 +199,8 @@ iText = {
       "3": "Kampf",
     },
     "Mode_subinfo": {
-      "0": "Beschleunigung und Speichern - AUS",
-      "1": "Beschleunigung und Speichern - AN",
+      "0": "Beschleunigung und Highscore speichern - AUS",
+      "1": "Beschleunigung und Highscore Speichern - AN",
       "2": "nicht in dieser Version",
       "3": "nicht in dieser Version",
     },
@@ -192,13 +208,14 @@ iText = {
       "9":  "Anfänger",
       "10": "lab 10",
       "11": "Standard",
-      "12": "Fortgeschritten - L",
-      "13": "Profi - Lu",
+      "12": "Fortgeschritten",
+      "13": "Pro",
       "14": "Schwer",
     },
     "DAS": {
       "1": "Anfangsverz.",
       "2": "Wiederholrate",
+      "input": "Neuen DAS-Wert eingeben (11-99)  (-> Enter):",
     },
     "Controls": {
       "0": "Links",
@@ -208,6 +225,11 @@ iText = {
       "4": "Drehen (rechts)",
       "5": "Drehen 180",
       "6": "Smash",
+      "press_key":    "Taste drücken...",
+      "already_used": "bereits belegt von",
+      "reset_done":   "Tasten zurückgesetzt!",
+      "reset_btn":    "ZURÜCKSETZEN",
+      "hint":         "HOCH/RUNTER navigieren    LEERTASTE zuweisen/zurücksetzen    ESC/ENTER speichern",
     },
     "lbl": {
       "1":  "Lab 1",
@@ -256,16 +278,25 @@ iText = {
       "title": "HILFE",
       "close": "ESC / ENTER  zum Schliessen",
     },
+    "scoreboard": {
+      "title":     "BESTENLISTE",
+      "rank":      "Rang",
+      "player":    "Spieler",
+      "score":     "Punkte",
+      "no_scores": "Noch keine Einträge.",
+      "back":      "Zurück: ESC",
+    },
   },        # german end
 
   "ro": {
     "sM": {
-      "01": "ÎNCEPE JOCUL",
-      "02": "UTILIZATOR",
+      "01": "START JOC",
+      "02": "JUCĂTOR",
       "03": "CLASAMENT",
       "04": "OPŢIUNI",
-      "05": "IEȘIRE",
-      "username_warn": "-> Vă rugăm să setați propriul nume de utilizator !!",
+      "05": "IEŞIRE",
+      "username_warn":  "Setează propriul nume de utilizator!",
+      "input_username": "Introdu propriul nume  (-> Enter):",
     },
     "oM": {
       "1": "Mod",
@@ -282,8 +313,8 @@ iText = {
       "3": "Combat",
     },
     "Mode_subinfo": {
-      "0": "accelerare și salvare - DEZACTIVARE",
-      "1": "accelerare și salvare - ACTIVARE",
+      "0": "accelerare şi salvare scor - DEZACTIVAT",
+      "1": "accelerare şi salvare scor - ACTIVAT",
       "2": "nu în această versiune",
       "3": "nu în această versiune",
     },
@@ -291,13 +322,14 @@ iText = {
       "9":  "Începător",
       "10": "lab 10",
       "11": "Standard",
-      "12": "Avansat - L",
-      "13": "Pro - Lu",
+      "12": "Avansat",
+      "13": "Pro",
       "14": "Dificil",
     },
     "DAS": {
-      "1": "Întârziere inițială",
+      "1": "Întârziere iniţială",
       "2": "Rata de repetare",
+      "input": "Valoare DAS nouă (11-99)  (-> Enter):",
     },
     "Controls": {
       "0": "Stânga",
@@ -307,6 +339,11 @@ iText = {
       "4": "Rotire (dreapta)",
       "5": "Rotire 180",
       "6": "Smash",
+      "press_key":    "apasă o tastă...",
+      "already_used": "deja folosit de",
+      "reset_done":   "Taste resetate!",
+      "reset_btn":    "RESETARE TASTE",
+      "hint":         "SUS/JOS navigare    SPAŢIU atribuire/resetare    ESC/ENTER salvare",
     },
     "lbl": {
       "1":  "Lab 1",
@@ -324,25 +361,25 @@ iText = {
     "Pause": {
       "title":    "PAUZĂ",
       "resume":   "CONTINUĂ",
-      "end_game": "SFÂRȘIT JOC",
+      "end_game": "SFÂRŞIT JOC",
       "new_game": "JOC NOU",
     },
     "confirm": {
-      "line1":    "Ești sigur că vrei să",
-      "quit_q":   "ieși din joc?",
+      "line1":    "Eşti sigur că vrei să",
+      "quit_q":   "ieşi din joc?",
       "end_q":    "termini jocul curent?",
       "new_q":    "începi un joc nou?",
-      "quit":     "IEȘIRE",
+      "quit":     "IEŞIRE",
       "resume":   "CONTINUĂ",
-      "end_game": "SFÂRȘIT JOC",
+      "end_game": "SFÂRŞIT JOC",
       "new_game": "JOC NOU",
     },
     "game": {
       "level":         "Nivel:",
-      "username":      "Utilizator:",
+      "username":      "Jucător:",
       "pentominoes":   "Pentominouri:",
       "mode":          "Mod:",
-      "initial_delay": "Întârziere inițială:",
+      "initial_delay": "Întârziere iniţială:",
       "repeat_rate":   "Rata de repetare:",
       "help":          "H - Ajutor",
     },
@@ -354,6 +391,14 @@ iText = {
     "help": {
       "title": "AJUTOR",
       "close": "ESC / ENTER  pentru a închide",
+    },
+    "scoreboard": {
+      "title":     "CLASAMENT",
+      "rank":      "Loc",
+      "player":    "Jucător",
+      "score":     "Punctaj",
+      "no_scores": "Nu există scoruri încă.",
+      "back":      "Înapoi: ESC",
     },
   },        # romanian end
 
@@ -373,20 +418,12 @@ def langSelector(screen):
     global current_lang
     pg.event.clear([pg.KEYDOWN, pg.KEYUP])
 
-    lang_keys = list(LANGUAGES.keys())
-    selected  = lang_keys.index(current_lang)
-
-    font_title = get_font(30)
-
-    sw, sh     = screen.get_size()
-    n          = len(lang_keys)
-    item_gap   = 44
-    box_w      = int(sw * 0.4)
-    box_h      = 80 + n * item_gap
-    box_x      = (sw - box_w) // 2
-    box_y      = (sh - box_h) // 2
-
-    lang_clock = pg.time.Clock()
+    lang_keys      = list(LANGUAGES.keys())
+    selected       = lang_keys.index(current_lang)
+    n              = len(lang_keys)
+    option_spacing = 50
+    sw, sh         = screen.get_size()
+    lang_clock     = pg.time.Clock()
 
     while True:
         for event in pg.event.get():
@@ -394,36 +431,34 @@ def langSelector(screen):
                 pg.quit()
                 sys.exit(0)
             elif event.type == pg.KEYDOWN:
-                if event.key in (pg.K_LEFT, pg.K_UP):
+                if event.key in (pg.K_UP, pg.K_LEFT):
                     selected = (selected - 1) % n
-                elif event.key in (pg.K_RIGHT, pg.K_DOWN):
+                elif event.key in (pg.K_DOWN, pg.K_RIGHT):
                     selected = (selected + 1) % n
                 elif event.key == pg.K_RETURN:
                     current_lang = lang_keys[selected]
-                    dataJS["lang"] = current_lang
+                    dataJS[KEY_LANG] = current_lang
                     fileWriteData(dataJS)
                     return
                 elif event.key == pg.K_ESCAPE:
                     return
 
         screen.blit(imageStart, (0, 0))
-        pg.draw.rect(screen, (20, 20, 20), (box_x, box_y, box_w, box_h))
-        pg.draw.rect(screen, clr.gry3,     (box_x, box_y, box_w, box_h), 2)
 
-        title_surf = font_title.render(t("oM", "5"), True, clr.purple)
-        screen.blit(title_surf, title_surf.get_rect(center=(sw // 2, box_y + 28)))
-
-        items_top = box_y + 60
         for i, key in enumerate(lang_keys):
-            label = LANGUAGES[key]
-            lang_font = pg.font.Font(LANG_FONTS.get(key, fontRusso), 24)
+            label     = LANGUAGES[key]
+            lang_font = pg.font.Font(LANG_FONTS.get(key, fontRusso), 41)
             if i == selected:
                 btn = lang_font.render(label, True, clr.wht, clr.purple)
             else:
-                btn = lang_font.render(label, True, clr.gry2)
-            btn_x = (sw - btn.get_width()) // 2
-            btn_y = items_top + i * item_gap
-            screen.blit(btn, (btn_x, btn_y))
+                btn = lang_font.render(label, True, (0, 0, 0))
+            btn_rect        = btn.get_rect()
+            btn_rect.center = (sw // 2, sh * 0.6 + i * option_spacing)
+            screen.blit(btn, btn_rect)
+
+        sub_font = pg.font.Font(LANG_FONTS.get(current_lang, fontRusso), 20)
+        sub = sub_font.render(LANGUAGES[current_lang], False, (50, 50, 50))
+        screen.blit(sub, sub.get_rect(center=(sw // 2, int(sh * 0.9))))
 
         pg.display.flip()
         lang_clock.tick(60)
@@ -454,6 +489,15 @@ DEFAULT_KEYS = {
     "5": "R 180",           "15": pg.K_c,
     "6": "Smash",           "16": pg.K_SPACE,
 }
+
+
+# dataJS key constants — use these instead of bare string literals
+KEY_USERNAME   = "10"
+KEY_NUM_PENTOS = "11"
+KEY_DAS_DELAY  = "12"
+KEY_DAS_RATE   = "13"
+KEY_MODE       = "14"
+KEY_LANG       = "lang"
 
 dataJS = {
     0: "Username", 10: 'Norbert Noname', # erstmal einf nicht verwenden - am Ende switchen
@@ -529,10 +573,9 @@ def fileRead(file_path_keys):
 
 #game_configs
 dataJS = fileReadData()     # bei jeden Start werden die Dateien in ~/Pentis eingelesen
-current_lang = dataJS.get("lang", "en")
+current_lang = dataJS.get(KEY_LANG, "en")
 game_keys = fileReadKeys()
-game_scores = fileRead(file_path_scores) 
-print("loaded game_scores in io",game_scores)
+game_scores = fileRead(file_path_scores)
 #C:\Users\dem\AppData\Local\Pentis
 #        $User
 #fileWriteData(dataJS)
@@ -568,9 +611,8 @@ def inputBox2(screen, imageStart): # for username
     #screen = pg.display.set_mode((screen_width, screen_height))
     #pg.display.set_caption("Input Username")
 
-    strOut = "Please type your own username  (-> Enter):"
-    # Set up the font
-    font = pg.font.Font(fontRusso, 32)
+    strOut = t("sM", "input_username")
+    font = get_font(32)
 
     # Set up the text input box
     input_box = pg.Rect(screen_width * 0.4, screen_height * 0.65, 200, 32)
@@ -589,7 +631,7 @@ def inputBox2(screen, imageStart): # for username
                 if event.key == pg.K_RETURN:
                     # Store the user's input when press enter
                     username = input_text
-                    dataJS[str(10)] = username
+                    dataJS[KEY_USERNAME] = username
                     fileWriteData(dataJS) 
                     input_text = ''
                     running = False
@@ -624,9 +666,8 @@ def inputBoxDAS(selected_option, imageStart):
     screen = pg.display.set_mode((screen_width, screen_height))
     #pg.display.set_caption("Input DAS")
 
-    strOut = "Please type your new DAS value (11-99) (->Enter):"
-    # Set up the font
-    font = pg.font.Font(fontRusso, 28)
+    strOut = t("DAS", "input")
+    font = get_font(28)
 
     # Set up the text input box
     input_box = pg.Rect((screen_width) //2, screen_height * 0.63, 46, 35)
@@ -707,8 +748,8 @@ def inputBoxDAS(selected_option, imageStart):
 def helpScreen(screen):
     pg.event.clear([pg.KEYDOWN, pg.KEYUP])
 
-    font_title  = pg.font.Font(fontRusso, 34)
-    font_footer = pg.font.Font(fontRusso, 18)
+    font_title  = get_font(34)
+    font_footer = get_font(18)
 
     help_clock = pg.time.Clock()
 
@@ -773,20 +814,29 @@ def highscoreBox(screen, imageStart):
     modes = ["Novice", "Standard", "Advanced", "Pro"]
 
     # map saved mode → index
-    dataMode = int(dataJS["11"])
+    dataMode = int(dataJS[KEY_NUM_PENTOS])
     modeDict = {9: 0, 11: 1, 12: 2, 13: 3}
     current_index = modeDict.get(dataMode, 0)
 
-    font_title = pg.font.Font(fontRusso, 34)
-    font_header = pg.font.Font(fontRusso, 28)
-    font_body = pg.font.Font(fontRoboto, 24)
-    font_footer = pg.font.Font(fontRoboto, 20)
+    font_title  = get_font(34)
+    font_header = get_font(28)
+    font_body   = pg.font.Font(fontRoboto, 24)
+    font_footer = get_font(20)
+
+    mode_labels = {
+        "Novice":   t("Pentos", "9"),
+        "Standard": t("Pentos", "11"),
+        "Advanced": t("Pentos", "12"),
+        "Pro":      t("Pentos", "13"),
+    }
 
     def ordinal_rank(rank):
-        if rank == 1: return "1st"
-        if rank == 2: return "2nd"
-        if rank == 3: return "3rd"
-        return f"{rank}th"
+        if current_lang == "en":
+            if rank == 1: return "1st"
+            if rank == 2: return "2nd"
+            if rank == 3: return "3rd"
+            return f"{rank}th"
+        return f"{rank}."
 
     clock = pg.time.Clock()
     scroll_offset = 0
@@ -850,7 +900,7 @@ def highscoreBox(screen, imageStart):
         block_top = screen_height * 0.6
 
         title = font_title.render(
-            f"SCOREBOARD - {current_mode.upper()}",
+            t("scoreboard", "title") + " - " + mode_labels[current_mode].upper(),
             True, (20, 20, 20)
         )
         screen.blit(title, title.get_rect(center=(center_x, block_top - 60)))
@@ -861,11 +911,11 @@ def highscoreBox(screen, imageStart):
         score_x = center_x + col_spacing
         header_y = block_top
 
-        screen.blit(font_header.render("Rank", True, (20, 20, 20)),
+        screen.blit(font_header.render(t("scoreboard", "rank"),   True, (20, 20, 20)),
                     (rank_x - 40, header_y - 15))
-        screen.blit(font_header.render("Player", True, (20, 20, 20)),
+        screen.blit(font_header.render(t("scoreboard", "player"), True, (20, 20, 20)),
                     (name_x - 60, header_y - 15))
-        screen.blit(font_header.render("Score", True, (20, 20, 20)),
+        screen.blit(font_header.render(t("scoreboard", "score"),  True, (20, 20, 20)),
                     (score_x - 40, header_y - 15))
 
         row_start_y = header_y + 50
@@ -876,7 +926,7 @@ def highscoreBox(screen, imageStart):
         visible = sorted_scores[scroll_offset:scroll_offset + max_visible]
 
         if not visible:
-            txt = font_body.render("No scores available yet.", True, (120, 120, 120))
+            txt = font_body.render(t("scoreboard", "no_scores"), True, (120, 120, 120))
             screen.blit(txt, txt.get_rect(center=(center_x, row_start_y)))
         else:
             for i, (name, data) in enumerate(visible, start=1):
@@ -900,11 +950,12 @@ def highscoreBox(screen, imageStart):
         for i, item in enumerate(items):
             x = start_x + i * spacing
             if item == "Exit":
-                text = "Back: ESC"
+                text = t("scoreboard", "back")
                 color = (120, 120, 120)
             else:
                 is_active = (i == current_index)
-                text = f"[{item}]" if is_active else item
+                label = mode_labels[item]
+                text = f"[{label}]" if is_active else label
                 color = (34, 197, 94) if is_active else (140, 140, 140)
             surf = font_footer.render(text, True, color)
             screen.blit(surf, surf.get_rect(center=(x, footer_y)))
@@ -920,16 +971,12 @@ def highscoreBox(screen, imageStart):
         clock.tick(30)
            
 def modeOpts(screen, imageStart, infoL):            # Mode Options
-    
 
-    #strOut = "Please type your online username for the highscore list"
-
-    font = pg.font.Font(fontRusso, 41)
-    options = ["Practice", "Competitive", "#Increment", "#Combat"] 
+    options = [t("Mode", "0"), t("Mode", "1"), t("Mode", "2"), t("Mode", "3")]
     
-    #selected_option = dataJS[str(11)]
-    numPents = dataJS[str(11)] 
-    competOn = dataJS[str(14)]
+    #selected_option = dataJS[KEY_NUM_PENTOS]
+    numPents = dataJS[KEY_NUM_PENTOS] 
+    competOn = dataJS[KEY_MODE]
     
     # Set up menu variables
     option_spacing = 50
@@ -975,10 +1022,10 @@ def modeOpts(screen, imageStart, infoL):            # Mode Options
         for i in range(len(options)):
             if i == selected_option:
                 # Highlight selected option
-                text = font.render(options[i], True, clr.wht, clr.purple)
-                text2 = pg.font.Font(fontRusso, 20).render(iText["en"]["Mode_subinfo"][str(i)], False, (50,50,50))
+                text = get_font(41).render(options[i], True, clr.wht, clr.purple)
+                text2 = get_font(20).render(t("Mode_subinfo", str(i)), False, (50,50,50))
             else:
-                text = font.render(options[i], True, (0, 0, 0))
+                text = get_font(41).render(options[i], True, (0, 0, 0))
             text_rect = text.get_rect()
             text_rect.center = ((screen_width) //2, screen_height*0.6 + i * option_spacing) #  - textSurface_score.get_width()
             screen.blit(text, text_rect) 
@@ -996,25 +1043,22 @@ def modeOpts(screen, imageStart, infoL):            # Mode Options
         # Display info left
 
         # LEFT bottom info
-        modeStr = "Mode: " + iText["en"]["Mode"][str(competOn)]
-        diffStr = "Pentominoes: " + iText["en"]["Pentos"][str((dataJS["11"]))]
-        usernameStr = "Username: " + dataJS["10"]        
-        infoL.draw_info(modeStr, diffStr, usernameStr)
-        
-            # pygame malt erst unsichbar im HG - erst nach Vorne (gleichzeitig ein neuer HB screeen) -flip - kein flackern
+        modeStr     = t("game", "mode")      + " " + t("Mode",  str(competOn))
+        diffStr     = t("game", "pentominoes") + " " + t("Pentos", str(dataJS[KEY_NUM_PENTOS]))
+        usernameStr = t("game", "username")  + " " + dataJS[KEY_USERNAME]
+        info_font   = get_font(screen_width // 60)
+        infoL.draw_info(modeStr, diffStr, usernameStr, font=info_font)
+
         pg.display.flip()
     return numPents, competOn
 
 def pentosOpts(screen, imageStart, infoL):      #Pentominoes Options
-    #strOut = "Please type your online username for the highscore list"
 
-    font = pg.font.Font(fontRusso, 41)
-
-    options = ["Novice", "Standard", "Advanced", "Pro"] 
+    options = [t("Pentos", "9"), t("Pentos", "11"), t("Pentos", "12"), t("Pentos", "13")]
     
-    #selected_option = dataJS[str(11)]
-    numPents = dataJS[str(11)] 
-    competOn = dataJS[str(14)]
+    #selected_option = dataJS[KEY_NUM_PENTOS]
+    numPents = dataJS[KEY_NUM_PENTOS] 
+    competOn = dataJS[KEY_MODE]
     # Set up menu variables
     option_spacing = 50
     capturing = False  # A flag to indicate when we're capturing a new key
@@ -1065,39 +1109,35 @@ def pentosOpts(screen, imageStart, infoL):      #Pentominoes Options
         # (ONLY Display !!)  menu options
         for i in range(len(options)):
             if i == selected_option:
-                # Highlight selected option
-                text = font.render(options[i], True, clr.wht, clr.purple)
+                text = get_font(41).render(options[i], True, clr.wht, clr.purple)
             else:
-                text = font.render(options[i], True, (0, 0, 0))
+                text = get_font(41).render(options[i], True, (0, 0, 0))
             text_rect = text.get_rect()
-            text_rect.center = ((screen_width) //2, screen_height*0.6 + i * option_spacing)      #  - textSurface_score.get_width()
-            screen.blit(text, text_rect) 
+            text_rect.center = ((screen_width) //2, screen_height*0.6 + i * option_spacing)
+            screen.blit(text, text_rect)
 
+        if j <= 8:
+            j = 11
 
-        # Sicherheitsabfrage für Test-Zwecke mit # Pentos in game
-        if j <=8:
-            j =11
-
-        
         # SUBMIDDLE INFO (height 0.9)
-        text = pg.font.Font(fontRusso, 20).render(iText["en"]["Mode"][str(competOn)] + " - " +  iText["en"]["Pentos"][str(j)], False, (50,50,50))
+        text = get_font(20).render(t("Mode", str(competOn)) + " - " + t("Pentos", str(j)), False, (50,50,50))
         text_rect = text.get_rect()
         text_rect.center = ((screen_width) //2, screen_height*0.9)
         screen.blit(text, text_rect)
-        
-        
-        modeStr = "Mode: " + iText["en"]["Mode"][str(competOn)]
-        diffStr = "Pentominoes: " + iText["en"]["Pentos"][str(numPents)]     # [str((dataJS["11"]))]
-        usernameStr = "Username: " + dataJS["10"]        
-        infoL.draw_info(modeStr, diffStr, usernameStr)
+
+        modeStr     = t("game", "mode")        + " " + t("Mode",  str(competOn))
+        diffStr     = t("game", "pentominoes") + " " + t("Pentos", str(numPents))
+        usernameStr = t("game", "username")    + " " + dataJS[KEY_USERNAME]
+        info_font   = get_font(screen_width // 60)
+        infoL.draw_info(modeStr, diffStr, usernameStr, font=info_font)
         
             # pygame malt erst unsichbar im HG - erst nach Vorne (gleichzeitig ein neuer HB screeen) -flip - kein flackern
         pg.display.flip()
     return numPents, competOn
 
 def controlsBox(screen, imageStart):
-    font       = pg.font.Font(fontRusso, 30)
-    font_hint  = pg.font.Font(fontRusso, 20)
+    font       = get_font(30)
+    font_hint  = get_font(20)
 
     NUM_ACTIONS  = 7
     RESET_OPTION = 7
@@ -1124,13 +1164,13 @@ def controlsBox(screen, imageStart):
                         capturing = False
                         conflict_msg = ""
                     else:
-                        conflict = next(
-                            (game_keys[str(j)] for j in range(NUM_ACTIONS)
+                        conflict_idx = next(
+                            (j for j in range(NUM_ACTIONS)
                              if j != selected_option and game_keys[str(j + 10)] == event.key),
                             None
                         )
-                        if conflict:
-                            conflict_msg = f"\'{pg.key.name(event.key)}\' already used by {conflict}!"
+                        if conflict_idx is not None:
+                            conflict_msg = f"'{pg.key.name(event.key)}' {t('Controls', 'already_used')} {t('Controls', str(conflict_idx))}!"
                             conflict_timer = 180
                         else:
                             game_keys[str(selected_option + 10)] = event.key
@@ -1148,7 +1188,7 @@ def controlsBox(screen, imageStart):
                         if selected_option == RESET_OPTION:
                             game_keys.update(DEFAULT_KEYS)
                             fileWriteKeys(game_keys)
-                            conflict_msg = "Keys reset to defaults!"
+                            conflict_msg = t("Controls", "reset_done")
                             conflict_timer = 180
                         else:
                             capturing = True
@@ -1176,7 +1216,7 @@ def controlsBox(screen, imageStart):
         pg.draw.line(screen, clr.gry1, (mid_x, start_y - 45), (mid_x, start_y + 3 * row_gap + 20), 1)
 
         for i in range(NUM_ACTIONS):
-            action_name = game_keys[str(i)]
+            action_name = t("Controls", str(i))
             key_name    = pg.key.name(game_keys[str(i + 10)])
             label       = f"{action_name}:  {key_name}"
 
@@ -1186,7 +1226,7 @@ def controlsBox(screen, imageStart):
 
             if i == selected_option:
                 if capturing:
-                    label = f"{action_name}:  [ press a key... ]"
+                    label = f"{action_name}:  [ {t('Controls', 'press_key')} ]"
                     text = font.render(label, True, clr.wht, clr.red1)
                 else:
                     text = font.render(label, True, clr.wht, clr.purple)
@@ -1197,7 +1237,7 @@ def controlsBox(screen, imageStart):
 
         # Reset Keys — bottom of right column
         reset_y    = start_y + 3 * row_gap
-        reset_text = font.render("RESET KEYS", True,
+        reset_text = font.render(t("Controls", "reset_btn"), True,
                                  clr.wht if selected_option == RESET_OPTION else clr.blk,
                                  clr.purple if selected_option == RESET_OPTION else None)
         screen.blit(reset_text, reset_text.get_rect(center=(col2_x, reset_y)))
@@ -1206,8 +1246,7 @@ def controlsBox(screen, imageStart):
             warn_surf = font_hint.render(conflict_msg, True, clr.red2)
             screen.blit(warn_surf, warn_surf.get_rect(center=(screen_width // 2, int(screen_height * 0.92))))
 
-        hint = "up/down navigate    SPACE assign/reset    ESC / ENTER save & exit"
-        hint_surf = font_hint.render(hint, True, clr.gry1)
+        hint_surf = font_hint.render(t("Controls", "hint"), True, clr.gry1)
         screen.blit(hint_surf, hint_surf.get_rect(center=(screen_width // 2, int(screen_height * 0.88))))
 
         pg.display.flip()
@@ -1227,10 +1266,9 @@ def DASBox(screen, imageStart):
     # Set up the font
     
     #input_box = pg.Rect(50, 50, 200, 32)
-    font = pg.font.Font(fontRusso, 36)
-    
-    
-    DASval = [dataJS['2'], dataJS['3']] 
+    font = get_font(36)
+
+    DASval = [t("DAS", "1"), t("DAS", "2")]
     dataDAS_len = [2,3]
 
     # Set up menu variables
@@ -1283,11 +1321,12 @@ def DASBox(screen, imageStart):
             key = i
             action_key = i + 10
             #key_pair = dasval[(i, 0)], dasval[(i, 1)]
-            if i == selected_option: #selected_option
-                # Highlight selected option
-                text = font.render(f"{dataJS[str(i+2)]}:{dataJS[str(i+2+10)]}", True, clr.wht, clr.purple)
+            label = DASval[i]
+            value = dataJS[str(i + 12)]
+            if i == selected_option:
+                text = font.render(f"{label}: {value}", True, clr.wht, clr.purple)
             else:
-                text = font.render(f"{dataJS[str(i+2)]}:{dataJS[str(i+2+10)]}", True, (0, 0, 0))
+                text = font.render(f"{label}: {value}", True, (0, 0, 0))
             text_rect = text.get_rect()
             text_rect.center = ((screen_width) //2, screen_height*0.6 + i * option_spacing)      #  - textSurface_score.get_width()
             screen.blit(text, text_rect) 

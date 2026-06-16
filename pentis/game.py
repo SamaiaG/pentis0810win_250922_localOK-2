@@ -185,7 +185,7 @@ def gameLoop(current_state, bool1, screen, username, score):
                     y = (self.zeile  + n // 5) * abstand    # n in Wert umwandeln - und eine zeile/Spalte herausfinden - nicht Spalte weil nur 4x4
                     x = (self.spalte + n % 5) * abstand    # in pixel koord -> mit abstand also quadratblock arbeiten
                     
-                    screen.blit(bilder2[farbe], (x,y))      # bilder = blocks 
+                    screen.blit(bilder[farbe], (x,y))
 
     @dataclass          #decorator      # self Platzhalter für späteren individuellen Objektnamen
     class Tetromino():
@@ -568,10 +568,10 @@ def gameLoop(current_state, bool1, screen, username, score):
 #def gameLoop(goon, figur, figurnext, randlist, screen, username):
     #numPentosLab = 7
     #numPentosLab = int(numPentosLab)  # String in Ganzzahl (Integer) umwandeln
-    #io.dataJS[str(11)] = numPentosLab
+    #io.dataJS[io.KEY_NUM_PENTOS] = numPentosLab
 
 
-    randlist = rnd.sample(range(0,io.dataJS[str(11)]),io.dataJS[str(11)])
+    randlist = rnd.sample(range(0,io.dataJS[io.KEY_NUM_PENTOS]),io.dataJS[io.KEY_NUM_PENTOS])
 
     def randNext(randlist):
         if len(randlist) >= 1: #ggf >=1 !!
@@ -585,7 +585,7 @@ def gameLoop(current_state, bool1, screen, username, score):
             
         if len(randlist) == 0:
             #randint = preview
-            newrandlist = rnd.sample(range(0, io.dataJS[str(11)]), io.dataJS[str(11)]) # soll = cls_pentos num_pentominoes
+            newrandlist = rnd.sample(range(0, io.dataJS[io.KEY_NUM_PENTOS]), io.dataJS[io.KEY_NUM_PENTOS]) # soll = cls_pentos num_pentominoes
 
             preview = newrandlist[0] 
             randlist = newrandlist
@@ -623,14 +623,14 @@ def gameLoop(current_state, bool1, screen, username, score):
     hoehe = abstand * zeilen
     grid = [0] * spalten * zeilen
 
-    gamefont = int(abstand * 1.2)
+    gamefont  = int(abstand * 1.2)
+    smallfont = int(gamefont * 0.8)
     infoW01 = 0.43
-    #infoW02 = 0.63
-    infoH01 = 0.6
-    infoH02 = 0.66
-    infoH03 = 0.7
-    infoH04 = 0.74
-    infoH05 = 0.78
+    infoH01 = 0.60
+    infoH02 = 0.67
+    infoH03 = 0.73
+    infoH04 = 0.79
+    infoH05 = 0.85
 
 
 
@@ -683,9 +683,9 @@ def gameLoop(current_state, bool1, screen, username, score):
     # Set the repeat rates for each key DAS !!!
     #repeat_rate_rl = 90  # milliseconds 70 - smaller->faster
     #initial_delay = 20
-    initial_delay = int(io.dataJS[str(12)])
-    repeat_rate_rl = int(io.dataJS[str(13)])  # milliseconds 70
-    speedOn = io.dataJS[str(14)]    # competon = 1 –> speedOn = 1 -
+    initial_delay = int(io.dataJS[io.KEY_DAS_DELAY])
+    repeat_rate_rl = int(io.dataJS[io.KEY_DAS_RATE])  # milliseconds 70
+    speedOn = io.dataJS[io.KEY_MODE]    # competon = 1 –> speedOn = 1 -
     #if speedOff == 1:
     #    speedOff = 0
     #else:
@@ -915,19 +915,19 @@ def gameLoop(current_state, bool1, screen, username, score):
         textSurface = io.get_font(gamefont).render(io.t("game", "level") + f' {level:}', False, (150,150,150))
         screen.blit(textSurface,(screen_width*infoW01, screen_height*0.42))
         #*******
-        textSurface = io.get_font(36).render(io.t("game", "username") + " " + io.dataJS["10"], False, (150,150,150))
+        textSurface = io.get_font(gamefont).render(io.t("game", "username") + " " + io.dataJS[io.KEY_USERNAME], False, (150,150,150))
         screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH01))
-        textSurface = io.get_font(gamefont).render(io.t("game", "pentominoes") + " " + io.t("Pentos", str(io.dataJS["11"])), False, (150,150,150))
+        textSurface = io.get_font(smallfont).render(io.t("game", "pentominoes") + " " + io.t("Pentos", str(io.dataJS[io.KEY_NUM_PENTOS])), False, (150,150,150))
         screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH02))
-        textSurface = io.get_font(gamefont).render(io.t("game", "mode") + " " + io.t("Mode", str(io.dataJS["14"])), False, (150,150,150))
+        textSurface = io.get_font(smallfont).render(io.t("game", "mode") + " " + io.t("Mode", str(io.dataJS[io.KEY_MODE])), False, (150,150,150))
         screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH03))
 
-        textSurface = io.get_font(gamefont).render(io.t("game", "initial_delay") + " " + str(io.dataJS["12"]), False, (150,150,150))
+        textSurface = io.get_font(smallfont).render(io.t("game", "initial_delay") + " " + str(io.dataJS[io.KEY_DAS_DELAY]), False, (150,150,150))
         screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH04))
-        textSurface = io.get_font(gamefont).render(io.t("game", "repeat_rate") + " " + str(io.dataJS["13"]), False, (150,150,150))
+        textSurface = io.get_font(smallfont).render(io.t("game", "repeat_rate") + " " + str(io.dataJS[io.KEY_DAS_RATE]), False, (150,150,150))
         screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH05))
-        textSurface = io.get_font(gamefont).render(io.t("game", "help"), False, (80, 80, 80))
-        screen.blit(textSurface,(screen_width*infoW01, screen_height*0.88)) 
+        textSurface = io.get_font(smallfont).render(io.t("game", "help"), False, (80, 80, 80))
+        screen.blit(textSurface,(screen_width*infoW01, screen_height*0.92))
 
 
         #def show():
@@ -941,7 +941,7 @@ def gameLoop(current_state, bool1, screen, username, score):
         #show()
             # pygame malt erst unsichbar im HG - erst nach Vorne (gleichzeitig ein neuer HB screeen) -flip - kein flackern
         pg.display.flip()       # 100/200 mal pro sekunde wird bildschirm durchlaufen - +1 - in 1 Sec 200 Zeilen runter
-    io.dataJS[str(13)] = str(repeat_rate_rl)
+    io.dataJS[io.KEY_DAS_RATE] = str(repeat_rate_rl)
     io.fileWriteData(io.dataJS)
     
     return current_state, score

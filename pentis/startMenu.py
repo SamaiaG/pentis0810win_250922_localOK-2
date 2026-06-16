@@ -52,14 +52,12 @@ def startMenuLoop(current_state, username):
 
                     elif selected_option == 1: # input username
                         username = io.inputBox2(screen, imageStart)
-                        io.dataJS["10"] = username
+                        io.dataJS[io.KEY_USERNAME] = username
                         selected_option = 0
                         # no bool1 = False ===> still in this
                          
                     elif selected_option == 2: # Highscores
                         io.highscoreBox(screen, imageStart)
-                        
-                        print("online highscores will be available asap")
 
  
                     elif selected_option == 3: # options
@@ -87,16 +85,23 @@ def startMenuLoop(current_state, username):
             text_rect.center = ((screen_width) //2, screen_height*0.6 + i * option_spacing)      #  - textSurface_score.get_width()
             screen.blit(text, text_rect)
             
-        modeStr = "Mode: " + io.iText["en"]["Mode"][str(io.dataJS["14"])]
-        diffStr = "Pentominoes: " + io.iText["en"]["Pentos"][str((io.dataJS["11"]))]
-        usernameStr = "Username: " + io.dataJS["10"]        
-        infoL.draw_info(modeStr, diffStr, usernameStr)
-        infoR.draw_info("H  Help")
-        
+        gap_size  = screen_width // 60
+        info_x    = int(screen_width * 0.01) + gap_size
+        info_y    = int(screen_height * 0.8) + gap_size * 3
+        info_font = io.get_font(gap_size)
 
-        if io.dataJS["10"] == "Norbert Noname":
-            textSurface = io.get_font(26).render(io.t("sM", "username_warn"), False, clr.red3)
-            screen.blit(textSurface,(screen_width*0.01, screen_height*0.93)) 
-            # pygame malt erst unsichbar im HG - erst nach Vorne (gleichzeitig ein neuer HB screeen) -flip - kein flackern
+        modeStr = io.t("game", "mode") + " " + io.t("Mode", str(io.dataJS[io.KEY_MODE]))
+        diffStr = io.t("game", "pentominoes") + " " + io.t("Pentos", str(io.dataJS[io.KEY_NUM_PENTOS]))
+        infoL.draw_info(modeStr, diffStr, font=info_font)
+        infoR.draw_info(io.t("game", "help"), font=info_font)
+
+        usernameStr  = io.t("game", "username") + " " + io.dataJS[io.KEY_USERNAME]
+        username_surf = info_font.render(usernameStr, True, (55, 55, 55))
+        screen.blit(username_surf, (info_x, info_y))
+
+        if not io.dataJS[io.KEY_USERNAME] or io.dataJS[io.KEY_USERNAME] == "Norbert Noname":
+            warn_font = pg.font.Font(io.fontRoboto, gap_size)
+            warn_surf = warn_font.render(io.t("sM", "username_warn"), True, clr.red3)
+            screen.blit(warn_surf, (info_x + username_surf.get_width() + 6, info_y))
         pg.display.flip()
     return current_state

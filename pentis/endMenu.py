@@ -44,14 +44,14 @@ def endLoop(current_state, bool1, score, imageEnd):
 
         clearGrid(grid)
 
-        textSurface_username = pg.font.SysFont('Consolas', 42).render(f'{io.dataJS["10"]}', False, (231,151,4))
-        textSurface_username_bg = pg.font.SysFont('Consolas', 42).render(f'{io.dataJS["10"]}', False, (100,100,100))        
-        textSurface_score = pg.font.SysFont('Consolas', 42).render(f'{io.t("eM", "highscore")}  {score:,}', False, (231,151,4))
-        textSurface_score_bg = pg.font.SysFont('Consolas', 42).render(f'{io.t("eM", "highscore")}  {score:,}', False, (100,100,100))
-        textSurface_enter = pg.font.SysFont('Consolas', 38).render(io.t("eM", "enter"), False, (196,44,39))
-        textSurface_enter_bg = pg.font.SysFont('Consolas', 38).render(io.t("eM", "enter"), False, (110,110,110))
-        textSurface_esc = pg.font.SysFont('Consolas', 34).render(io.t("eM", "esc"), False, (126,26,52))
-        textSurface_esc_bg = pg.font.SysFont('Consolas', 34).render(io.t("eM", "esc"), False, (80,80,80))
+        textSurface_username    = io.get_font(42).render(f'{io.dataJS[io.KEY_USERNAME]}', False, (231,151,4))
+        textSurface_username_bg = io.get_font(42).render(f'{io.dataJS[io.KEY_USERNAME]}', False, (100,100,100))
+        textSurface_score       = io.get_font(42).render(f'{io.t("eM", "highscore")}  {score:,}', False, (231,151,4))
+        textSurface_score_bg    = io.get_font(42).render(f'{io.t("eM", "highscore")}  {score:,}', False, (100,100,100))
+        textSurface_enter       = io.get_font(38).render(io.t("eM", "enter"), False, (196,44,39))
+        textSurface_enter_bg    = io.get_font(38).render(io.t("eM", "enter"), False, (110,110,110))
+        textSurface_esc         = io.get_font(34).render(io.t("eM", "esc"), False, (126,26,52))
+        textSurface_esc_bg      = io.get_font(34).render(io.t("eM", "esc"), False, (80,80,80))
 
         screen.blit(textSurface_username_bg,((screen_width - textSurface_username_bg.get_width())//2, screen_height//2+1))
         screen.blit(textSurface_username,((screen_width - textSurface_username.get_width()) //2, screen_height//2))
@@ -64,7 +64,6 @@ def endLoop(current_state, bool1, score, imageEnd):
         screen.blit(imageEnd, ((screen_width - imageE_width)//2, screen_height//5))
         pg.display.flip()
     
-    return current_state, score    
-    pg.quit() # <-> pg.init
+    return current_state, score
 
 

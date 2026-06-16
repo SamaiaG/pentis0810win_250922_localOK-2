@@ -26,19 +26,16 @@ class DynamicDisplay:
         self.font = pygame.font.Font(fontPrototype, font_size)
 
 
-    def draw_info(self, *args):
-        #length ist nur Platzhalter car für in dem Fall yFactor -> wird beim AUFRUFEN verwendet !!!
+    def draw_info(self, *args, font=None):
+        used_font = font if font else self.font
         self.args = args
         length = len(args)
         for int in range (length):
-        # content zeichnen
-            #print("args[int]", args[int]) #tuple
             inColor = (55, 55, 55)
-            title_surface = self.font.render(args[int], True, inColor)
+            title_surface = used_font.render(args[int], True, inColor)
             title_rect = title_surface.get_rect()
-            #title_rect.topleft = self.rect.topleft
-            title_rect.x = self.rect.x + self.gap_size 
-            title_rect.y = self.rect.y + self.gap_size * (int+1) #height 
+            title_rect.x = self.rect.x + self.gap_size
+            title_rect.y = self.rect.y + self.gap_size * (int+1)
             self.screen.blit(title_surface, title_rect)
             
 

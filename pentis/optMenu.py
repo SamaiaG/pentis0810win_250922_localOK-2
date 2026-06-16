@@ -20,7 +20,7 @@ screen = pg.display.set_mode((screen_width, screen_height))
 global numPentos    #11=std  12=L  13=u
 numPentos = 13
 
-option_spacing = 50
+option_spacing = 36
 competOn = 1
 goonStart, goon, goonEnd = True, True, False
 
@@ -32,9 +32,9 @@ infoR = DynamicDisplay(screen, screen_width*0.8, screen_height*0.8, 100, 150) # 
 def _build_opts():
     oM = io.iText[io.current_lang]
     options     = [oM["oM"][str(i)] for i in range(1, 7)]
-    modeStr     = oM["game"]["mode"]        + " " + oM["Mode"][str(io.dataJS["14"])]
-    diffStr     = oM["game"]["pentominoes"] + " " + oM["Pentos"][str(io.dataJS["11"])]
-    usernameStr = oM["game"]["username"]    + " " + io.dataJS["10"]
+    modeStr     = oM["game"]["mode"]        + " " + oM["Mode"][str(io.dataJS[io.KEY_MODE])]
+    diffStr     = oM["game"]["pentominoes"] + " " + oM["Pentos"][str(io.dataJS[io.KEY_NUM_PENTOS])]
+    usernameStr = oM["game"]["username"]    + " " + io.dataJS[io.KEY_USERNAME]
     return options, modeStr, diffStr, usernameStr
 
 def optMenuLoop(current_state, bool1, screen, username):
@@ -64,19 +64,19 @@ def optMenuLoop(current_state, bool1, screen, username):
                                                         
                 if event.key == pg.K_RETURN:
                     if selected_option == 0:        # mode
-                        numPentos = io.dataJS[str(11)]
+                        numPentos = io.dataJS[io.KEY_NUM_PENTOS]
                         numPentos, competOn = io.modeOpts(screen, imageStart, infoL)
-                        io.dataJS[str(11)] = numPentos
-                        io.dataJS[str(14)] = competOn
+                        io.dataJS[io.KEY_NUM_PENTOS] = numPentos
+                        io.dataJS[io.KEY_MODE] = competOn
                         io.fileWriteData(io.dataJS)
                         
                         
 
                     elif selected_option == 1:        # pentominoes - "definded by the Number (and diversity of pentominoes )"
-                        numPentos = io.dataJS[str(11)]
+                        numPentos = io.dataJS[io.KEY_NUM_PENTOS]
                         numPentos, competOn = io.pentosOpts(screen, imageStart, infoL)
-                        io.dataJS[str(11)] = numPentos
-                        io.dataJS[str(14)] = competOn
+                        io.dataJS[io.KEY_NUM_PENTOS] = numPentos
+                        io.dataJS[io.KEY_MODE] = competOn
                         io.fileWriteData(io.dataJS)
                         
 
@@ -106,22 +106,26 @@ def optMenuLoop(current_state, bool1, screen, username):
         for i in range(len(options)):
             if i == selected_option:
                 # Highlight selected option
-                text = io.get_font(36).render(options[i], True, clr.wht, clr.purple)
+                text = io.get_font(26).render(options[i], True, clr.wht, clr.purple)
             else:
-                text = io.get_font(36).render(options[i], True, (0, 0, 0))
+                text = io.get_font(26).render(options[i], True, (0, 0, 0))
             text_rect = text.get_rect()
             text_rect.center = ((screen_width) //2, screen_height*0.6 + i * option_spacing)      #  - textSurface_score.get_width()
             screen.blit(text, text_rect) 
 
-        infoL.draw_info(modeStr, diffStr, usernameStr)
-        infoR.draw_info(io.t("game", "help"))
+        info_font = io.get_font(screen_width // 60)
+        infoL.draw_info(modeStr, diffStr, usernameStr, font=info_font)
+        infoR.draw_info(io.t("game", "help"), font=info_font)
         
         
-        if io.dataJS["10"] == "Norbert Noname":
-            textSurface = io.get_font(26).render(io.t("sM", "username_warn"), False, clr.red3)
-            screen.blit(textSurface,(screen_width*0.01, screen_height*0.93)) 
-        
-            # pygame malt erst unsichbar im HG - erst nach Vorne (gleichzeitig ein neuer HB screeen) -flip - kein flackern
+        if not io.dataJS[io.KEY_USERNAME] or io.dataJS[io.KEY_USERNAME] == "Norbert Noname":
+            gap_size     = screen_width // 60
+            info_x       = int(screen_width * 0.01) + gap_size
+            info_y       = int(screen_height * 0.8) + gap_size * 3
+            warn_font    = pg.font.Font(io.fontRoboto, gap_size)
+            username_w   = warn_font.render(io.t("game", "username") + " " + io.dataJS[io.KEY_USERNAME], True, (0,0,0)).get_width()
+            warn_surf    = warn_font.render(io.t("sM", "username_warn"), True, clr.red3)
+            screen.blit(warn_surf, (info_x + username_w + 6, info_y))
         pg.display.flip()
     return current_state
 

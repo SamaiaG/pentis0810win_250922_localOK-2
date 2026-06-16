@@ -29,9 +29,9 @@ def main():
             current_state, score = gameLoop(current_state, True, screen, io.username, score)
 
             # Save highscores if not in practice mode and score > 0
-            if score > 0 and io.dataJS["14"] == 1:  # 14: practOn (1 = practice off = save scores)
-                dataName = io.dataJS["10"]  # username
-                dataMode = io.dataJS["11"]  # Mode: 11=std, 12=adv, 13=pro
+            if score > 0 and io.dataJS[io.KEY_MODE] == 1:
+                dataName = io.dataJS[io.KEY_USERNAME]
+                dataMode = io.dataJS[io.KEY_NUM_PENTOS]
                 addHighscoresJS(dataMode, dataName, score)
             elif score > 0:
                 print("Practice mode: Score not saved - Please try again in Standard/Advanced/Pro mode!")

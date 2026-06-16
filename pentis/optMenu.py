@@ -130,9 +130,9 @@ def optMenuLoop(current_state, bool1, screen, username):
         for i in range(len(options)):
             if i == selected_option:
                 # Highlight selected option
-                text = font.render(options[i], True, clr.wht, clr.purple)
+                text = io.get_font(36).render(options[i], True, clr.wht, clr.purple)
             else:
-                text = font.render(options[i], True, (0, 0, 0))
+                text = io.get_font(36).render(options[i], True, (0, 0, 0))
             text_rect = text.get_rect()
             text_rect.center = ((screen_width) //2, screen_height*0.6 + i * option_spacing)      #  - textSurface_score.get_width()
             screen.blit(text, text_rect) 
@@ -142,7 +142,7 @@ def optMenuLoop(current_state, bool1, screen, username):
         
         
         if io.dataJS["10"] == "Norbert Noname":
-            textSurface = pg.font.SysFont('OCR A Extended', 26).render(io.t("sM", "username_warn"), False, clr.red3)
+            textSurface = io.get_font(26).render(io.t("sM", "username_warn"), False, clr.red3)
             screen.blit(textSurface,(screen_width*0.01, screen_height*0.93)) 
         
             # pygame malt erst unsichbar im HG - erst nach Vorne (gleichzeitig ein neuer HB screeen) -flip - kein flackern

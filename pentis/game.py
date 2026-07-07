@@ -340,16 +340,8 @@ def gameLoop(current_state, bool1, screen, username, score):
                                                                 # 1.zeile - 1x10 = index 10 : 1x10+20 = 20
                 grid[0:0] = [0]*spalten 
                 lines += 1
-                if lines == 1:
-                    sfxLines01.play()
-                elif lines == 2:
-                    sfxLines01.play()
-                elif lines == 3:
-                    sfxLines01.play()
-                elif lines == 4:
-                    sfxLines01.play()
-                elif lines == 5:
-                    sfxLines02.play()
+                if io.dataJS[io.KEY_SFX]:
+                    [sfxReihe1, sfxReihe2, sfxReihe3, sfxReihe4, sfxReihe5][min(lines, 5) - 1].play()
         #newLines = lines + 1.3 
            
         return lines, lines**2*100
@@ -516,6 +508,7 @@ def gameLoop(current_state, bool1, screen, username, score):
             clock.tick(60)
 
     def gamePause(current_state):
+        pg.mixer.music.pause()
         pause_options = [io.t("Pause", "resume"), io.t("Pause", "end_game"), io.t("Pause", "new_game")]
         selected = 0
         option_spacing = 60
@@ -531,6 +524,8 @@ def gameLoop(current_state, bool1, screen, username, score):
                         selected = (selected + 1) % len(pause_options)
                     elif event.key in (pg.K_RETURN, pg.K_p):
                         if selected == 0:
+                            if io.dataJS[io.KEY_MUSIC]:
+                                pg.mixer.music.unpause()
                             return True, current_state
                         elif selected == 1:
                             if endGameConfirm():
@@ -539,6 +534,8 @@ def gameLoop(current_state, bool1, screen, username, score):
                             if newGameConfirm():
                                 return False, GAME
                     elif event.key == pg.K_ESCAPE:
+                        if io.dataJS[io.KEY_MUSIC]:
+                            pg.mixer.music.unpause()
                         return True, current_state
 
             screen.blit(io.imageStart, (0, 0))
@@ -584,10 +581,10 @@ def gameLoop(current_state, bool1, screen, username, score):
             preview = randlist[0] # das preview muss irgendwie next randint werden
             
         if len(randlist) == 0:
-            #randint = preview
-            newrandlist = rnd.sample(range(0, io.dataJS[io.KEY_NUM_PENTOS]), io.dataJS[io.KEY_NUM_PENTOS]) # soll = cls_pentos num_pentominoes
-
-            preview = newrandlist[0] 
+            newrandlist = rnd.sample(range(0, io.dataJS[io.KEY_NUM_PENTOS]), io.dataJS[io.KEY_NUM_PENTOS])
+            if newrandlist[0] == randint:
+                newrandlist = newrandlist[1:] + [newrandlist[0]]
+            preview = newrandlist[0]
             randlist = newrandlist
 
         return randint, randlist, preview #, randintnext, randlistnext
@@ -642,10 +639,8 @@ def gameLoop(current_state, bool1, screen, username, score):
     screen = pg.display.set_mode(monitor_size90)
     #pg.display.set_caption(goonTitle)
     pg.mixer.music.load(ost02)
-    #if pg.mixer.music.get_busy():
-    #    pg.mixer.music.play(-1,0.0,0)
-    #    pg.mixer.music.play()
-    toggleMusic()
+    if io.dataJS[io.KEY_MUSIC]:
+        pg.mixer.music.play(-1)
 
     if os.name == 'nt':  # Windows
 
@@ -654,24 +649,36 @@ def gameLoop(current_state, bool1, screen, username, score):
         #sfxRot02 = pg.mixer.Sound("sound\\rotate02.mp3")
         #sfxRot180 = pg.mixer.Sound("sound\\rotate180.mp3")
         #sfxDown01 = pg.mixer.Sound("sound\\down02.mp3")
-        sfxLines01 = pg.mixer.Sound("sound\\lines01.mp3")
-        sfxLines02 = pg.mixer.Sound("sound\\lines02.mp3")
-        #sfxLines03 = pg.mixer.Sound("sound\\lines03.mp3")
-        #sfxLines04 = pg.mixer.Sound("sound\\lines04.mp3")
-        #sfxLines05 = pg.mixer.Sound("sound\\lines05.mp3")
-        sfxMenu01 = pg.mixer.Sound("sound\\menu01.mp3")
+        sfxReihe1  = pg.mixer.Sound("sound\\PentisSFX\\Reihe1.mp3")
+        sfxReihe2  = pg.mixer.Sound("sound\\PentisSFX\\Reihe2.mp3")
+        sfxReihe3  = pg.mixer.Sound("sound\\PentisSFX\\Reihe3.mp3")
+        sfxReihe4  = pg.mixer.Sound("sound\\PentisSFX\\Reihe4.mp3")
+        sfxReihe5  = pg.mixer.Sound("sound\\PentisSFX\\Reihe5.mp3")
+        sfxStompf  = pg.mixer.Sound("sound\\PentisSFX\\Stompf.mp3")
+        sfxRotCCW  = pg.mixer.Sound("sound\\PentisSFX\\RotateLink.mp3")
+        sfxRotCW   = pg.mixer.Sound("sound\\PentisSFX\\RotateRechts.mp3")
+        sfxRot180  = pg.mixer.Sound("sound\\rotate180.mp3")
+        sfxDown01  = pg.mixer.Sound("sound\\down01.mp3")
+        sfxDown02  = pg.mixer.Sound("sound\\down02.mp3")
+        sfxMenu01  = pg.mixer.Sound("sound\\menu01.mp3")
     else:
-        #sfx01 = pg.mixer.Sound("sound/blockHit.wav")
-        #sfxRot01 = pg.mixer.Sound("sound/rotate01.mp3")
-        #sfxRot02 = pg.mixer.Sound("sound/rotate02.mp3")
-        #sfxRot180 = pg.mixer.Sound("sound/rotate180.mp3")
-        #sfxDown01 = pg.mixer.Sound("sound/down02.mp3")
-        sfxLines01 = pg.mixer.Sound("sound/lines01.mp3")
-        sfxLines02 = pg.mixer.Sound("sound/lines02.mp3")
-        #sfxLines03 = pg.mixer.Sound("sound/lines03.mp3")
-        #sfxLines04 = pg.mixer.Sound("sound/lines04.mp3")
-        #sfxLines05 = pg.mixer.Sound("sound/lines05.mp3")
-        sfxMenu01 = pg.mixer.Sound("sound/menu01.mp3")
+        sfxReihe1  = pg.mixer.Sound("sound/PentisSFX/Reihe1.mp3")
+        sfxReihe2  = pg.mixer.Sound("sound/PentisSFX/Reihe2.mp3")
+        sfxReihe3  = pg.mixer.Sound("sound/PentisSFX/Reihe3.mp3")
+        sfxReihe4  = pg.mixer.Sound("sound/PentisSFX/Reihe4.mp3")
+        sfxReihe5  = pg.mixer.Sound("sound/PentisSFX/Reihe5.mp3")
+        sfxStompf  = pg.mixer.Sound("sound/PentisSFX/Stompf.mp3")
+        sfxRotCCW  = pg.mixer.Sound("sound/PentisSFX/RotateLink.mp3")
+        sfxRotCW   = pg.mixer.Sound("sound/PentisSFX/RotateRechts.mp3")
+        sfxRot180  = pg.mixer.Sound("sound/rotate180.mp3")
+        sfxDown01  = pg.mixer.Sound("sound/down01.mp3")
+        sfxDown02  = pg.mixer.Sound("sound/down02.mp3")
+        sfxMenu01  = pg.mixer.Sound("sound/menu01.mp3")
+
+    for sfx in (sfxReihe1, sfxReihe2, sfxReihe3, sfxReihe4, sfxReihe5,
+                sfxStompf, sfxRotCCW, sfxRotCW, sfxRot180,
+                sfxDown01, sfxDown02, sfxMenu01):
+        sfx.set_volume(0.75)
 
     pg.event.wait()
     #repDelay = 120
@@ -779,8 +786,10 @@ def gameLoop(current_state, bool1, screen, username, score):
                
             if event.type == tetrominodown:     # = USEREVENT1
                 if not figur.update(1,0):       # 1 runter // + man kann func auch einf als if-Bedingung verwenden !!!
-                                                              # die func WIRD ausgeführt UND dient dann 
+                                                              # die func WIRD ausgeführt UND dient dann
                     objToGrid()
+                    if io.dataJS[io.KEY_SFX]:
+                        sfxStompf.play()
                     if not figur.bool2lab:
                         bool1 = False
                         current_state = END_SCREEN
@@ -844,36 +853,43 @@ def gameLoop(current_state, bool1, screen, username, score):
                 if event.key == io.game_keys[str((11))]:    #right
                     figur.update(0,1)
                 if event.key == io.game_keys[str((12))]:    #down
-                    if event.type != tetrominodown:         # elif ??!
+                    if event.type != tetrominodown:
                         figur.update(1,0)
+                        if io.dataJS[io.KEY_SFX]:
+                            sfxDown01.play()
                 if event.key == io.game_keys[str((16))]:    #smash space
                     if event.type != tetrominodown:
                         linesDown = figur.drop(figur.zeile, figur.spalte)
                         figur.update(linesDown, 0)
                         objToGrid()
-                        #sfxDown01.play()
-                        
-               
-                                                                      
-                #if event.key == pg.K_RIGHT and pg.K_DOWN:
+                        if io.dataJS[io.KEY_SFX]:
+                            sfxDown02.play()
+                            sfxStompf.play()
 
                 if event.key == io.game_keys[str(13)]:
                     figur.rotate()
+                    if io.dataJS[io.KEY_SFX]:
+                        sfxRotCCW.play()
                 if event.key == io.game_keys[str(14)]:
                     figur.rotateCW()
+                    if io.dataJS[io.KEY_SFX]:
+                        sfxRotCW.play()
                 if event.key == io.game_keys[str(15)]:
                     figur.rotate180()
-                    #sfxRot180.play()   
+                    if io.dataJS[io.KEY_SFX]:
+                        sfxRot180.play()   
                 #if event.key == pg.K_u:
                 #    repeat_rate_rl = repeat_rate_rl - 10
                 #if event.key == pg.K_j:
                 #    repeat_rate_rl = repeat_rate_rl + 10        
                 
                 if event.key == pg.K_ESCAPE:
-                    sfxMenu01.play()
+                    if io.dataJS[io.KEY_SFX]:
+                        sfxMenu01.play()
                     bool1, current_state = gamePause(current_state)
                 if event.key == pg.K_p:
-                    sfxMenu01.play()
+                    if io.dataJS[io.KEY_SFX]:
+                        sfxMenu01.play()
                     bool1, current_state = gamePause(current_state)
                 if event.key == pg.K_m:
                     toggleMusic()
@@ -915,8 +931,10 @@ def gameLoop(current_state, bool1, screen, username, score):
         textSurface = io.get_font(gamefont).render(io.t("game", "level") + f' {level:}', False, (150,150,150))
         screen.blit(textSurface,(screen_width*infoW01, screen_height*0.42))
         #*******
-        textSurface = io.get_font(gamefont).render(io.t("game", "username") + " " + io.dataJS[io.KEY_USERNAME], False, (150,150,150))
-        screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH01))
+        _u = io.dataJS[io.KEY_USERNAME]
+        if _u and _u != "Norbert Noname" and io.dataJS[io.KEY_MODE] != 0:
+            textSurface = io.get_font(gamefont).render(io.t("game", "username") + " " + _u, False, (150,150,150))
+            screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH01))
         textSurface = io.get_font(smallfont).render(io.t("game", "pentominoes") + " " + io.t("Pentos", str(io.dataJS[io.KEY_NUM_PENTOS])), False, (150,150,150))
         screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH02))
         textSurface = io.get_font(smallfont).render(io.t("game", "mode") + " " + io.t("Mode", str(io.dataJS[io.KEY_MODE])), False, (150,150,150))
@@ -928,6 +946,8 @@ def gameLoop(current_state, bool1, screen, username, score):
         screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH05))
         textSurface = io.get_font(smallfont).render(io.t("game", "help"), False, (80, 80, 80))
         screen.blit(textSurface,(screen_width*infoW01, screen_height*0.92))
+        textSurface = io.get_font(smallfont).render(io.t("game", "music_toggle"), False, (80, 80, 80))
+        screen.blit(textSurface,(screen_width*infoW01, screen_height*0.96))
 
 
         #def show():

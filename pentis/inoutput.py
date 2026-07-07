@@ -63,20 +63,22 @@ iText = {
   "en": {
     "sM": {
       "01": "START GAME",
-      "02": "USERNAME",
-      "03": "SCOREBOARD",
-      "04": "OPTIONS",
-      "05": "QUIT",
+      "02": "SCOREBOARD",
+      "03": "OPTIONS",
+      "04": "QUIT",
       "username_warn":  "Please set your own username!",
       "input_username": "Please set your own username  (-> Enter):",
+      "username_empty": "Username cannot be empty.",
     },
     "oM": {
-      "1": "Mode",
-      "2": "Pentominoes",
-      "3": "DAS",
-      "4": "Controls",
-      "5": "Language",
-      "6": "Back",
+      "1": "Username",
+      "2": "Mode",
+      "3": "Difficulty",
+      "4": "DAS",
+      "5": "Sounds",
+      "6": "Controls",
+      "7": "Language",
+      "8": "Back",
     },
     "Mode": {
       "0": "Practice",
@@ -102,6 +104,13 @@ iText = {
       "1": "Initial Delay",
       "2": "Repeat Rate",
       "input": "New DAS value (11-99)  (-> Enter):",
+    },
+    "Sounds": {
+      "music": "Music",
+      "sfx":   "Sound Effects",
+      "on":    "ON",
+      "off":   "OFF",
+      "hint":  "UP/DOWN select    SPACE toggle    ESC save & exit",
     },
     "Controls": {
       "0": "Left",
@@ -149,20 +158,44 @@ iText = {
     "game": {
       "level":         "Level:",
       "username":      "Username:",
-      "pentominoes":   "Pentominoes:",
+      "pentominoes":   "Difficulty:",
       "mode":          "Mode:",
       "initial_delay": "Initial Delay:",
       "repeat_rate":   "Repeat Rate:",
       "help":          "H - Help",
+      "music_toggle":  "M - Music",
     },
     "eM": {
       "highscore": "Highscore",
       "enter":     "Press Enter to go to main menu",
       "esc":       "Press ESC to close",
     },
+    "modeSelect": {
+      "title": "PLAYING MODE",
+    },
+    "username_conflict": {
+      "line1": "\"{name}\" is already taken.",
+      "line2": "Do you want to use it anyway?",
+      "yes":   "YES",
+      "no":    "NO",
+    },
     "help": {
-      "title": "HELP",
-      "close": "ESC / ENTER  to close",
+      "title":      "HELP",
+      "close":      "ESC / ENTER  to close",
+      "controls":   "CONTROLS",
+      "pause_key":  "P / ESC   Pause",
+      "music_key":  "M   Music",
+      "help_key":   "H   Help",
+      "objective":  "OBJECTIVE",
+      "obj1":       "Fill complete rows of blocks to clear them.",
+      "obj2":       "Pentominoes are 5-block shapes.",
+      "modes":      "MODES",
+      "modes_prac": "Practice: no speedup, scores not saved.",
+      "modes_comp": "Competitive: speeds up, scores saved.",
+      "difficulty": "DIFFICULTY",
+      "scoring":    "SCORING",
+      "score1":     "Points for each piece placed.",
+      "score2":     "More lines at once = bigger bonus.",
     },
     "scoreboard": {
       "title":     "SCOREBOARD",
@@ -177,20 +210,22 @@ iText = {
   "de": {
     "sM": {
       "01": "SPIEL STARTEN",
-      "02": "BENUTZERNAME",
-      "03": "BESTENLISTE",
-      "04": "OPTIONEN",
-      "05": "BEENDEN",
+      "02": "BESTENLISTE",
+      "03": "OPTIONEN",
+      "04": "BEENDEN",
       "username_warn":  "Bitte eigenen Benutzernamen setzen!",
       "input_username": "Bitte Benutzernamen eingeben  (-> Enter):",
+      "username_empty": "Benutzername darf nicht leer sein.",
     },
     "oM": {
-      "1": "Modus",
-      "2": "Pentominoes",
-      "3": "DAS",
-      "4": "Steuerung",
-      "5": "Sprache",
-      "6": "Zurück",
+      "1": "Benutzername",
+      "2": "Modus",
+      "3": "Schwierigkeit",
+      "4": "DAS",
+      "5": "Klänge",
+      "6": "Steuerung",
+      "7": "Sprache",
+      "8": "Zurück",
     },
     "Mode": {
       "0": "Übung",
@@ -216,6 +251,13 @@ iText = {
       "1": "Anfangsverz.",
       "2": "Wiederholrate",
       "input": "Neuen DAS-Wert eingeben (11-99)  (-> Enter):",
+    },
+    "Sounds": {
+      "music": "Musik",
+      "sfx":   "Soundeffekte",
+      "on":    "AN",
+      "off":   "AUS",
+      "hint":  "HOCH/RUNTER wählen    LEERTASTE umschalten    ESC speichern",
     },
     "Controls": {
       "0": "Links",
@@ -263,20 +305,44 @@ iText = {
     "game": {
       "level":         "Level:",
       "username":      "Benutzer:",
-      "pentominoes":   "Pentominoes:",
+      "pentominoes":   "Schwierigkeit:",
       "mode":          "Modus:",
       "initial_delay": "Anfangsverz.:",
       "repeat_rate":   "Wiederholrate:",
       "help":          "H - Hilfe",
+      "music_toggle":  "M - Musik",
     },
     "eM": {
       "highscore": "Bestpunktzahl",
       "enter":     "Enter drücken für Hauptmenü",
       "esc":       "ESC drücken zum Schliessen",
     },
+    "modeSelect": {
+      "title": "SPIELMODUS",
+    },
+    "username_conflict": {
+      "line1": "\"{name}\" ist bereits vergeben.",
+      "line2": "Möchtest du diesen Namen verwenden?",
+      "yes":   "JA",
+      "no":    "NEIN",
+    },
     "help": {
-      "title": "HILFE",
-      "close": "ESC / ENTER  zum Schliessen",
+      "title":      "HILFE",
+      "close":      "ESC / ENTER  zum Schliessen",
+      "controls":   "STEUERUNG",
+      "pause_key":  "P / ESC   Pause",
+      "music_key":  "M   Musik",
+      "help_key":   "H   Hilfe",
+      "objective":  "ZIEL",
+      "obj1":       "Fülle Reihen komplett, um sie zu löschen.",
+      "obj2":       "Pentominoes sind Formen aus 5 Blöcken.",
+      "modes":      "MODI",
+      "modes_prac": "Übung: kein Beschleunigen, kein Speichern.",
+      "modes_comp": "Wettbewerb: Beschleunigung, Score gespeichert.",
+      "difficulty": "SCHWIERIGKEIT",
+      "scoring":    "PUNKTE",
+      "score1":     "Punkte für jeden platzierten Stein.",
+      "score2":     "Mehr Reihen auf einmal = grösserer Bonus.",
     },
     "scoreboard": {
       "title":     "BESTENLISTE",
@@ -291,20 +357,22 @@ iText = {
   "ro": {
     "sM": {
       "01": "START JOC",
-      "02": "JUCĂTOR",
-      "03": "CLASAMENT",
-      "04": "OPŢIUNI",
-      "05": "IEŞIRE",
+      "02": "CLASAMENT",
+      "03": "OPŢIUNI",
+      "04": "IEŞIRE",
       "username_warn":  "Setează propriul nume de utilizator!",
       "input_username": "Introdu propriul nume  (-> Enter):",
+      "username_empty": "Numele nu poate fi gol.",
     },
     "oM": {
-      "1": "Mod",
-      "2": "Pentominouri",
-      "3": "DAS",
-      "4": "Controale",
-      "5": "Limba",
-      "6": "Înapoi",
+      "1": "Jucător",
+      "2": "Mod",
+      "3": "Dificultate",
+      "4": "DAS",
+      "5": "Sunete",
+      "6": "Controale",
+      "7": "Limbă",
+      "8": "Înapoi",
     },
     "Mode": {
       "0": "Practică",
@@ -330,6 +398,13 @@ iText = {
       "1": "Întârziere iniţială",
       "2": "Rata de repetare",
       "input": "Valoare DAS nouă (11-99)  (-> Enter):",
+    },
+    "Sounds": {
+      "music": "Muzică",
+      "sfx":   "Efecte sonore",
+      "on":    "PORNIT",
+      "off":   "OPRIT",
+      "hint":  "SUS/JOS selectare    SPAŢIU comutare    ESC salvare",
     },
     "Controls": {
       "0": "Stânga",
@@ -377,20 +452,44 @@ iText = {
     "game": {
       "level":         "Nivel:",
       "username":      "Jucător:",
-      "pentominoes":   "Pentominouri:",
+      "pentominoes":   "Dificultate:",
       "mode":          "Mod:",
       "initial_delay": "Întârziere iniţială:",
       "repeat_rate":   "Rata de repetare:",
       "help":          "H - Ajutor",
+      "music_toggle":  "M - Muzică",
     },
     "eM": {
       "highscore": "Scor maxim",
       "enter":     "Apasă Enter pentru meniu principal",
       "esc":       "Apasă ESC pentru a închide",
     },
+    "modeSelect": {
+      "title": "MOD DE JOC",
+    },
+    "username_conflict": {
+      "line1": "\"{name}\" este deja folosit.",
+      "line2": "Vrei să folosesti oricum acest nume?",
+      "yes":   "DA",
+      "no":    "NU",
+    },
     "help": {
-      "title": "AJUTOR",
-      "close": "ESC / ENTER  pentru a închide",
+      "title":      "AJUTOR",
+      "close":      "ESC / ENTER  pentru a închide",
+      "controls":   "CONTROALE",
+      "pause_key":  "P / ESC   Pauză",
+      "music_key":  "M   Muzică",
+      "help_key":   "H   Ajutor",
+      "objective":  "OBIECTIV",
+      "obj1":       "Umple rânduri complete pentru a le şterge.",
+      "obj2":       "Pentominouri au câte 5 blocuri.",
+      "modes":      "MODURI",
+      "modes_prac": "Practică: fără accelerare, scor nesalvat.",
+      "modes_comp": "Competitiv: accelerare, scor salvat.",
+      "difficulty": "DIFICULTATE",
+      "scoring":    "PUNCTAJ",
+      "score1":     "Puncte pentru fiecare piesă plasată.",
+      "score2":     "Mai multe rânduri deodată = bonus mai mare.",
     },
     "scoreboard": {
       "title":     "CLASAMENT",
@@ -498,6 +597,8 @@ KEY_DAS_DELAY  = "12"
 KEY_DAS_RATE   = "13"
 KEY_MODE       = "14"
 KEY_LANG       = "lang"
+KEY_MUSIC      = "music"
+KEY_SFX        = "sfx"
 
 dataJS = {
     0: "Username", 10: 'Norbert Noname', # erstmal einf nicht verwenden - am Ende switchen
@@ -573,6 +674,8 @@ def fileRead(file_path_keys):
 
 #game_configs
 dataJS = fileReadData()     # bei jeden Start werden die Dateien in ~/Pentis eingelesen
+dataJS.setdefault(KEY_MUSIC, False)
+dataJS.setdefault(KEY_SFX,   True)
 current_lang = dataJS.get(KEY_LANG, "en")
 game_keys = fileReadKeys()
 game_scores = fileRead(file_path_scores)
@@ -584,8 +687,11 @@ game_scores = fileRead(file_path_scores)
 def toggleMusic():
     if pg.mixer.music.get_busy():
         pg.mixer.music.stop()
+        dataJS[KEY_MUSIC] = False
     else:
-        pg.mixer.music.play()
+        pg.mixer.music.play(-1)
+        dataJS[KEY_MUSIC] = True
+    fileWriteData(dataJS)
 
 def restartMusic():
     if pg.mixer.music.get_busy():
@@ -603,24 +709,19 @@ def sInfoBox(dict):
 
 
 
-def inputBox2(screen, imageStart): # for username
-    # Set up the screen
-    screen_width = monitor_size[0] * 0.8            # 320
-    screen_height = monitor_size[1] * 0.8          # 240
+def inputBox2(screen, imageStart):
+    sw = monitor_size[0] * 0.8
+    sh = monitor_size[1] * 0.8
 
-    #screen = pg.display.set_mode((screen_width, screen_height))
-    #pg.display.set_caption("Input Username")
-
-    strOut = t("sM", "input_username")
-    font = get_font(32)
-
-    # Set up the text input box
-    input_box = pg.Rect(screen_width * 0.4, screen_height * 0.65, 200, 32)
+    strOut    = t("sM", "input_username")
+    font      = get_font(32)
+    font_err  = get_font(20)
+    input_box = pg.Rect(sw * 0.4, sh * 0.65, 200, 32)
     input_text = ''
-
-    # Set up the loop variables
-    running = True
-    clock = pg.time.Clock()
+    error_msg  = ''
+    username   = None
+    running    = True
+    clock      = pg.time.Clock()
 
     while running:
         for event in pg.event.get():
@@ -629,33 +730,35 @@ def inputBox2(screen, imageStart): # for username
                 sys.exit(0)
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_RETURN:
-                    # Store the user's input when press enter
-                    username = input_text
-                    dataJS[KEY_USERNAME] = username
-                    fileWriteData(dataJS) 
-                    input_text = ''
+                    if input_text.strip():
+                        username = input_text.strip()
+                        dataJS[KEY_USERNAME] = username
+                        fileWriteData(dataJS)
+                        running = False
+                    else:
+                        error_msg = t("sM", "username_empty")
+                elif event.key == pg.K_ESCAPE:
                     running = False
-                    
                 elif event.key == pg.K_BACKSPACE:
-                    # Remove the last character when the user presses backspace
                     input_text = input_text[:-1]
+                    error_msg  = ''
                 else:
-                    # Add the character to the input text
                     input_text += event.unicode
-        
-        # Draw the screen
+                    error_msg  = ''
+
         screen.fill((255, 255, 255))
         screen.blit(imageStart, (0, 0))
-        
         text_surface = font.render(strOut, True, (0, 0, 0))
-        screen.blit(text_surface, (screen_width * 0.4, screen_height * 0.6))
+        screen.blit(text_surface, (sw * 0.4, sh * 0.6))
         pg.draw.rect(screen, (0, 0, 0), input_box, 2)
         text_surface = font.render(input_text, True, (0, 0, 0))
-        screen.blit(text_surface, (screen_width * 0.4, screen_height * 0.65))
+        screen.blit(text_surface, (sw * 0.4, sh * 0.65))
+        if error_msg:
+            err_surf = font_err.render(error_msg, True, clr.red3)
+            screen.blit(err_surf, (sw * 0.4, sh * 0.71))
         pg.display.update()
-        
-        # Limit the frame rate
         clock.tick(30)
+
     return username
 
 def inputBoxDAS(selected_option, imageStart):
@@ -745,13 +848,142 @@ def inputBoxDAS(selected_option, imageStart):
         clock.tick(30)
     return newValue
     
-def helpScreen(screen):
+def modeSelectScreen(screen):
     pg.event.clear([pg.KEYDOWN, pg.KEYUP])
 
-    font_title  = get_font(34)
-    font_footer = get_font(18)
+    mode_keys      = [0, 1]   # Practice, Competitive
+    prev           = dataJS.get(KEY_MODE, 1)
+    selected       = mode_keys.index(prev) if prev in mode_keys else 1
+    option_spacing = 52
+    clock          = pg.time.Clock()
 
+    while True:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+                sys.exit(0)
+            elif event.type == pg.KEYDOWN:
+                if event.key in (pg.K_UP, pg.K_LEFT):
+                    selected = (selected - 1) % len(mode_keys)
+                elif event.key in (pg.K_DOWN, pg.K_RIGHT):
+                    selected = (selected + 1) % len(mode_keys)
+                elif event.key == pg.K_RETURN:
+                    chosen = mode_keys[selected]
+                    dataJS[KEY_MODE] = chosen
+                    fileWriteData(dataJS)
+                    return chosen
+                elif event.key == pg.K_ESCAPE:
+                    return None
+
+        sw, sh = screen.get_size()
+        screen.blit(imageStart, (0, 0))
+
+        title = get_font(34).render(t("modeSelect", "title"), True, clr.purple)
+        screen.blit(title, title.get_rect(center=(sw // 2, int(sh * 0.52))))
+
+        for i, mode_idx in enumerate(mode_keys):
+            label = t("Mode", str(mode_idx))
+            if i == selected:
+                surf = get_font(41).render(label, True, clr.wht, clr.purple)
+            else:
+                surf = get_font(41).render(label, True, clr.blk)
+            screen.blit(surf, surf.get_rect(center=(sw // 2, int(sh * 0.62) + i * option_spacing)))
+
+        subinfo = get_font(20).render(t("Mode_subinfo", str(mode_keys[selected])), True, (50, 50, 50))
+        screen.blit(subinfo, subinfo.get_rect(center=(sw // 2, int(sh * 0.88))))
+
+        pg.display.flip()
+        clock.tick(60)
+
+
+def usernameConflictBox(screen, username):
+    """Returns True (YES — use anyway) or False (NO — try a different name)."""
+    pg.event.clear([pg.KEYDOWN, pg.KEYUP])
+    selected  = 1   # default highlight NO (safer choice)
+    font_body = get_font(24)
+    font_btn  = get_font(32)
+    clock     = pg.time.Clock()
+
+    while True:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+                sys.exit(0)
+            elif event.type == pg.KEYDOWN:
+                if event.key in (pg.K_LEFT, pg.K_UP):
+                    selected = 0
+                elif event.key in (pg.K_RIGHT, pg.K_DOWN):
+                    selected = 1
+                elif event.key == pg.K_RETURN:
+                    return selected == 0
+                elif event.key == pg.K_ESCAPE:
+                    return False
+
+        sw, sh = screen.get_size()
+        screen.blit(imageStart, (0, 0))
+
+        line1 = font_body.render(t("username_conflict", "line1").format(name=username), True, clr.blk)
+        line2 = font_body.render(t("username_conflict", "line2"), True, clr.blk)
+        screen.blit(line1, line1.get_rect(center=(sw // 2, int(sh * 0.57))))
+        screen.blit(line2, line2.get_rect(center=(sw // 2, int(sh * 0.63))))
+
+        yes_surf = font_btn.render(t("username_conflict", "yes"), True,
+                                   clr.wht if selected == 0 else clr.blk,
+                                   clr.purple if selected == 0 else None)
+        no_surf  = font_btn.render(t("username_conflict", "no"),  True,
+                                   clr.wht if selected == 1 else clr.blk,
+                                   clr.purple if selected == 1 else None)
+        screen.blit(yes_surf, yes_surf.get_rect(center=(int(sw * 0.38), int(sh * 0.73))))
+        screen.blit(no_surf,  no_surf.get_rect(center=(int(sw * 0.62), int(sh * 0.73))))
+
+        pg.display.flip()
+        clock.tick(60)
+
+
+def ensureCompetitiveUsername(screen):
+    """
+    If username is already set, returns True immediately.
+    Otherwise loops: prompt username → check conflict → confirm or retry.
+    Returns True when ready to start, False if the player cancelled (ESC).
+    """
+    _u = dataJS[KEY_USERNAME]
+    if _u and _u != "Norbert Noname":
+        return True
+
+    original_username = _u
+
+    while True:
+        new_u = inputBox2(screen, imageStart)
+        if new_u is None:                       # player pressed ESC
+            dataJS[KEY_USERNAME] = original_username
+            fileWriteData(dataJS)
+            return False
+
+        saved = readHighscoresJS()
+        taken = {name for scores in saved.values() for name in scores}
+
+        if new_u in taken:
+            if usernameConflictBox(screen, new_u):
+                return True                     # YES — use the taken name
+            # NO — revert and loop back to input
+            dataJS[KEY_USERNAME] = original_username
+            fileWriteData(dataJS)
+        else:
+            return True                         # fresh name, proceed
+
+
+def helpScreen(screen):
+    pg.event.clear([pg.KEYDOWN, pg.KEYUP])
     help_clock = pg.time.Clock()
+
+    font_title  = get_font(26)
+    font_head   = get_font(19)
+    font_body   = get_font(16)
+    font_footer = get_font(15)
+
+    H_HEAD = 27   # spacing after a section header
+    H_BODY = 23   # spacing between body lines
+    H_GAP  = 8    # extra gap between sections
 
     while True:
         for event in pg.event.get():
@@ -765,11 +997,80 @@ def helpScreen(screen):
         sw, sh = screen.get_size()
         screen.blit(imageStart, (0, 0))
 
+        col_l = int(sw * 0.26)
+        col_r = int(sw * 0.72)
+        y0    = int(sh * 0.535)
+
+        # Title
         title_surf = font_title.render(t("help", "title"), True, clr.purple)
-        screen.blit(title_surf, title_surf.get_rect(center=(sw * 0.5, sh * 0.55)))
+        screen.blit(title_surf, title_surf.get_rect(center=(sw // 2, int(sh * 0.495))))
+
+        # Vertical column divider
+        pg.draw.line(screen, clr.gry1, (sw // 2, y0 - 8), (sw // 2, int(sh * 0.93)), 1)
+
+        # ---- LEFT COLUMN: Controls ----
+        y = y0
+        surf = font_head.render(t("help", "controls"), True, clr.purple)
+        screen.blit(surf, surf.get_rect(center=(col_l, y)))
+        y += H_HEAD
+
+        for i in range(7):
+            action = t("Controls", str(i))
+            key    = pg.key.name(game_keys[str(i + 10)])
+            surf   = font_body.render(f"{action}:  {key}", True, clr.blk)
+            screen.blit(surf, surf.get_rect(center=(col_l, y)))
+            y += H_BODY
+
+        pg.draw.line(screen, clr.gry1, (int(sw * 0.05), y + 3), (int(sw * 0.47), y + 3), 1)
+        y += 11
+
+        for key_str in ("pause_key", "music_key", "help_key"):
+            surf = font_body.render(t("help", key_str), True, clr.blk)
+            screen.blit(surf, surf.get_rect(center=(col_l, y)))
+            y += H_BODY
+
+        # ---- RIGHT COLUMN: Game info ----
+        y = y0
+
+        surf = font_head.render(t("help", "objective"), True, clr.purple)
+        screen.blit(surf, surf.get_rect(center=(col_r, y)))
+        y += H_HEAD
+        for key_str in ("obj1", "obj2"):
+            surf = font_body.render(t("help", key_str), True, clr.blk)
+            screen.blit(surf, surf.get_rect(center=(col_r, y)))
+            y += H_BODY
+        y += H_GAP
+
+        surf = font_head.render(t("help", "modes"), True, clr.purple)
+        screen.blit(surf, surf.get_rect(center=(col_r, y)))
+        y += H_HEAD
+        for key_str in ("modes_prac", "modes_comp"):
+            surf = font_body.render(t("help", key_str), True, clr.blk)
+            screen.blit(surf, surf.get_rect(center=(col_r, y)))
+            y += H_BODY
+        y += H_GAP
+
+        surf = font_head.render(t("help", "difficulty"), True, clr.purple)
+        screen.blit(surf, surf.get_rect(center=(col_r, y)))
+        y += H_HEAD
+        diff1 = f"{t('Pentos','9')}: 9     {t('Pentos','11')}: 11"
+        diff2 = f"{t('Pentos','12')}: 12   {t('Pentos','13')}: 13"
+        for diff_line in (diff1, diff2):
+            surf = font_body.render(diff_line, True, clr.blk)
+            screen.blit(surf, surf.get_rect(center=(col_r, y)))
+            y += H_BODY
+        y += H_GAP
+
+        surf = font_head.render(t("help", "scoring"), True, clr.purple)
+        screen.blit(surf, surf.get_rect(center=(col_r, y)))
+        y += H_HEAD
+        for key_str in ("score1", "score2"):
+            surf = font_body.render(t("help", key_str), True, clr.blk)
+            screen.blit(surf, surf.get_rect(center=(col_r, y)))
+            y += H_BODY
 
         footer = font_footer.render(t("help", "close"), True, (80, 80, 80))
-        screen.blit(footer, footer.get_rect(center=(sw * 0.5, sh * 0.96)))
+        screen.blit(footer, footer.get_rect(center=(sw // 2, int(sh * 0.965))))
 
         pg.display.flip()
         help_clock.tick(60)
@@ -1043,11 +1344,15 @@ def modeOpts(screen, imageStart, infoL):            # Mode Options
         # Display info left
 
         # LEFT bottom info
-        modeStr     = t("game", "mode")      + " " + t("Mode",  str(competOn))
-        diffStr     = t("game", "pentominoes") + " " + t("Pentos", str(dataJS[KEY_NUM_PENTOS]))
-        usernameStr = t("game", "username")  + " " + dataJS[KEY_USERNAME]
-        info_font   = get_font(screen_width // 60)
-        infoL.draw_info(modeStr, diffStr, usernameStr, font=info_font)
+        modeStr   = t("game", "mode")        + " " + t("Mode",  str(competOn))
+        diffStr   = t("game", "pentominoes") + " " + t("Pentos", str(dataJS[KEY_NUM_PENTOS]))
+        info_font = get_font(screen_width // 60)
+        _u     = dataJS[KEY_USERNAME]
+        _u_set = bool(_u and _u != "Norbert Noname")
+        if _u_set and competOn != 0:
+            infoL.draw_info(modeStr, diffStr, t("game", "username") + " " + _u, font=info_font)
+        else:
+            infoL.draw_info(modeStr, diffStr, font=info_font)
 
         pg.display.flip()
     return numPents, competOn
@@ -1125,11 +1430,15 @@ def pentosOpts(screen, imageStart, infoL):      #Pentominoes Options
         text_rect.center = ((screen_width) //2, screen_height*0.9)
         screen.blit(text, text_rect)
 
-        modeStr     = t("game", "mode")        + " " + t("Mode",  str(competOn))
-        diffStr     = t("game", "pentominoes") + " " + t("Pentos", str(numPents))
-        usernameStr = t("game", "username")    + " " + dataJS[KEY_USERNAME]
-        info_font   = get_font(screen_width // 60)
-        infoL.draw_info(modeStr, diffStr, usernameStr, font=info_font)
+        modeStr   = t("game", "mode")        + " " + t("Mode",  str(competOn))
+        diffStr   = t("game", "pentominoes") + " " + t("Pentos", str(numPents))
+        info_font = get_font(screen_width // 60)
+        _u     = dataJS[KEY_USERNAME]
+        _u_set = bool(_u and _u != "Norbert Noname")
+        if _u_set and competOn != 0:
+            infoL.draw_info(modeStr, diffStr, t("game", "username") + " " + _u, font=info_font)
+        else:
+            infoL.draw_info(modeStr, diffStr, font=info_font)
         
             # pygame malt erst unsichbar im HG - erst nach Vorne (gleichzeitig ein neuer HB screeen) -flip - kein flackern
         pg.display.flip()
@@ -1250,6 +1559,55 @@ def controlsBox(screen, imageStart):
         screen.blit(hint_surf, hint_surf.get_rect(center=(screen_width // 2, int(screen_height * 0.88))))
 
         pg.display.flip()
+
+def soundsBox(screen, imageStart):
+    selected = 0
+    clock = pg.time.Clock()
+    pg.event.clear([pg.KEYDOWN, pg.KEYUP])
+
+    while True:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+                sys.exit(0)
+            elif event.type == pg.KEYDOWN:
+                if event.key in (pg.K_UP, pg.K_DOWN):
+                    selected = 1 - selected
+                elif event.key in (pg.K_RETURN, pg.K_SPACE):
+                    if selected == 0:
+                        dataJS[KEY_MUSIC] = not dataJS[KEY_MUSIC]
+                    else:
+                        dataJS[KEY_SFX] = not dataJS[KEY_SFX]
+                    fileWriteData(dataJS)
+                elif event.key == pg.K_ESCAPE:
+                    return
+
+        sw, sh = screen.get_size()
+        screen.blit(imageStart, (0, 0))
+
+        font      = get_font(36)
+        font_hint = get_font(18)
+
+        items = [
+            (t("Sounds", "music"), dataJS[KEY_MUSIC]),
+            (t("Sounds", "sfx"),   dataJS[KEY_SFX]),
+        ]
+
+        for i, (label, state) in enumerate(items):
+            status = t("Sounds", "on") if state else t("Sounds", "off")
+            line = f"{label}:  {status}"
+            if i == selected:
+                surf = font.render(line, True, clr.wht, clr.purple)
+            else:
+                surf = font.render(line, True, clr.blk)
+            screen.blit(surf, surf.get_rect(center=(sw // 2, int(sh * 0.6) + i * 60)))
+
+        hint = font_hint.render(t("Sounds", "hint"), True, (80, 80, 80))
+        screen.blit(hint, hint.get_rect(center=(sw // 2, int(sh * 0.9))))
+
+        pg.display.flip()
+        clock.tick(60)
+
 
 def DASBox(screen, imageStart):
     # Set up the screen

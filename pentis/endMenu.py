@@ -44,23 +44,31 @@ def endLoop(current_state, bool1, score, imageEnd):
 
         clearGrid(grid)
 
-        textSurface_username    = io.get_font(42).render(f'{io.dataJS[io.KEY_USERNAME]}', False, (231,151,4))
-        textSurface_username_bg = io.get_font(42).render(f'{io.dataJS[io.KEY_USERNAME]}', False, (100,100,100))
-        textSurface_score       = io.get_font(42).render(f'{io.t("eM", "highscore")}  {score:,}', False, (231,151,4))
-        textSurface_score_bg    = io.get_font(42).render(f'{io.t("eM", "highscore")}  {score:,}', False, (100,100,100))
-        textSurface_enter       = io.get_font(38).render(io.t("eM", "enter"), False, (196,44,39))
-        textSurface_enter_bg    = io.get_font(38).render(io.t("eM", "enter"), False, (110,110,110))
-        textSurface_esc         = io.get_font(34).render(io.t("eM", "esc"), False, (126,26,52))
-        textSurface_esc_bg      = io.get_font(34).render(io.t("eM", "esc"), False, (80,80,80))
+        _u            = io.dataJS[io.KEY_USERNAME]
+        _u_set        = bool(_u and _u != "Norbert Noname")
+        _not_practice = io.dataJS[io.KEY_MODE] != 0
+        show_username = _u_set and _not_practice
+        score_offset  = 0 if show_username else -40
 
-        screen.blit(textSurface_username_bg,((screen_width - textSurface_username_bg.get_width())//2, screen_height//2+1))
-        screen.blit(textSurface_username,((screen_width - textSurface_username.get_width()) //2, screen_height//2))
-        screen.blit(textSurface_score_bg,((screen_width - textSurface_score_bg.get_width())//2, screen_height//2+41))
-        screen.blit(textSurface_score,((screen_width - textSurface_score.get_width()) //2, screen_height//2+40))
-        screen.blit(textSurface_enter_bg,((screen_width - textSurface_enter_bg.get_width()) //2, screen_height//2 +81))
-        screen.blit(textSurface_enter,((screen_width - textSurface_enter.get_width()) //2, screen_height//2 +80))
-        screen.blit(textSurface_esc_bg,((screen_width - textSurface_esc_bg.get_width()) //2, screen_height//2 +121))
-        screen.blit(textSurface_esc,((screen_width - textSurface_esc.get_width()) //2, screen_height//2 +120))
+        textSurface_score    = io.get_font(42).render(f'{io.t("eM", "highscore")}  {score:,}', False, (231,151,4))
+        textSurface_score_bg = io.get_font(42).render(f'{io.t("eM", "highscore")}  {score:,}', False, (100,100,100))
+        textSurface_enter    = io.get_font(38).render(io.t("eM", "enter"), False, (196,44,39))
+        textSurface_enter_bg = io.get_font(38).render(io.t("eM", "enter"), False, (110,110,110))
+        textSurface_esc      = io.get_font(34).render(io.t("eM", "esc"), False, (126,26,52))
+        textSurface_esc_bg   = io.get_font(34).render(io.t("eM", "esc"), False, (80,80,80))
+
+        if show_username:
+            textSurface_username    = io.get_font(42).render(_u, False, (231,151,4))
+            textSurface_username_bg = io.get_font(42).render(_u, False, (100,100,100))
+            screen.blit(textSurface_username_bg, ((screen_width - textSurface_username_bg.get_width())//2, screen_height//2+1))
+            screen.blit(textSurface_username,    ((screen_width - textSurface_username.get_width())//2,    screen_height//2))
+
+        screen.blit(textSurface_score_bg, ((screen_width - textSurface_score_bg.get_width())//2, screen_height//2+41+score_offset))
+        screen.blit(textSurface_score,    ((screen_width - textSurface_score.get_width())//2,    screen_height//2+40+score_offset))
+        screen.blit(textSurface_enter_bg, ((screen_width - textSurface_enter_bg.get_width())//2, screen_height//2+81+score_offset))
+        screen.blit(textSurface_enter,    ((screen_width - textSurface_enter.get_width())//2,    screen_height//2+80+score_offset))
+        screen.blit(textSurface_esc_bg,   ((screen_width - textSurface_esc_bg.get_width())//2,   screen_height//2+121+score_offset))
+        screen.blit(textSurface_esc,      ((screen_width - textSurface_esc.get_width())//2,      screen_height//2+120+score_offset))
         screen.blit(imageEnd, ((screen_width - imageE_width)//2, screen_height//5))
         pg.display.flip()
     

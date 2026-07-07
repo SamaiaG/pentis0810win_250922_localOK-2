@@ -1,7 +1,7 @@
 import pygame as pg
 import sys
 import inoutput as io
-from inoutput import imageStart, toggleMusic
+from inoutput import imageStart
 import colors as clr
 from utils import GAME, OPTIONS, START_MENU
 from utils import monitor_size90, screen, screen_width, screen_height, font, clock, ost01 # toggleMusic            # pygame pg auch in die utils
@@ -22,7 +22,7 @@ infoR = DynamicDisplay(screen, screen_width*0.8, screen_height*0.8, 100, 150) # 
 
 def startMenuLoop(current_state, username):
     sM = io.iText[io.current_lang]["sM"]
-    options = [sM["01"], sM["02"], sM["03"], sM["04"], sM["05"]]
+    options = [sM["01"], sM["02"], sM["03"], sM["04"]]
     selected_option = 0
     bool1 = True
     while (bool1):               
@@ -46,30 +46,26 @@ def startMenuLoop(current_state, username):
                     io.helpScreen(screen)
 # menu engine                                                        
                 if event.key == pg.K_RETURN:
-                    if selected_option == 0:  # Start game 
-                        current_state = GAME
-                        bool1 = False
+                    if selected_option == 0:  # Start game — pick mode first
+                        chosen_mode = io.modeSelectScreen(screen)
+                        if chosen_mode == 1:        # Competitive: ensure username set
+                            if io.ensureCompetitiveUsername(screen):
+                                current_state = GAME
+                                bool1 = False
+                        elif chosen_mode == 0:      # Practice: go straight to game
+                            current_state = GAME
+                            bool1 = False
 
-                    elif selected_option == 1: # input username
-                        username = io.inputBox2(screen, imageStart)
-                        io.dataJS[io.KEY_USERNAME] = username
-                        selected_option = 0
-                        # no bool1 = False ===> still in this
-                         
-                    elif selected_option == 2: # Highscores
+                    elif selected_option == 1:  # Highscores
                         io.highscoreBox(screen, imageStart)
 
- 
-                    elif selected_option == 3: # options
+                    elif selected_option == 2:  # Options
                         current_state = OPTIONS
                         bool1 = False
-                        
-                    elif selected_option == 4: # quit
-                        pg.quit()
-                        sys.exit(0) 
 
-                if event.key == pg.K_m:
-                    toggleMusic()  
+                    elif selected_option == 3:  # Quit
+                        pg.quit()
+                        sys.exit(0)
 
         #screen.fill((0,0,0))        # füllen mit Schwarz
         screen.blit(imageStart, (0, 0))
@@ -93,15 +89,17 @@ def startMenuLoop(current_state, username):
         modeStr = io.t("game", "mode") + " " + io.t("Mode", str(io.dataJS[io.KEY_MODE]))
         diffStr = io.t("game", "pentominoes") + " " + io.t("Pentos", str(io.dataJS[io.KEY_NUM_PENTOS]))
         infoL.draw_info(modeStr, diffStr, font=info_font)
-        infoR.draw_info(io.t("game", "help"), font=info_font)
+        infoR.draw_info(io.t("game", "help"), io.t("game", "music_toggle"), font=info_font)
 
-        usernameStr  = io.t("game", "username") + " " + io.dataJS[io.KEY_USERNAME]
-        username_surf = info_font.render(usernameStr, True, (55, 55, 55))
-        screen.blit(username_surf, (info_x, info_y))
-
-        if not io.dataJS[io.KEY_USERNAME] or io.dataJS[io.KEY_USERNAME] == "Norbert Noname":
+        _u = io.dataJS[io.KEY_USERNAME]
+        _u_set = bool(_u and _u != "Norbert Noname")
+        _not_practice = io.dataJS[io.KEY_MODE] != 0
+        if _u_set and _not_practice:
+            username_surf = info_font.render(io.t("game", "username") + " " + _u, True, (55, 55, 55))
+            screen.blit(username_surf, (info_x, info_y))
+        elif not _u_set and _not_practice:
             warn_font = pg.font.Font(io.fontRoboto, gap_size)
             warn_surf = warn_font.render(io.t("sM", "username_warn"), True, clr.red3)
-            screen.blit(warn_surf, (info_x + username_surf.get_width() + 6, info_y))
+            screen.blit(warn_surf, (info_x, info_y))
         pg.display.flip()
     return current_state

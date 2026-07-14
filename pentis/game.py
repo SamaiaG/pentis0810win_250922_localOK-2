@@ -91,9 +91,9 @@ def gameLoop(current_state, bool1, screen, username, score):
                 0,0,11,0,0,
                 0,0,11,0,0],
                 [0,0,0,0,0,       #12  big L
+                0,12,0,0,0,
+                0,12,0,0,0,
                 0,12,12,12,0,
-                0,12,0,0,0,
-                0,12,0,0,0,
                 0,0,0,0,0],
                 [0,0,0,0,0,       #13  dark purple u
                 0,13,0,13,0,
@@ -158,9 +158,9 @@ def gameLoop(current_state, bool1, screen, username, score):
                 0,0,11,0,0,
                 0,0,11,0,0],
                 [0,0,0,0,0,       #12  big L
+                0,12,0,0,0,
+                0,12,0,0,0,
                 0,12,12,12,0,
-                0,12,0,0,0,
-                0,12,0,0,0,
                 0,0,0,0,0],
                 [0,0,0,0,0,       #13  dark purple u
                 0,13,0,13,0,
@@ -393,9 +393,9 @@ def gameLoop(current_state, bool1, screen, username, score):
 
             for i, option in enumerate(confirm_options):
                 if i == selected:
-                    btn = io.get_font(36).render(option, True, clr.wht, clr.purple)
+                    btn = io.get_font(io.FONT_LG).render(option, True, clr.wht, clr.purple)
                 else:
-                    btn = io.get_font(36).render(option, True, clr.gry2)
+                    btn = io.get_font(io.FONT_LG).render(option, True, clr.gry2)
                 btn_x = screen_width // 2 + (i * 2 - 1) * int(box_w * 0.22) - btn.get_width() // 2
                 btn_y = box_y + int(box_h * 0.68)
                 screen.blit(btn, (btn_x, btn_y))
@@ -445,9 +445,9 @@ def gameLoop(current_state, bool1, screen, username, score):
 
             for i, option in enumerate(confirm_options):
                 if i == selected:
-                    btn = io.get_font(36).render(option, True, clr.wht, clr.purple)
+                    btn = io.get_font(io.FONT_LG).render(option, True, clr.wht, clr.purple)
                 else:
-                    btn = io.get_font(36).render(option, True, clr.gry2)
+                    btn = io.get_font(io.FONT_LG).render(option, True, clr.gry2)
                 btn_x = screen_width // 2 + (i * 2 - 1) * int(box_w * 0.22) - btn.get_width() // 2
                 btn_y = box_y + int(box_h * 0.68)
                 screen.blit(btn, (btn_x, btn_y))
@@ -497,9 +497,9 @@ def gameLoop(current_state, bool1, screen, username, score):
 
             for i, option in enumerate(confirm_options):
                 if i == selected:
-                    btn = io.get_font(36).render(option, True, clr.wht, clr.purple)
+                    btn = io.get_font(io.FONT_LG).render(option, True, clr.wht, clr.purple)
                 else:
-                    btn = io.get_font(36).render(option, True, clr.gry2)
+                    btn = io.get_font(io.FONT_LG).render(option, True, clr.gry2)
                 btn_x = screen_width // 2 + (i * 2 - 1) * int(box_w * 0.22) - btn.get_width() // 2
                 btn_y = box_y + int(box_h * 0.68)
                 screen.blit(btn, (btn_x, btn_y))
@@ -547,9 +547,9 @@ def gameLoop(current_state, bool1, screen, username, score):
 
             for i, option in enumerate(pause_options):
                 if i == selected:
-                    text = io.get_font(36).render(option, True, clr.wht, clr.purple)
+                    text = io.get_font(io.FONT_LG).render(option, True, clr.wht, clr.purple)
                 else:
-                    text = io.get_font(36).render(option, True, clr.blk)
+                    text = io.get_font(io.FONT_LG).render(option, True, clr.blk)
                 text_rect = text.get_rect()
                 text_rect.center = (screen_width // 2, int(screen_height * 0.72) + i * option_spacing)
                 screen.blit(text, text_rect)
@@ -926,13 +926,13 @@ def gameLoop(current_state, bool1, screen, username, score):
 
 
         
-        textSurface = pg.font.SysFont(io.fontRusso, gamefont).render(f'{score:,}', False, (255,255,255))
+        textSurface = io.get_font(gamefont).render(f'{score:,}', False, (255,255,255))
         screen.blit(textSurface,(screen_width*infoW01, screen_height*0.32))
         textSurface = io.get_font(gamefont).render(io.t("game", "level") + f' {level:}', False, (150,150,150))
         screen.blit(textSurface,(screen_width*infoW01, screen_height*0.42))
         #*******
         _u = io.dataJS[io.KEY_USERNAME]
-        if _u and _u != "Norbert Noname" and io.dataJS[io.KEY_MODE] != 0:
+        if _u and _u != io.DEFAULT_USERNAME and io.dataJS[io.KEY_MODE] != 0:
             textSurface = io.get_font(gamefont).render(io.t("game", "username") + " " + _u, False, (150,150,150))
             screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH01))
         textSurface = io.get_font(smallfont).render(io.t("game", "pentominoes") + " " + io.t("Pentos", str(io.dataJS[io.KEY_NUM_PENTOS])), False, (150,150,150))
@@ -946,8 +946,6 @@ def gameLoop(current_state, bool1, screen, username, score):
         screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH05))
         textSurface = io.get_font(smallfont).render(io.t("game", "help"), False, (80, 80, 80))
         screen.blit(textSurface,(screen_width*infoW01, screen_height*0.92))
-        textSurface = io.get_font(smallfont).render(io.t("game", "music_toggle"), False, (80, 80, 80))
-        screen.blit(textSurface,(screen_width*infoW01, screen_height*0.96))
 
 
         #def show():

@@ -3,7 +3,7 @@ import pygame as pg
 pg.init()
 import inoutput as io
 from utils import screen, ost01, imageEnd
-from utils import GAME, USERNAME, SCOREBOARD, OPTIONS, START_MENU, END_SCREEN
+from utils import GAME, OPTIONS, START_MENU, END_SCREEN
 from storage import addHighscoresJS
 
 from startMenu import startMenuLoop
@@ -33,8 +33,6 @@ def main():
                 dataName = io.dataJS[io.KEY_USERNAME]
                 dataMode = io.dataJS[io.KEY_NUM_PENTOS]
                 addHighscoresJS(dataMode, dataName, score)
-            elif score > 0:
-                print("Practice mode: Score not saved - Please try again in Standard/Advanced/Pro mode!")
 
         elif current_state == END_SCREEN:
             current_state, score = endLoop(current_state, True, score, imageEnd)

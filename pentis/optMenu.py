@@ -106,16 +106,16 @@ def optMenuLoop(current_state, bool1, screen, username):
         for i in range(len(options)):
             if i == selected_option:
                 # Highlight selected option
-                text = io.get_font(26).render(options[i], True, clr.wht, clr.purple)
+                text = io.get_font(io.FONT_MD).render(options[i], True, clr.wht, clr.purple)
             else:
-                text = io.get_font(26).render(options[i], True, (0, 0, 0))
+                text = io.get_font(io.FONT_MD).render(options[i], True, (0, 0, 0))
             text_rect = text.get_rect()
             text_rect.center = ((screen_width) //2, screen_height*0.6 + i * option_spacing)      #  - textSurface_score.get_width()
             screen.blit(text, text_rect) 
 
-        info_font     = io.get_font(screen_width // 60)
+        info_font     = io.get_font(io.FONT_XS)
         _u            = io.dataJS[io.KEY_USERNAME]
-        _u_set        = bool(_u and _u != "Norbert Noname")
+        _u_set        = bool(_u and _u != io.DEFAULT_USERNAME)
         _not_practice = io.dataJS[io.KEY_MODE] != 0
         if _u_set and _not_practice:
             infoL.draw_info(modeStr, diffStr, usernameStr, font=info_font)
@@ -124,11 +124,9 @@ def optMenuLoop(current_state, bool1, screen, username):
         infoR.draw_info(io.t("game", "help"), font=info_font)
 
         if not _u_set and _not_practice:
-            gap_size  = screen_width // 60
-            info_x    = int(screen_width * 0.01) + gap_size
-            info_y    = int(screen_height * 0.8) + gap_size * 3
-            warn_font = pg.font.Font(io.fontRoboto, gap_size)
-            warn_surf = warn_font.render(io.t("sM", "username_warn"), True, clr.red3)
+            info_x    = int(screen_width * 0.01) + io.FONT_XS
+            info_y    = int(screen_height * 0.8) + io.FONT_XS * 3
+            warn_surf = io.get_font(io.FONT_XS).render(io.t("sM", "username_warn"), True, clr.red3)
             screen.blit(warn_surf, (info_x, info_y))
         pg.display.flip()
     return current_state

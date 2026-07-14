@@ -45,21 +45,21 @@ def endLoop(current_state, bool1, score, imageEnd):
         clearGrid(grid)
 
         _u            = io.dataJS[io.KEY_USERNAME]
-        _u_set        = bool(_u and _u != "Norbert Noname")
+        _u_set        = bool(_u and _u != io.DEFAULT_USERNAME)
         _not_practice = io.dataJS[io.KEY_MODE] != 0
         show_username = _u_set and _not_practice
-        score_offset  = 0 if show_username else -40
+        score_offset  = 0 if show_username else -int(io.FONT_LG * 1.1)
 
-        textSurface_score    = io.get_font(42).render(f'{io.t("eM", "highscore")}  {score:,}', False, (231,151,4))
-        textSurface_score_bg = io.get_font(42).render(f'{io.t("eM", "highscore")}  {score:,}', False, (100,100,100))
-        textSurface_enter    = io.get_font(38).render(io.t("eM", "enter"), False, (196,44,39))
-        textSurface_enter_bg = io.get_font(38).render(io.t("eM", "enter"), False, (110,110,110))
-        textSurface_esc      = io.get_font(34).render(io.t("eM", "esc"), False, (126,26,52))
-        textSurface_esc_bg   = io.get_font(34).render(io.t("eM", "esc"), False, (80,80,80))
+        textSurface_score    = io.get_font(io.FONT_LG).render(f'{io.t("eM", "highscore")}  {score:,}', False, (231,151,4))
+        textSurface_score_bg = io.get_font(io.FONT_LG).render(f'{io.t("eM", "highscore")}  {score:,}', False, (100,100,100))
+        textSurface_enter    = io.get_font(io.FONT_LG).render(io.t("eM", "enter"), False, (196,44,39))
+        textSurface_enter_bg = io.get_font(io.FONT_LG).render(io.t("eM", "enter"), False, (110,110,110))
+        textSurface_esc      = io.get_font(io.FONT_MD).render(io.t("eM", "esc"), False, (126,26,52))
+        textSurface_esc_bg   = io.get_font(io.FONT_MD).render(io.t("eM", "esc"), False, (80,80,80))
 
         if show_username:
-            textSurface_username    = io.get_font(42).render(_u, False, (231,151,4))
-            textSurface_username_bg = io.get_font(42).render(_u, False, (100,100,100))
+            textSurface_username    = io.get_font(io.FONT_LG).render(_u, False, (231,151,4))
+            textSurface_username_bg = io.get_font(io.FONT_LG).render(_u, False, (100,100,100))
             screen.blit(textSurface_username_bg, ((screen_width - textSurface_username_bg.get_width())//2, screen_height//2+1))
             screen.blit(textSurface_username,    ((screen_width - textSurface_username.get_width())//2,    screen_height//2))
 
@@ -69,6 +69,11 @@ def endLoop(current_state, bool1, score, imageEnd):
         screen.blit(textSurface_enter,    ((screen_width - textSurface_enter.get_width())//2,    screen_height//2+80+score_offset))
         screen.blit(textSurface_esc_bg,   ((screen_width - textSurface_esc_bg.get_width())//2,   screen_height//2+121+score_offset))
         screen.blit(textSurface_esc,      ((screen_width - textSurface_esc.get_width())//2,      screen_height//2+120+score_offset))
+
+        if not _not_practice:
+            note_surf = io.get_font(io.FONT_SM).render(io.t("eM", "practice_note"), True, (140, 140, 140))
+            screen.blit(note_surf, ((screen_width - note_surf.get_width())//2, screen_height//2+160+score_offset))
+
         screen.blit(imageEnd, ((screen_width - imageE_width)//2, screen_height//5))
         pg.display.flip()
     

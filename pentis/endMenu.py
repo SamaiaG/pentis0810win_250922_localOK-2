@@ -2,7 +2,7 @@ import pygame as pg
 import sys
 import inoutput as io
 from utils import START_MENU
-from utils import monitor_size90, monitor_size30, grid, clock, ost01 #toggleMusic #username
+from utils import monitor_size90, monitor_size30, grid, clock
 
 def clearGrid(grid):
     for n, farbe in enumerate(grid): # nicht merh self , weil es ist ja schon die Instanz

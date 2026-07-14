@@ -8,8 +8,6 @@ pg.init()
 monitor_size = [pg.display.Info().current_w, pg.display.Info().current_h]
 monitor_size90 = [monitor_size[0]*0.8, monitor_size[1]*0.8]
 monitor_size30 = [monitor_size[0]*0.6, monitor_size[1]*0.2]
-print(monitor_size) 
-
 screen = pg.display.set_mode(monitor_size90)
 screen_width, screen_height = screen.get_size()
 

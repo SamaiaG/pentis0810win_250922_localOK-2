@@ -67,6 +67,6 @@ app = BUNDLE(
     bundle_identifier='com.grapefruit256.pentis',
     info_plist={
         'NSHighResolutionCapable': True,
-        'CFBundleShortVersionString': '0.81',
+        'CFBundleShortVersionString': '0.9',
     },
 )

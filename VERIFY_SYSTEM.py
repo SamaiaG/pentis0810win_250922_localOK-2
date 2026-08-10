@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Pentis 0.8.1 - System Verification Script
+Pentis 0.9 - System Verification Script
 Checks if all dependencies and assets are properly installed and configured
 """
 
@@ -151,7 +151,7 @@ def check_save_directory():
 
 def main():
     print("\n" + "=" * 60)
-    print("  PENTIS 0.8.1 BETA - System Verification")
+    print("  PENTIS 0.9 BETA - System Verification")
     print("=" * 60 + "\n")
 
     checks = [

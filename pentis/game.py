@@ -20,7 +20,7 @@ ue1 = pg.time.set_timer(speedup, 20000) # alle 30 sec(30000) geht speed up
 pause = pg.USEREVENT+3
 #pg.time.set_timer(pause,)
 
-def gameLoop(current_state, bool1, screen, username, score):
+def gameLoop(current_state, bool1, screen, score):
     
     speed = 1000     # default 1000
     level = 1
@@ -183,8 +183,8 @@ def gameLoop(current_state, bool1, screen, username, score):
             for n, farbe in enumerate(self.netet):
                 if farbe > 0:           # nur was zeichnen wenn ein anderer Wert als 0 vorkommt
                     y = (self.zeile  + n // 5) * abstand    # n in Wert umwandeln - und eine zeile/Spalte herausfinden - nicht Spalte weil nur 4x4
-                    x = (self.spalte + n % 5) * abstand    # in pixel koord -> mit abstand also quadratblock arbeiten
-                    
+                    x = (self.spalte + n % 5) * abstand + CONTENT_GAP    # in pixel koord -> mit abstand also quadratblock arbeiten
+
                     screen.blit(bilder[farbe], (x,y))
 
     @dataclass          #decorator      # self Platzhalter für späteren individuellen Objektnamen
@@ -347,15 +347,74 @@ def gameLoop(current_state, bool1, screen, username, score):
         return lines, lines**2*100
 
 
+    def lockFigureIntoGrid():
+        """Piece has landed (natural fall or smash): merge it, play the sound,
+        then either end the game or score/clear lines and spawn the next piece.
+        Shared by both landing paths so the sound and finalization only run once."""
+        nonlocal figur, figurnext, tetrominoes, randlist, score, level, speed, dropstep, bool1, current_state
+
+        objToGrid()
+        if io.dataJS[io.KEY_SFX]:
+            sfxStompf.play()
+        if not figur.bool2lab:
+            bool1 = False
+            current_state = END_SCREEN
+        else:
+            dropstep = dropstep + 1
+            score += pentoPoints
+            lines, lineScore = fullLines()
+            score += lineScore
+            level = level + lines
+
+            if lines >= 1:
+                if level >= 1 and level <= 21:
+                    speed = speed - (speedOn * 15 * lines)
+                elif level >= 22 and level <= 31:
+                    speed = speed - (speedOn * 12 * lines)
+                elif level >= 32 and level <= 51:
+                    speed = speed - (speedOn * 8 * lines)
+                    if speed <= 69:
+                        speed = 69
+                elif level >= 52 and level <= 71:
+                    speed = speed - (speedOn * 6 * lines)
+                    if speed <= 69:
+                        speed = 69
+                elif level >= 72 and level <= 101:
+                    speed = speed - (speedOn * 5 * lines)
+                    if speed <= 69:
+                        speed = 69
+                elif level >= 102 and level <= 131:
+                    speed = speed - (speedOn * 4 * lines)
+                    if speed <= 69:
+                        speed = 69
+                elif level >= 132 and level <= 161:
+                    speed = speed - (speedOn * 3 * lines)
+                    if speed <= 69:
+                        speed = 69
+                else:
+                    speed = speed - (speedOn * 2 * lines)
+                    if speed <= 69:
+                        speed = 69
+                pg.time.set_timer(tetrominodown, speed)
+
+            randint, randlist, randintnext = randNext(randlist)
+            figur = Tetromino(tetrominoes[randint])
+            tetrominoes = nextPentos
+            figurnext = NextTet(nextPentos[randintnext])
+
+
     def quitConfirm():
         saved = screen.copy()
         confirm_options = [io.t("confirm", "quit"), io.t("confirm", "resume")]
         selected = 1
 
         overlay = pg.Surface((screen_width, screen_height), pg.SRCALPHA)
-        overlay.fill((0, 0, 0, 160))
+        overlay.fill((0, 0, 0, 255))
 
-        box_w = int(screen_width * 0.5)
+        q_font   = io.get_font(io.FONT_MD)
+        question = q_font.render(io.t("confirm", "line1") + " " + io.t("confirm", "quit_q"), False, clr.wht)
+
+        box_w = min(int(screen_width * 0.92), max(int(screen_width * 0.5), question.get_width() + 80))
         box_h = int(screen_height * 0.28)
         box_x = (screen_width - box_w) // 2
         box_y = (screen_height - box_h) // 2
@@ -385,20 +444,20 @@ def gameLoop(current_state, bool1, screen, username, score):
             pg.draw.rect(screen, (20, 20, 20), (box_x, box_y, box_w, box_h))
             pg.draw.rect(screen, clr.gry3, (box_x, box_y, box_w, box_h), 2)
 
-            q_font = io.get_font(gamefont)
-            line1 = q_font.render(io.t("confirm", "line1"), False, clr.wht)
-            line2 = q_font.render(io.t("confirm", "quit_q"), False, clr.wht)
-            screen.blit(line1, ((screen_width - line1.get_width()) // 2, box_y + int(box_h * 0.1)))
-            screen.blit(line2, ((screen_width - line2.get_width()) // 2, box_y + int(box_h * 0.35)))
+            screen.blit(question, ((screen_width - question.get_width()) // 2, box_y + int(box_h * 0.28)))
 
             for i, option in enumerate(confirm_options):
+                btn_font = io.get_font(io.FONT_LG)
                 if i == selected:
-                    btn = io.get_font(io.FONT_LG).render(option, True, clr.wht, clr.purple)
+                    btn = btn_font.render(option, True, clr.wht)
                 else:
-                    btn = io.get_font(io.FONT_LG).render(option, True, clr.gry2)
+                    btn = btn_font.render(option, True, clr.gry2)
                 btn_x = screen_width // 2 + (i * 2 - 1) * int(box_w * 0.22) - btn.get_width() // 2
                 btn_y = box_y + int(box_h * 0.68)
-                screen.blit(btn, (btn_x, btn_y))
+                btn_rect = btn.get_rect(topleft=(btn_x, btn_y))
+                if i == selected:
+                    pg.draw.rect(screen, clr.purple, btn_rect.inflate(24, 12))
+                screen.blit(btn, btn_rect)
 
             pg.display.flip()
             clock.tick(60)
@@ -409,9 +468,12 @@ def gameLoop(current_state, bool1, screen, username, score):
         selected = 1
 
         overlay = pg.Surface((screen_width, screen_height), pg.SRCALPHA)
-        overlay.fill((0, 0, 0, 160))
+        overlay.fill((0, 0, 0, 255))
 
-        box_w = int(screen_width * 0.5)
+        q_font   = io.get_font(io.FONT_MD)
+        question = q_font.render(io.t("confirm", "line1") + " " + io.t("confirm", "end_q"), False, clr.wht)
+
+        box_w = min(int(screen_width * 0.92), max(int(screen_width * 0.5), question.get_width() + 80))
         box_h = int(screen_height * 0.28)
         box_x = (screen_width - box_w) // 2
         box_y = (screen_height - box_h) // 2
@@ -437,20 +499,20 @@ def gameLoop(current_state, bool1, screen, username, score):
             pg.draw.rect(screen, (20, 20, 20), (box_x, box_y, box_w, box_h))
             pg.draw.rect(screen, clr.gry3, (box_x, box_y, box_w, box_h), 2)
 
-            q_font = io.get_font(gamefont)
-            line1 = q_font.render(io.t("confirm", "line1"), False, clr.wht)
-            line2 = q_font.render(io.t("confirm", "end_q"), False, clr.wht)
-            screen.blit(line1, ((screen_width - line1.get_width()) // 2, box_y + int(box_h * 0.1)))
-            screen.blit(line2, ((screen_width - line2.get_width()) // 2, box_y + int(box_h * 0.35)))
+            screen.blit(question, ((screen_width - question.get_width()) // 2, box_y + int(box_h * 0.28)))
 
             for i, option in enumerate(confirm_options):
+                btn_font = io.get_font(io.FONT_LG)
                 if i == selected:
-                    btn = io.get_font(io.FONT_LG).render(option, True, clr.wht, clr.purple)
+                    btn = btn_font.render(option, True, clr.wht)
                 else:
-                    btn = io.get_font(io.FONT_LG).render(option, True, clr.gry2)
+                    btn = btn_font.render(option, True, clr.gry2)
                 btn_x = screen_width // 2 + (i * 2 - 1) * int(box_w * 0.22) - btn.get_width() // 2
                 btn_y = box_y + int(box_h * 0.68)
-                screen.blit(btn, (btn_x, btn_y))
+                btn_rect = btn.get_rect(topleft=(btn_x, btn_y))
+                if i == selected:
+                    pg.draw.rect(screen, clr.purple, btn_rect.inflate(24, 12))
+                screen.blit(btn, btn_rect)
 
             pg.display.flip()
             clock.tick(60)
@@ -461,9 +523,12 @@ def gameLoop(current_state, bool1, screen, username, score):
         selected = 1
 
         overlay = pg.Surface((screen_width, screen_height), pg.SRCALPHA)
-        overlay.fill((0, 0, 0, 160))
+        overlay.fill((0, 0, 0, 255))
 
-        box_w = int(screen_width * 0.5)
+        q_font   = io.get_font(io.FONT_MD)
+        question = q_font.render(io.t("confirm", "line1") + " " + io.t("confirm", "new_q"), False, clr.wht)
+
+        box_w = min(int(screen_width * 0.92), max(int(screen_width * 0.5), question.get_width() + 80))
         box_h = int(screen_height * 0.28)
         box_x = (screen_width - box_w) // 2
         box_y = (screen_height - box_h) // 2
@@ -489,20 +554,20 @@ def gameLoop(current_state, bool1, screen, username, score):
             pg.draw.rect(screen, (20, 20, 20), (box_x, box_y, box_w, box_h))
             pg.draw.rect(screen, clr.gry3, (box_x, box_y, box_w, box_h), 2)
 
-            q_font = io.get_font(gamefont)
-            line1 = q_font.render(io.t("confirm", "line1"), False, clr.wht)
-            line2 = q_font.render(io.t("confirm", "new_q"), False, clr.wht)
-            screen.blit(line1, ((screen_width - line1.get_width()) // 2, box_y + int(box_h * 0.1)))
-            screen.blit(line2, ((screen_width - line2.get_width()) // 2, box_y + int(box_h * 0.35)))
+            screen.blit(question, ((screen_width - question.get_width()) // 2, box_y + int(box_h * 0.28)))
 
             for i, option in enumerate(confirm_options):
+                btn_font = io.get_font(io.FONT_LG)
                 if i == selected:
-                    btn = io.get_font(io.FONT_LG).render(option, True, clr.wht, clr.purple)
+                    btn = btn_font.render(option, True, clr.wht)
                 else:
-                    btn = io.get_font(io.FONT_LG).render(option, True, clr.gry2)
+                    btn = btn_font.render(option, True, clr.gry2)
                 btn_x = screen_width // 2 + (i * 2 - 1) * int(box_w * 0.22) - btn.get_width() // 2
                 btn_y = box_y + int(box_h * 0.68)
-                screen.blit(btn, (btn_x, btn_y))
+                btn_rect = btn.get_rect(topleft=(btn_x, btn_y))
+                if i == selected:
+                    pg.draw.rect(screen, clr.purple, btn_rect.inflate(24, 12))
+                screen.blit(btn, btn_rect)
 
             pg.display.flip()
             clock.tick(60)
@@ -511,7 +576,7 @@ def gameLoop(current_state, bool1, screen, username, score):
         pg.mixer.music.pause()
         pause_options = [io.t("Pause", "resume"), io.t("Pause", "end_game"), io.t("Pause", "new_game")]
         selected = 0
-        option_spacing = 60
+        option_spacing = 30
 
         while True:
             for event in pg.event.get():
@@ -538,21 +603,32 @@ def gameLoop(current_state, bool1, screen, username, score):
                             pg.mixer.music.unpause()
                         return True, current_state
 
-            screen.blit(io.imageStart, (0, 0))
+            screen.fill((0, 0, 0))
 
-            title_surf = io.get_font(gamefont * 2).render(io.t("Pause", "title"), True, clr.purple)
-            title_rect = title_surf.get_rect()
-            title_rect.center = (screen_width // 2, int(screen_height * 0.57))
-            screen.blit(title_surf, title_rect)
+            title_text  = io.t("Pause", "title")
+            title_text  = title_text[:1].upper() + title_text[1:].lower()
 
+            title_font  = io.get_font(int(io.FONT_XS * 1.4))
+            option_font = io.get_font(io.FONT_LG)
+            title_gap   = 60
+
+            title_surf = title_font.render(title_text, True, clr.wht)
+
+            rendered = [(title_surf, 0)]
             for i, option in enumerate(pause_options):
-                if i == selected:
-                    text = io.get_font(io.FONT_LG).render(option, True, clr.wht, clr.purple)
-                else:
-                    text = io.get_font(io.FONT_LG).render(option, True, clr.blk)
-                text_rect = text.get_rect()
-                text_rect.center = (screen_width // 2, int(screen_height * 0.72) + i * option_spacing)
-                screen.blit(text, text_rect)
+                surf = option_font.render(option, True, clr.wht)
+                rendered.append((surf, title_gap if i == 0 else option_spacing))
+
+            total_h = sum(gap + surf.get_height() for surf, gap in rendered)
+
+            y = (screen_height - total_h) / 2
+            for idx, (surf, gap) in enumerate(rendered):
+                y += gap
+                rect = surf.get_rect(center=(screen_width // 2, y + surf.get_height() // 2))
+                if idx > 0 and (idx - 1) == selected:
+                    pg.draw.rect(screen, clr.purple, rect.inflate(48, 12))
+                screen.blit(surf, rect)
+                y += surf.get_height()
 
             pg.display.flip()
             clock.tick(60)
@@ -622,12 +698,16 @@ def gameLoop(current_state, bool1, screen, username, score):
 
     gamefont  = int(abstand * 1.2)
     smallfont = int(gamefont * 0.8)
-    infoW01 = 0.43
+    CONTENT_GAP = 60   # space between the divide line and the content of the right-side boxes
+    infoW01 = 16 * abstand + CONTENT_GAP   # left-align with the next-piece preview (NextTet.spalte = 16)
     infoH01 = 0.60
-    infoH02 = 0.67
-    infoH03 = 0.73
-    infoH04 = 0.79
-    infoH05 = 0.85
+    infoLineGap = 0.045   # gap between username/pentominoes/mode/initial delay/repeat rate
+    infoH02 = infoH01 + infoLineGap
+    infoH03 = infoH02 + infoLineGap
+    infoH04 = infoH03 + infoLineGap
+    infoH05 = infoH04 + infoLineGap
+    infoHelpGap = 0.12    # bigger gap between that block and the help line
+    infoHHelp = infoH05 + infoHelpGap
 
 
 
@@ -643,41 +723,24 @@ def gameLoop(current_state, bool1, screen, username, score):
         pg.mixer.music.play(-1)
 
     if os.name == 'nt':  # Windows
-
-        #sfx01 = pg.mixer.Sound("sound\\blockHit.wav")
-        #sfxRot01 = pg.mixer.Sound("sound\\rotate01.mp3")
-        #sfxRot02 = pg.mixer.Sound("sound\\rotate02.mp3")
-        #sfxRot180 = pg.mixer.Sound("sound\\rotate180.mp3")
-        #sfxDown01 = pg.mixer.Sound("sound\\down02.mp3")
-        sfxReihe1  = pg.mixer.Sound("sound\\PentisSFX\\Reihe1.mp3")
-        sfxReihe2  = pg.mixer.Sound("sound\\PentisSFX\\Reihe2.mp3")
-        sfxReihe3  = pg.mixer.Sound("sound\\PentisSFX\\Reihe3.mp3")
-        sfxReihe4  = pg.mixer.Sound("sound\\PentisSFX\\Reihe4.mp3")
-        sfxReihe5  = pg.mixer.Sound("sound\\PentisSFX\\Reihe5.mp3")
-        sfxStompf  = pg.mixer.Sound("sound\\PentisSFX\\Stompf.mp3")
-        sfxRotCCW  = pg.mixer.Sound("sound\\PentisSFX\\RotateLink.mp3")
-        sfxRotCW   = pg.mixer.Sound("sound\\PentisSFX\\RotateRechts.mp3")
-        sfxRot180  = pg.mixer.Sound("sound\\rotate180.mp3")
-        sfxDown01  = pg.mixer.Sound("sound\\down01.mp3")
-        sfxDown02  = pg.mixer.Sound("sound\\down02.mp3")
+        sfxReihe1  = pg.mixer.Sound("sound\\lines01.mp3")
+        sfxReihe2  = pg.mixer.Sound("sound\\lines02.mp3")
+        sfxReihe3  = pg.mixer.Sound("sound\\lines03.mp3")
+        sfxReihe4  = pg.mixer.Sound("sound\\lines04.mp3")
+        sfxReihe5  = pg.mixer.Sound("sound\\lines05.mp3")
+        sfxStompf  = pg.mixer.Sound("sound\\blockHit.wav")
         sfxMenu01  = pg.mixer.Sound("sound\\menu01.mp3")
     else:
-        sfxReihe1  = pg.mixer.Sound("sound/PentisSFX/Reihe1.mp3")
-        sfxReihe2  = pg.mixer.Sound("sound/PentisSFX/Reihe2.mp3")
-        sfxReihe3  = pg.mixer.Sound("sound/PentisSFX/Reihe3.mp3")
-        sfxReihe4  = pg.mixer.Sound("sound/PentisSFX/Reihe4.mp3")
-        sfxReihe5  = pg.mixer.Sound("sound/PentisSFX/Reihe5.mp3")
-        sfxStompf  = pg.mixer.Sound("sound/PentisSFX/Stompf.mp3")
-        sfxRotCCW  = pg.mixer.Sound("sound/PentisSFX/RotateLink.mp3")
-        sfxRotCW   = pg.mixer.Sound("sound/PentisSFX/RotateRechts.mp3")
-        sfxRot180  = pg.mixer.Sound("sound/rotate180.mp3")
-        sfxDown01  = pg.mixer.Sound("sound/down01.mp3")
-        sfxDown02  = pg.mixer.Sound("sound/down02.mp3")
+        sfxReihe1  = pg.mixer.Sound("sound/lines01.mp3")
+        sfxReihe2  = pg.mixer.Sound("sound/lines02.mp3")
+        sfxReihe3  = pg.mixer.Sound("sound/lines03.mp3")
+        sfxReihe4  = pg.mixer.Sound("sound/lines04.mp3")
+        sfxReihe5  = pg.mixer.Sound("sound/lines05.mp3")
+        sfxStompf  = pg.mixer.Sound("sound/blockHit.wav")
         sfxMenu01  = pg.mixer.Sound("sound/menu01.mp3")
 
     for sfx in (sfxReihe1, sfxReihe2, sfxReihe3, sfxReihe4, sfxReihe5,
-                sfxStompf, sfxRotCCW, sfxRotCW, sfxRot180,
-                sfxDown01, sfxDown02, sfxMenu01):
+                sfxStompf, sfxMenu01):
         sfx.set_volume(0.75)
 
     pg.event.wait()
@@ -787,56 +850,9 @@ def gameLoop(current_state, bool1, screen, username, score):
             if event.type == tetrominodown:     # = USEREVENT1
                 if not figur.update(1,0):       # 1 runter // + man kann func auch einf als if-Bedingung verwenden !!!
                                                               # die func WIRD ausgeführt UND dient dann
-                    objToGrid()
-                    if io.dataJS[io.KEY_SFX]:
-                        sfxStompf.play()
-                    if not figur.bool2lab:
-                        bool1 = False
-                        current_state = END_SCREEN
-                    else:
-                        dropstep = dropstep + 1
-                        score += pentoPoints
-                        lines, lineScore = fullLines()
-                        score += lineScore
-                        level = level + lines
+                    lockFigureIntoGrid()
 
-                        if lines >= 1:
-                            if level >= 1 and level <= 21:
-                                speed = speed - (speedOn * 15 * lines)
-                            elif level >= 22 and level <= 31:
-                                speed = speed - (speedOn * 12 * lines)
-                            elif level >= 32 and level <= 51:
-                                speed = speed - (speedOn * 8 * lines)
-                                if speed <= 69:
-                                    speed = 69
-                            elif level >= 52 and level <= 71:
-                                speed = speed - (speedOn * 6 * lines)
-                                if speed <= 69:
-                                    speed = 69
-                            elif level >= 72 and level <= 101:
-                                speed = speed - (speedOn * 5 * lines)
-                                if speed <= 69:
-                                    speed = 69
-                            elif level >= 102 and level <= 131:
-                                speed = speed - (speedOn * 4 * lines)
-                                if speed <= 69:
-                                    speed = 69
-                            elif level >= 132 and level <= 161:
-                                speed = speed - (speedOn * 3 * lines)
-                                if speed <= 69:
-                                    speed = 69
-                            else:
-                                speed = speed - (speedOn * 2 * lines)
-                                if speed <= 69:
-                                    speed = 69
-                            pg.time.set_timer(tetrominodown, speed)
 
-                        randint, randlist, randintnext = randNext(randlist)
-                        figur = Tetromino(tetrominoes[randint])
-                        tetrominoes = nextPentos
-                        figurnext = NextTet(nextPentos[randintnext])
-                    
-            
             if event.type == speedup:           # # = USEREVENT2
                 pass
                 #speed = int(speed * 1)
@@ -855,29 +871,18 @@ def gameLoop(current_state, bool1, screen, username, score):
                 if event.key == io.game_keys[str((12))]:    #down
                     if event.type != tetrominodown:
                         figur.update(1,0)
-                        if io.dataJS[io.KEY_SFX]:
-                            sfxDown01.play()
                 if event.key == io.game_keys[str((16))]:    #smash space
                     if event.type != tetrominodown:
                         linesDown = figur.drop(figur.zeile, figur.spalte)
                         figur.update(linesDown, 0)
-                        objToGrid()
-                        if io.dataJS[io.KEY_SFX]:
-                            sfxDown02.play()
-                            sfxStompf.play()
+                        lockFigureIntoGrid()
 
                 if event.key == io.game_keys[str(13)]:
                     figur.rotate()
-                    if io.dataJS[io.KEY_SFX]:
-                        sfxRotCCW.play()
                 if event.key == io.game_keys[str(14)]:
                     figur.rotateCW()
-                    if io.dataJS[io.KEY_SFX]:
-                        sfxRotCW.play()
                 if event.key == io.game_keys[str(15)]:
                     figur.rotate180()
-                    if io.dataJS[io.KEY_SFX]:
-                        sfxRot180.play()   
                 #if event.key == pg.K_u:
                 #    repeat_rate_rl = repeat_rate_rl - 10
                 #if event.key == pg.K_j:
@@ -926,26 +931,26 @@ def gameLoop(current_state, bool1, screen, username, score):
 
 
         
-        textSurface = io.get_font(gamefont).render(f'{score:,}', False, (255,255,255))
-        screen.blit(textSurface,(screen_width*infoW01, screen_height*0.32))
-        textSurface = io.get_font(gamefont).render(io.t("game", "level") + f' {level:}', False, (150,150,150))
-        screen.blit(textSurface,(screen_width*infoW01, screen_height*0.42))
+        textSurface = io.get_font(gamefont).render(io.t("game", "points") + f' {score:,}', False, (255,255,255))
+        screen.blit(textSurface,(infoW01, screen_height*0.32))
+        textSurface = io.get_font(smallfont).render(io.t("game", "level") + f' {level:}', False, (154,154,154))
+        screen.blit(textSurface,(infoW01, screen_height*0.42))
         #*******
         _u = io.dataJS[io.KEY_USERNAME]
         if _u and _u != io.DEFAULT_USERNAME and io.dataJS[io.KEY_MODE] != 0:
-            textSurface = io.get_font(gamefont).render(io.t("game", "username") + " " + _u, False, (150,150,150))
-            screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH01))
-        textSurface = io.get_font(smallfont).render(io.t("game", "pentominoes") + " " + io.t("Pentos", str(io.dataJS[io.KEY_NUM_PENTOS])), False, (150,150,150))
-        screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH02))
-        textSurface = io.get_font(smallfont).render(io.t("game", "mode") + " " + io.t("Mode", str(io.dataJS[io.KEY_MODE])), False, (150,150,150))
-        screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH03))
+            textSurface = io.get_font(smallfont).render(io.t("game", "username") + " " + _u, False, (154,154,154))
+            screen.blit(textSurface,(infoW01, screen_height*infoH01))
+        textSurface = io.get_font(smallfont).render(io.t("game", "pentominoes") + " " + io.t("Pentos", str(io.dataJS[io.KEY_NUM_PENTOS])), False, (154,154,154))
+        screen.blit(textSurface,(infoW01, screen_height*infoH02))
+        textSurface = io.get_font(smallfont).render(io.t("game", "mode") + " " + io.t("Mode", str(io.dataJS[io.KEY_MODE])), False, (154,154,154))
+        screen.blit(textSurface,(infoW01, screen_height*infoH03))
 
-        textSurface = io.get_font(smallfont).render(io.t("game", "initial_delay") + " " + str(io.dataJS[io.KEY_DAS_DELAY]), False, (150,150,150))
-        screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH04))
-        textSurface = io.get_font(smallfont).render(io.t("game", "repeat_rate") + " " + str(io.dataJS[io.KEY_DAS_RATE]), False, (150,150,150))
-        screen.blit(textSurface,(screen_width*infoW01, screen_height*infoH05))
-        textSurface = io.get_font(smallfont).render(io.t("game", "help"), False, (80, 80, 80))
-        screen.blit(textSurface,(screen_width*infoW01, screen_height*0.92))
+        textSurface = io.get_font(smallfont).render(io.t("game", "initial_delay") + " " + str(io.dataJS[io.KEY_DAS_DELAY]), False, (154,154,154))
+        screen.blit(textSurface,(infoW01, screen_height*infoH04))
+        textSurface = io.get_font(smallfont).render(io.t("game", "repeat_rate") + " " + str(io.dataJS[io.KEY_DAS_RATE]), False, (154,154,154))
+        screen.blit(textSurface,(infoW01, screen_height*infoH05))
+        textSurface = io.get_font(smallfont).render(io.t("game", "help"), False, (83, 83, 83))
+        screen.blit(textSurface,(infoW01, screen_height*infoHHelp))
 
 
         #def show():

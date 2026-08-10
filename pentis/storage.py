@@ -22,8 +22,7 @@ def decrypt_data(encrypted_data):
     try:
         decrypted = cipher.decrypt(encrypted_data)
         return json.loads(decrypted.decode('utf-8'))
-    except Exception as e:
-        print(f"Error decrypting data: {e}")
+    except Exception:
         return {}
 
 # Get platform-specific data directory
@@ -74,8 +73,7 @@ def readHighscoresJS():
             encrypted_data = file.read()
             if encrypted_data:
                 return decrypt_data(encrypted_data)
-    except Exception as e:
-        print(f"Error reading highscores: {e}")
+    except Exception:
         return {}
     return {}
 
@@ -105,20 +103,18 @@ def addHighscoresJS(dataMode, name, score):
 
     if existing_entry:
         if existing_entry['score'] >= score:
-            print(f"Score not saved: {name} already has a higher score ({existing_entry['score']})")
-            return
-        else:
-            existing_entry['score'] = score
-            print(f"Score updated: {name} = {score}")
+            return False
+        existing_entry['score'] = score
     else:
         # Add new entry
         highscores[mode_name][name] = {'score': score}
-        print(f"New highscore saved: {name} = {score}")
 
     # Save the updated highscores
     try:
         encrypted_data = encrypt_data(highscores)
         with open(file_path, "wb") as file:
             file.write(encrypted_data)
-    except Exception as e:
-        print(f"Error saving highscore: {e}")
+    except Exception:
+        return False
+
+    return True

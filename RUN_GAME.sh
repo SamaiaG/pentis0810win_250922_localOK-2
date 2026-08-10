@@ -1,8 +1,8 @@
 #!/bin/bash
-# Pentis 0.8.1 - Game Launcher Script
+# Pentis 0.9 - Game Launcher Script
 
 echo "=================================================="
-echo "        PENTIS 0.8.1 BETA - Game Launcher"
+echo "        PENTIS 0.9 BETA - Game Launcher"
 echo "=================================================="
 echo
 
@@ -30,7 +30,7 @@ echo
 cd "$(dirname "$0")/pentis" || exit
 
 # Run the game
-echo "🎮 Starting Pentis 0.8.1..."
+echo "🎮 Starting Pentis 0.9..."
 echo
 
 python3 pentis_081_local.py

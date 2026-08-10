@@ -8,13 +8,11 @@ pg.init()
 monitor_size = [pg.display.Info().current_w, pg.display.Info().current_h]
 monitor_size90 = [monitor_size[0]*0.8, monitor_size[1]*0.8]
 monitor_size30 = [monitor_size[0]*0.6, monitor_size[1]*0.2]
-print(monitor_size) 
-
 screen = pg.display.set_mode(monitor_size90)
 screen_width, screen_height = screen.get_size()
 
 
-pg.display.set_caption("Pentis 0.8.1 beta")
+pg.display.set_caption("Pentis 0.9 beta")
 
 abstand = 30        # 1 Block zum Quadrat - Blockbreite = Blockhoehe = abstand
 abstand = monitor_size90[1] // 32
@@ -36,8 +34,8 @@ if os.name == 'nt':  # Windows
 
     font = pg.font.Font("graphics\\Prototype.ttf", 36) # Russo_One --> Scoreboard anders
 
-    ost01 = 'sound\Pentis_v02.flac'
-    ost02 = 'sound\Pentis_v02.flac'
+    ost01 = 'sound\\Pentis_v02.flac'
+    ost02 = 'sound\\Pentis_v02.flac'
     icon = pg.image.load('graphics\\block08.png')
     imageEnd = pg.image.load("graphics\\gameOver.png")
 

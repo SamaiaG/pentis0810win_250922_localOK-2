@@ -1,8 +1,8 @@
 @echo off
-REM Pentis 0.8.1 - Game Launcher for Windows
+REM Pentis 0.9 - Game Launcher for Windows
 
 echo ==================================================
-echo.        PENTIS 0.8.1 BETA - Game Launcher
+echo.        PENTIS 0.9 BETA - Game Launcher
 echo ==================================================
 echo.
 
@@ -35,7 +35,7 @@ REM Navigate to game directory
 cd /d "%~dp0pentis" || exit /b 1
 
 REM Run the game
-echo Starting Pentis 0.8.1...
+echo Starting Pentis 0.9...
 echo.
 
 python pentis_081_local.py

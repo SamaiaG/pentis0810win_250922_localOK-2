@@ -17,6 +17,10 @@ a = Analysis(
         ('pentis/optMenu.py', '.'),
         ('pentis/startMenu.py', '.'),
         ('pentis/utils.py', '.'),
+        ('pentis/storage.py', '.'),
+        ('pentis/footer.py', '.'),
+        ('pentis/splashScreen.py', '.'),
+        ('pentis/cls_pentos.py', '.'),
     ],
     hiddenimports=[
         'cryptography.fernet',
@@ -74,6 +78,6 @@ exe = EXE(
 #     bundle_identifier='com.grapefruit256.pentis',
 #     info_plist={
 #         'NSHighResolutionCapable': True,
-#         'CFBundleShortVersionString': '0.81',
+#         'CFBundleShortVersionString': '0.9',
 #     },
 # )

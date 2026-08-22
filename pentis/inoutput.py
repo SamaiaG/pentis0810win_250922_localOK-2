@@ -127,8 +127,8 @@ iText = {
       "1": "Initial Delay",
       "2": "Repeat Rate",
       "input": "New DAS value (11-99)  (-> Enter):",
-      "input_delay": "Set a new initial delay value [11-99]:",
-      "input_rate":  "Set a new repeat rate value [11-99]:",
+      "input_delay": "Set a new Initial Delay value [11-99]:",
+      "input_rate":  "Set a new Repeat Rate value [11-99]:",
     },
     "Sounds": {
       "music": "Music",
@@ -221,19 +221,30 @@ iText = {
       "pause_key":  "P / ESC   Pause",
       "music_key":  "M for Music",
       "help_key":   "H for Help",
+      "lbl_pause":  "Pause",
+      "lbl_music":  "Music",
+      "lbl_help":   "Help",
       "das":        "DAS  (Delayed Auto Shift)",
-      "das1":       "Hold a key: it waits, then repeats.",
-      "das2":       "Adjust the delay in Options > DAS.",
-      "objective":  "OBJECTIVE",
+      "das_rows":   [("Initial Delay", "Time before a Pentomino begins repeatedly moving sideways after a direction key is pressed."),
+                      ("Repeat Rate",  "Speed at which a Pentomino repeatedly moves sideways when a direction key is held down.")],
+      "objective":  "GENERAL",
       "obj1":       "Fill complete rows of blocks to clear them.",
-      "obj2":       "Pentominoes are 5-block shapes.",
+      "obj2":       "Type your Pentis USERNAME for saving your highscores in the scoreboard.",
       "modes":      "MODES",
-      "modes_prac": "Practice: no speedup, scores not saved.",
-      "modes_comp": "Competitive: speeds up, scores saved.",
+      "modes_rows": [("Practice:",    "No speed-up. Scores are not saved."),
+                      ("Competitive:", "Speeds up over time. Score is saved.")],
       "difficulty": "DIFFICULTY",
+      "diff_types": "pentomino types",
+      "diff_note1": "Settable in OPTIONS > Difficulty.",
+      "diff_note2": "There is a specific scoreboard for each one!",
       "scoring":    "SCORING",
-      "score1":     "Points for each piece placed.",
-      "score2":     "More lines at once = bigger bonus.",
+      "score_rows": [("Piece placed:",    "3 pts"),
+                      ("1 line cleared:",  "100 pts"),
+                      ("2 lines cleared:", "400 pts"),
+                      ("3 lines cleared:", "900 pts"),
+                      ("4 lines cleared:", "1,600 pts"),
+                      ("5 lines cleared:", "2,500 pts")],
+      "score_note": "Points are calculated as the number of lines cleared squared, multiplied by 100.",
     },
     "scoreboard": {
       "title":     "SCOREBOARD",
@@ -250,7 +261,8 @@ iText = {
       "title":        "ABOUT",
       "tagline":      "A pentomino puzzle game - built with Python & Pygame",
       "owner_label":  "Project Owner: Martin",
-      "dev_label":    "Developer: Samy",
+      "dev_label":    "Developer: Samaia",
+      "feedback":     "Any kind of feedback is welcome!",
     },
   },        # english end
 
@@ -393,19 +405,30 @@ iText = {
       "pause_key":  "P / ESC   Pause",
       "music_key":  "M für Musik",
       "help_key":   "H für Hilfe",
+      "lbl_pause":  "Pause",
+      "lbl_music":  "Musik",
+      "lbl_help":   "Hilfe",
       "das":        "DAS  (Verzögerter Auto-Shift)",
-      "das1":       "Taste gehalten: kurze Pause, dann Wiederholung.",
-      "das2":       "Einstellbar in Optionen > DAS.",
-      "objective":  "ZIEL",
+      "das_rows":   [("Anfangsverzögerung", "Zeit, bevor ein Pentomino nach dem Drücken einer Richtungstaste beginnt, sich seitlich wiederholt zu bewegen."),
+                      ("Wiederholrate",      "Geschwindigkeit, mit der sich ein Pentomino seitlich bewegt, während eine Richtungstaste gehalten wird.")],
+      "objective":  "ALLGEMEIN",
       "obj1":       "Fülle Reihen komplett, um sie zu löschen.",
-      "obj2":       "Pentominoes sind Formen aus 5 Blöcken.",
+      "obj2":       "Gib deinen Pentis-BENUTZERNAMEN ein, um deine Highscores in der Bestenliste zu speichern.",
       "modes":      "MODI",
-      "modes_prac": "Übung: kein Beschleunigen, kein Speichern.",
-      "modes_comp": "Wettbewerb: Beschleunigung, Score gespeichert.",
+      "modes_rows": [("Übung:",      "Kein Beschleunigen. Nicht gespeichert."),
+                      ("Wettbewerb:", "Wird schneller. Score gespeichert.")],
       "difficulty": "SCHWIERIGKEIT",
+      "diff_types": "Pentomino-Typen",
+      "diff_note1": "Einstellbar in OPTIONEN > Schwierigkeit.",
+      "diff_note2": "Für jede gibt es eine eigene Bestenliste!",
       "scoring":    "PUNKTE",
-      "score1":     "Punkte für jeden platzierten Stein.",
-      "score2":     "Mehr Reihen auf einmal = grösserer Bonus.",
+      "score_rows": [("Stein platziert:",   "3 Pkt"),
+                      ("1 Reihe gelöscht:",  "100 Pkt"),
+                      ("2 Reihen gelöscht:", "400 Pkt"),
+                      ("3 Reihen gelöscht:", "900 Pkt"),
+                      ("4 Reihen gelöscht:", "1.600 Pkt"),
+                      ("5 Reihen gelöscht:", "2.500 Pkt")],
+      "score_note": "Die Punkte ergeben sich aus der Anzahl gelöschter Reihen zum Quadrat, mal 100.",
     },
     "scoreboard": {
       "title":     "BESTENLISTE",
@@ -423,6 +446,7 @@ iText = {
       "tagline":      "Ein Pentomino-Puzzlespiel - entwickelt mit Python & Pygame",
       "owner_label":  "Projektinhaber: Martin",
       "dev_label":    "Entwickler: Samy",
+      "feedback":     "Jede Art von Feedback ist willkommen!",
     },
   },        # german end
 
@@ -471,8 +495,8 @@ iText = {
       "1": "Întârziere iniţială",
       "2": "Rata de repetare",
       "input": "Valoare DAS nouă (11-99)  (-> Enter):",
-      "input_delay": "Setează o nouă întârziere inițială [11-99]:",
-      "input_rate":  "Setează o nouă rată de repetare [11-99]:",
+      "input_delay": "Setează o nouă Întârziere iniţială [11-99]:",
+      "input_rate":  "Setează o nouă Rata de repetare [11-99]:",
     },
     "Sounds": {
       "music": "Muzică",
@@ -565,19 +589,30 @@ iText = {
       "pause_key":  "P / ESC   Pauză",
       "music_key":  "M pentru Muzică",
       "help_key":   "H pentru Ajutor",
+      "lbl_pause":  "Pauză",
+      "lbl_music":  "Muzică",
+      "lbl_help":   "Ajutor",
       "das":        "DAS  (Auto-deplasare amânată)",
-      "das1":       "Ţii apăsată tasta: pauză, apoi repetiţie.",
-      "das2":       "Ajustabil în Opţiuni > DAS.",
-      "objective":  "OBIECTIV",
+      "das_rows":   [("Întârziere iniţială", "Timpul până când un Pentomino începe să se mişte lateral repetat, după apăsarea unei taste direcţionale."),
+                      ("Rată repetiţie",      "Viteza cu care un Pentomino se mişcă lateral repetat cât timp o tastă direcţională este ţinută apăsată.")],
+      "objective":  "GENERAL",
       "obj1":       "Umple rânduri complete pentru a le şterge.",
-      "obj2":       "Pentominouri au câte 5 blocuri.",
+      "obj2":       "Introdu NUMELE DE UTILIZATOR Pentis pentru a-ţi salva scorurile în clasament.",
       "modes":      "MODURI",
-      "modes_prac": "Practică: fără accelerare, scor nesalvat.",
-      "modes_comp": "Competitiv: accelerare, scor salvat.",
+      "modes_rows": [("Practică:",   "Fără accelerare. Scor nesalvat."),
+                      ("Competitiv:", "Accelerează în timp. Scorul se salvează.")],
       "difficulty": "DIFICULTATE",
+      "diff_types": "tipuri de pentomino",
+      "diff_note1": "Reglabil în OPŢIUNI > Dificultate.",
+      "diff_note2": "Fiecare are propriul clasament!",
       "scoring":    "PUNCTAJ",
-      "score1":     "Puncte pentru fiecare piesă plasată.",
-      "score2":     "Mai multe rânduri deodată = bonus mai mare.",
+      "score_rows": [("Piesă plasată:",      "3 pct"),
+                      ("1 rând şters:",       "100 pct"),
+                      ("2 rânduri şterse:",   "400 pct"),
+                      ("3 rânduri şterse:",   "900 pct"),
+                      ("4 rânduri şterse:",   "1.600 pct"),
+                      ("5 rânduri şterse:",   "2.500 pct")],
+      "score_note": "Punctele se calculează ca numărul de rânduri şterse la pătrat, înmulţit cu 100.",
     },
     "scoreboard": {
       "title":     "CLASAMENT",
@@ -595,6 +630,7 @@ iText = {
       "tagline":      "Un joc puzzle cu pentomino - realizat cu Python & Pygame",
       "owner_label":  "Proprietar proiect: Martin",
       "dev_label":    "Dezvoltator: Samy",
+      "feedback":     "Orice fel de feedback este binevenit!",
     },
   },        # romanian end
 
@@ -1320,6 +1356,61 @@ _HELP_SP_BODY = int(FONT_SM * 1.2)
 _HELP_SP_GAP  = int(FONT_XS * 0.6)
 
 
+def _draw_kv_rows(screen, font, rows, x, y, h_row, color, label_gap=None):
+    """Left-align label/value pairs; the value column starts after the widest label."""
+    if label_gap is None:
+        label_gap = int(font.get_height() * 0.5)
+    label_w  = max(font.size(label)[0] for label, _ in rows)
+    value_x  = x + label_w + label_gap
+    for label, value in rows:
+        lsurf = font.render(label, True, color)
+        screen.blit(lsurf, lsurf.get_rect(midleft=(x, y)))
+        vsurf = font.render(value, True, color)
+        screen.blit(vsurf, vsurf.get_rect(midleft=(value_x, y)))
+        y += h_row
+    return y
+
+
+def _wrap_text(font, text, max_width):
+    """Word-wrap text to fit max_width, returning a list of lines."""
+    words = text.split()
+    lines = []
+    cur = ""
+    for word in words:
+        trial = f"{cur} {word}".strip()
+        if cur and font.size(trial)[0] > max_width:
+            lines.append(cur)
+            cur = word
+        else:
+            cur = trial
+    if cur:
+        lines.append(cur)
+    return lines
+
+
+def _draw_label_desc_rows(screen, font, rows, x, y, h_row, color, max_width, item_gap=None):
+    """'Label: description' word-wrapped as one run-on paragraph — for entries too long for a kv row."""
+    if item_gap is None:
+        item_gap = int(h_row * 0.3)
+    for label, desc in rows:
+        combined = f"{label}: {desc}"
+        for line in _wrap_text(font, combined, max_width):
+            surf = font.render(line, True, color)
+            screen.blit(surf, surf.get_rect(midleft=(x, y)))
+            y += h_row
+        y += item_gap
+    return y
+
+
+def _kv_block_width(font, rows, label_gap=None):
+    """Total width a _draw_kv_rows call would occupy, for laying out a second block after it."""
+    if label_gap is None:
+        label_gap = int(font.get_height() * 0.5)
+    label_w = max(font.size(label)[0] for label, _ in rows)
+    value_w = max(font.size(value)[0] for _, value in rows)
+    return label_w + label_gap + value_w
+
+
 def helpScreen(screen):
     pg.event.clear([pg.KEYDOWN, pg.KEYUP])
     help_clock = pg.time.Clock()
@@ -1330,9 +1421,14 @@ def helpScreen(screen):
     footer      = Footer(screen, *screen.get_size())
 
     # Spacing — more generous to fill full screen height
-    H_HEAD = int(FONT_LG * 1.6)
+    H_HEAD = int(FONT_LG * 1.1)    # title-to-content gap — kept tight so section gaps can be bigger
     H_BODY = int(FONT_MD * 1.6)
-    H_GAP  = int(FONT_LG * 0.9)
+    H_ROW  = int(FONT_MD * 1.1)    # row height for label/value tables
+    # The two columns don't carry the same amount of content, so each gets its
+    # own section gap — this keeps both filling the page evenly instead of one
+    # overflowing while the other leaves dead space at the bottom.
+    H_GAP_L = int(FONT_LG * 0.6)
+    H_GAP_R = int(FONT_LG * 1.25)
 
     CLR_HEAD = clr.purple
     CLR_BODY = clr.blk
@@ -1343,88 +1439,99 @@ def helpScreen(screen):
                 pg.quit()
                 sys.exit(0)
             elif event.type == pg.KEYDOWN:
-                if event.key in (pg.K_ESCAPE, pg.K_RETURN):
+                if event.key == pg.K_ESCAPE:
                     return
 
         sw, sh = screen.get_size()
         screen.fill((255, 255, 255))
 
-        col_l = int(sw * 0.26)
-        col_r = int(sw * 0.72)
-        y0    = int(sh * 0.12)
+        left_x  = int(sw * 0.06)
+        right_x = int(sw * 0.52)
+        y0    = int(sh * 0.13)
 
         # Title
         title_surf = font_title.render(t("help", "title"), True, CLR_HEAD)
         screen.blit(title_surf, title_surf.get_rect(center=(sw // 2, int(sh * 0.06))))
 
-        # ---- LEFT COLUMN: Controls ----
-        y = y0
-        surf = font_head.render(t("help", "controls"), True, CLR_HEAD)
-        screen.blit(surf, surf.get_rect(center=(col_l, y)))
-        y += H_HEAD
-
-        for i in range(7):
-            action = t("Controls", str(i))
-            key    = pg.key.name(game_keys[str(i + 10)])
-            surf   = font_body.render(f"{action}:  {key}", True, CLR_BODY)
-            screen.blit(surf, surf.get_rect(center=(col_l, y)))
-            y += H_BODY
-
-        y += H_GAP
-
-        for key_str in ("pause_key", "music_key", "help_key"):
-            surf = font_body.render(t("help", key_str), True, CLR_BODY)
-            screen.blit(surf, surf.get_rect(center=(col_l, y)))
-            y += H_BODY
-
-        y += H_GAP
-        surf = font_head.render(t("help", "das"), True, CLR_HEAD)
-        screen.blit(surf, surf.get_rect(center=(col_l, y)))
-        y += H_HEAD
-        for key_str in ("das1", "das2"):
-            surf = font_body.render(t("help", key_str), True, CLR_BODY)
-            screen.blit(surf, surf.get_rect(center=(col_l, y)))
-            y += H_BODY
-
-        # ---- RIGHT COLUMN: Game info ----
+        # ---- LEFT COLUMN: Objective, Modes, Scoring ----
         y = y0
 
         surf = font_head.render(t("help", "objective"), True, CLR_HEAD)
-        screen.blit(surf, surf.get_rect(center=(col_r, y)))
+        screen.blit(surf, surf.get_rect(midleft=(left_x, y)))
         y += H_HEAD
-        for key_str in ("obj1", "obj2"):
-            surf = font_body.render(t("help", key_str), True, CLR_BODY)
-            screen.blit(surf, surf.get_rect(center=(col_r, y)))
-            y += H_BODY
-        y += H_GAP
+        surf = font_body.render(t("help", "obj1"), True, CLR_BODY)
+        screen.blit(surf, surf.get_rect(midleft=(left_x, y)))
+        y += H_BODY
+        obj_max_width = right_x - left_x - int(sw * 0.03)
+        for line in _wrap_text(font_body, t("help", "obj2"), obj_max_width):
+            surf = font_body.render(line, True, CLR_BODY)
+            screen.blit(surf, surf.get_rect(midleft=(left_x, y)))
+            y += H_ROW
+        y += H_GAP_R
 
         surf = font_head.render(t("help", "modes"), True, CLR_HEAD)
-        screen.blit(surf, surf.get_rect(center=(col_r, y)))
+        screen.blit(surf, surf.get_rect(midleft=(left_x, y)))
         y += H_HEAD
-        for key_str in ("modes_prac", "modes_comp"):
-            surf = font_body.render(t("help", key_str), True, CLR_BODY)
-            screen.blit(surf, surf.get_rect(center=(col_r, y)))
-            y += H_BODY
-        y += H_GAP
-
-        surf = font_head.render(t("help", "difficulty"), True, CLR_HEAD)
-        screen.blit(surf, surf.get_rect(center=(col_r, y)))
-        y += H_HEAD
-        diff1 = f"{t('Pentos','9')}: 9     {t('Pentos','11')}: 11"
-        diff2 = f"{t('Pentos','12')}: 12   {t('Pentos','13')}: 13"
-        for diff_line in (diff1, diff2):
-            surf = font_body.render(diff_line, True, CLR_BODY)
-            screen.blit(surf, surf.get_rect(center=(col_r, y)))
-            y += H_BODY
-        y += H_GAP
+        y = _draw_kv_rows(screen, font_body, t("help", "modes_rows"), left_x, y, H_ROW, CLR_BODY)
+        y += H_GAP_R
 
         surf = font_head.render(t("help", "scoring"), True, CLR_HEAD)
-        screen.blit(surf, surf.get_rect(center=(col_r, y)))
+        screen.blit(surf, surf.get_rect(midleft=(left_x, y)))
         y += H_HEAD
-        for key_str in ("score1", "score2"):
-            surf = font_body.render(t("help", key_str), True, CLR_BODY)
-            screen.blit(surf, surf.get_rect(center=(col_r, y)))
-            y += H_BODY
+        y = _draw_kv_rows(screen, font_body, t("help", "score_rows"), left_x, y, H_ROW, CLR_BODY)
+        score_note_max_width = right_x - left_x - int(sw * 0.03)
+        for line in _wrap_text(font_body, t("help", "score_note"), score_note_max_width):
+            surf = font_body.render(line, True, CLR_BODY)
+            screen.blit(surf, surf.get_rect(midleft=(left_x, y)))
+            y += H_ROW
+
+        # ---- RIGHT COLUMN: Controls, Difficulty, DAS ----
+        y = y0
+
+        surf = font_head.render(t("help", "controls"), True, CLR_HEAD)
+        screen.blit(surf, surf.get_rect(midleft=(right_x, y)))
+        y += H_HEAD
+
+        left_controls = [
+            (t("Controls", "0") + ":", pg.key.name(game_keys["10"])),
+            (t("Controls", "1") + ":", pg.key.name(game_keys["11"])),
+            (t("Controls", "2") + ":", pg.key.name(game_keys["12"])),
+            (t("Controls", "6") + ":", pg.key.name(game_keys["16"])),
+            (t("help", "lbl_pause") + ":", "P / ESC"),
+        ]
+        right_controls = [
+            (t("Controls", "3") + ":", pg.key.name(game_keys["13"])),
+            (t("Controls", "4") + ":", pg.key.name(game_keys["14"])),
+            (t("Controls", "5") + ":", pg.key.name(game_keys["15"])),
+            (t("help", "lbl_music") + ":", "M"),
+            (t("help", "lbl_help") + ":", "H"),
+        ]
+        controls_col2_x = right_x + _kv_block_width(font_body, left_controls) + int(sw * 0.04)
+
+        y = _draw_kv_rows(screen, font_body, left_controls, right_x, y, H_ROW, CLR_BODY)
+        _draw_kv_rows(screen, font_body, right_controls, controls_col2_x, y - len(left_controls) * H_ROW, H_ROW, CLR_BODY)
+        y += H_GAP_L
+
+        surf = font_head.render(t("help", "difficulty"), True, CLR_HEAD)
+        screen.blit(surf, surf.get_rect(midleft=(right_x, y)))
+        y += H_HEAD
+        diff_types = t("help", "diff_types")
+        diff_rows = [(f"{t('Pentos', str(n))}:", f"{n} {diff_types}") for n in (9, 11, 12, 13)]
+        y = _draw_kv_rows(screen, font_body, diff_rows, right_x, y, H_ROW, CLR_BODY)
+        diff_note_max_width = sw - right_x - int(sw * 0.02)
+        for key in ("diff_note1", "diff_note2"):
+            for line in _wrap_text(font_body, t("help", key), diff_note_max_width):
+                surf = font_body.render(line, True, CLR_BODY)
+                screen.blit(surf, surf.get_rect(midleft=(right_x, y)))
+                y += H_ROW
+        y += H_GAP_L
+
+        surf = font_head.render(t("help", "das"), True, CLR_HEAD)
+        screen.blit(surf, surf.get_rect(midleft=(right_x, y)))
+        y += H_HEAD
+        das_max_width = sw - right_x - int(sw * 0.02)
+        y = _draw_label_desc_rows(screen, font_body, t("help", "das_rows"), right_x, y, H_ROW,
+                                   CLR_BODY, das_max_width, item_gap=int(H_ROW * 0.05))
 
         footer.draw(center_str=t("game", "back"))
 
@@ -1518,7 +1625,7 @@ def highscoreBox(screen, imageStart):
                 sys.exit(0)
 
             elif event.type == pg.KEYDOWN:
-                if event.key in (pg.K_RETURN, pg.K_ESCAPE):
+                if event.key == pg.K_ESCAPE:
                     return
                 elif event.key == pg.K_RIGHT:
                     if focus == "page":
@@ -1715,14 +1822,13 @@ def modeOpts(screen, imageStart):            # Mode Options
         pg.display.flip()
     return numPents, competOn
 
-def _draw_pento_preview(screen, shapes, center_y):
+def _draw_pento_preview(screen, shapes, center_y, cell=9, gap=8, center_x=None):
     """Render miniature B&W pentomino shapes centred horizontally at center_y."""
-    cell    = 9         # px per grid cell
-    gap     = 8         # px gap between shapes
     shape_w = 5 * cell  # each shape occupies a 5×5 box
-    sw      = screen.get_width()
+    if center_x is None:
+        center_x = screen.get_width() // 2
     total_w = len(shapes) * shape_w + (len(shapes) - 1) * gap
-    start_x = (sw - total_w) // 2
+    start_x = center_x - total_w // 2
 
     for i, shape in enumerate(shapes):
         grid = shape[0]            # flat 25-element rotation-0 grid
@@ -1734,6 +1840,16 @@ def _draw_pento_preview(screen, shapes, center_y):
                 c = idx % 5
                 pg.draw.rect(screen, (30, 30, 30),
                              (ox + c * cell, oy + r * cell, cell - 1, cell - 1))
+
+
+# Reorders the 13 pentominoes so mirror-image pairs sit next to each other in
+# the preview strip: N/S, L/J, P/P', Y/Y' — the achiral shapes (I, T, W, V, U)
+# have no mirror partner and are left where they fit.
+_PENTO_DISPLAY_ORDER = [0, 2, 3, 1, 5, 4, 7, 6, 8, 9, 10, 11, 12]
+
+def _pento_preview_shapes(num_pentominoes):
+    all_shapes = clsp.Pentominoes(13).selected_pentominoes
+    return [all_shapes[i] for i in _PENTO_DISPLAY_ORDER if i < num_pentominoes]
 
 
 def pentosOpts(screen, imageStart):      #Pentominoes Options
@@ -1750,10 +1866,10 @@ def pentosOpts(screen, imageStart):      #Pentominoes Options
     j = numPents
 
     diff_shapes = [
-        clsp.Pentominoes(9).selected_pentominoes,   # Novice
-        clsp.Pentominoes(11).selected_pentominoes,  # Standard
-        clsp.Pentominoes(12).selected_pentominoes,  # Advanced
-        clsp.Pentominoes(13).selected_pentominoes,  # Pro
+        _pento_preview_shapes(9),   # Novice
+        _pento_preview_shapes(11),  # Standard
+        _pento_preview_shapes(12),  # Advanced
+        _pento_preview_shapes(13),  # Pro
     ]
     
 
@@ -1879,9 +1995,6 @@ def controlsBox(screen, imageStart):
                             game_keys.update(DEFAULT_KEYS)
                             fileWriteKeys(game_keys)
                             reset_modal_timer = 180
-                        else:
-                            fileWriteKeys(game_keys)
-                            return game_keys
                     elif event.key == pg.K_UP:
                         col, row = divmod(selected_option, 4)
                         selected_option = col * 4 + (row - 1) % 4
@@ -2066,7 +2179,7 @@ def aboutScreen(screen, imageStart):
                 pg.quit()
                 sys.exit(0)
             elif event.type == pg.KEYDOWN:
-                if event.key in (pg.K_ESCAPE, pg.K_RETURN):
+                if event.key == pg.K_ESCAPE:
                     _set_cursor(pg.SYSTEM_CURSOR_ARROW)
                     return
             elif event.type == pg.MOUSEBUTTONDOWN:
@@ -2087,6 +2200,7 @@ def aboutScreen(screen, imageStart):
             (font_heading, "grapefruit256",           clr.blk,    GAP_LG),
             (font_body,    t("about", "owner_label"), GRAY,       GAP_SM),
             (font_body,    t("about", "dev_label"),   GRAY,       GAP_SM),
+            (font_body,    t("about", "feedback"),    GRAY,       GAP_LG),
         ]
 
         link_surf = font_body.render(LINK_TEXT, True, clr.blue2 if hovered else clr.purple)

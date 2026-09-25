@@ -262,7 +262,7 @@ iText = {
       "tagline":      "A pentomino puzzle game - built with Python & Pygame",
       "owner_label":  "Project Owner: Martin",
       "dev_label":    "Developer: Samaia",
-      "feedback":     "Any kind of feedback is welcome!",
+      "feedback":     "Feel free to rate and comment on the game! Any kind of feedback is welcome!",
     },
   },        # english end
 
@@ -446,7 +446,7 @@ iText = {
       "tagline":      "Ein Pentomino-Puzzlespiel - entwickelt mit Python & Pygame",
       "owner_label":  "Projektinhaber: Martin",
       "dev_label":    "Entwickler: Samy",
-      "feedback":     "Jede Art von Feedback ist willkommen!",
+      "feedback":     "Bewerte und kommentiere das Spiel gerne! Jede Art von Feedback ist willkommen!",
     },
   },        # german end
 
@@ -630,7 +630,7 @@ iText = {
       "tagline":      "Un joc puzzle cu pentomino - realizat cu Python & Pygame",
       "owner_label":  "Proprietar proiect: Martin",
       "dev_label":    "Dezvoltator: Samy",
-      "feedback":     "Orice fel de feedback este binevenit!",
+      "feedback":     "Nu ezita să evaluezi şi să comentezi jocul! Orice fel de feedback este binevenit!",
     },
   },        # romanian end
 

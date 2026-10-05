@@ -30,7 +30,7 @@ a = Analysis(
     hookspath=[],
     hooksconfig={},
     runtime_hooks=['pentis/runtime_hook_paths.py'],
-    excludes=['PyQt5', 'firebase_admin'],
+    excludes=['PyQt5', 'firebase_admin', 'numpy'],
     noarchive=False,
     optimize=0,
 )

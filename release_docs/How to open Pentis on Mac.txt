@@ -1,0 +1,55 @@
+HOW TO OPEN PENTIS ON A MAC
+===========================
+
+Pentis is a small independent game and is not (yet) registered with
+Apple. Because of that, macOS will block it the first time you open it.
+This is normal. You only have to do the steps below ONCE.
+
+
+1. INSTALL
+----------
+- Unzip the download (double-click the .zip file).
+- Drag the Pentis app into your Applications folder.
+
+
+2. OPEN IT THE FIRST TIME
+-------------------------
+- Double-click Pentis.
+  macOS shows a message like "Pentis Not Opened" or "Apple could not
+  verify Pentis is free of malware". Click "Done" (or "OK").
+
+- Open System Settings > Privacy & Security.
+- Scroll down to the "Security" section. You will see:
+      "Pentis" was blocked to protect your Mac.
+  Click "Open Anyway".
+- Confirm with your password (or Touch ID), then click "Open Anyway"
+  once more.
+
+Pentis now starts, and from now on it opens normally with a double-click.
+
+On older macOS versions (Sonoma 14 or earlier) there is a shortcut:
+right-click (or Control-click) Pentis, choose "Open", then click "Open"
+in the message that appears.
+
+
+3. IF MACOS SAYS "PENTIS IS DAMAGED AND CAN'T BE OPENED"
+-------------------------------------------------------
+The game is not damaged - this is macOS being strict about apps
+downloaded from the internet. To fix it:
+
+- Open the Terminal app (Applications > Utilities > Terminal).
+- Type the following, WITH a space at the end, but do NOT press Return yet:
+
+      xattr -dr com.apple.quarantine
+
+- Drag the Pentis app from your Applications folder into the Terminal
+  window. Its location is filled in for you.
+- Press Return, then close Terminal.
+
+Now double-click Pentis again.
+
+
+STILL NOT WORKING?
+------------------
+Please let us know (see "Feedback" in README.txt) and tell us your
+macOS version (Apple menu > About This Mac).

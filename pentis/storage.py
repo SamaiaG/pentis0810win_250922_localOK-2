@@ -1,9 +1,9 @@
 """Highscores storage module - manages local JSON-based score persistence"""
 import os
 import json
-import platform
 from pathlib import Path
 from cryptography.fernet import Fernet
+from crashlog import get_app_data_dir
 
 os.chdir(Path(__file__).parent)
 
@@ -24,25 +24,6 @@ def decrypt_data(encrypted_data):
         return json.loads(decrypted.decode('utf-8'))
     except Exception:
         return {}
-
-# Get platform-specific data directory
-def get_app_data_dir():
-    """Return platform-specific application data directory"""
-    system = platform.system()
-    
-    if system == 'Windows':
-        # Windows: C:\Users\<username>\AppData\Local\Pentis
-        app_data = os.getenv('LOCALAPPDATA')
-        if app_data:
-            return os.path.join(app_data, 'Pentis')
-        else:
-            return os.path.join(os.path.expanduser('~'), 'AppData', 'Local', 'Pentis')
-    elif system == 'Darwin':
-        # macOS: ~/Library/Application Support/Pentis
-        return os.path.join(os.path.expanduser('~'), 'Library', 'Application Support', 'Pentis')
-    else:
-        # Linux and others: ~/.local/share/pentis
-        return os.path.join(os.path.expanduser('~'), '.local', 'share', 'pentis')
 
 # Create Pentis directory if it doesn't exist
 pentis_dir = get_app_data_dir()

@@ -14,7 +14,6 @@ a = Analysis(
     ],
     hiddenimports=[
         'pygame',
-        'numpy',
     ],
     hookspath=[],
     hooksconfig={},
@@ -22,6 +21,7 @@ a = Analysis(
     excludes=[
         'PyQt5',        # not needed at runtime, keeps build smaller
         'firebase_admin',
+        'numpy',        # unused by the game; pygame only needs it for surfarray/sndarray
     ],
     win_no_prefer_redirects=False,
     win_private_assemblies=False,

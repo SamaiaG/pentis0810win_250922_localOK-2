@@ -1,4 +1,7 @@
 #import time
+import crashlog
+crashlog.install()      # before anything else, so import-time errors are logged too
+
 import pygame as pg
 pg.init()
 import inoutput as io

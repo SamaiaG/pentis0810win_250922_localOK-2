@@ -260,9 +260,9 @@ iText = {
     "about": {
       "title":        "ABOUT",
       "tagline":      "A pentomino puzzle game - built with Python & Pygame",
-      "owner_label":  "Project Owner: Martin",
-      "dev_label":    "Developer: Samaia",
-      "feedback":     "Feel free to rate and comment on the game! Any kind of feedback is welcome!",
+      "owner_label":  "Project Owner: Grapefruit 256",
+      "rate":         "Feel free to rate and comment on the game!",
+      "feedback":     "Any kind of feedback is welcome!",
     },
   },        # english end
 
@@ -444,9 +444,9 @@ iText = {
     "about": {
       "title":        "ÜBER",
       "tagline":      "Ein Pentomino-Puzzlespiel - entwickelt mit Python & Pygame",
-      "owner_label":  "Projektinhaber: Martin",
-      "dev_label":    "Entwickler: Samy",
-      "feedback":     "Bewerte und kommentiere das Spiel gerne! Jede Art von Feedback ist willkommen!",
+      "owner_label":  "Projektinhaber: Grapefruit 256",
+      "rate":         "Bewerte und kommentiere das Spiel gerne!",
+      "feedback":     "Jede Art von Feedback ist willkommen!",
     },
   },        # german end
 
@@ -628,9 +628,9 @@ iText = {
     "about": {
       "title":        "DESPRE",
       "tagline":      "Un joc puzzle cu pentomino - realizat cu Python & Pygame",
-      "owner_label":  "Proprietar proiect: Martin",
-      "dev_label":    "Dezvoltator: Samy",
-      "feedback":     "Nu ezita să evaluezi şi să comentezi jocul! Orice fel de feedback este binevenit!",
+      "owner_label":  "Proprietar proiect: Grapefruit 256",
+      "rate":         "Nu ezita să evaluezi şi să comentezi jocul!",
+      "feedback":     "Orice fel de feedback este binevenit!",
     },
   },        # romanian end
 
@@ -2167,13 +2167,20 @@ def aboutScreen(screen, imageStart):
     GAP_SM    = 10
     GAP_LG    = 30
     GAP_TITLE = 70   # gap between the page title and the content below it
-    LINK_TEXT = "grapefruit256.itch.io/pentis"
-    LINK_URL  = "https://grapefruit256.itch.io/pentis"
+    # display text -> URL opened on click
+    LINKS = {
+        "grapefruit256.itch.io/pentis": "https://grapefruit256.itch.io/pentis",
+        "pentis.feedback@gmail.com":    "mailto:pentis.feedback@gmail.com",
+    }
+    LINK_WEB, LINK_MAIL = LINKS
 
-    footer    = Footer(screen, *screen.get_size())
-    link_rect = pg.Rect(0, 0, 0, 0)
+    footer     = Footer(screen, *screen.get_size())
+    link_rects = {}   # display text -> on-screen rect, filled while drawing
 
     while True:
+        mouse_pos = pg.mouse.get_pos()
+        hovered   = next((text for text, rect in link_rects.items() if rect.collidepoint(mouse_pos)), None)
+
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
@@ -2183,40 +2190,40 @@ def aboutScreen(screen, imageStart):
                     _set_cursor(pg.SYSTEM_CURSOR_ARROW)
                     return
             elif event.type == pg.MOUSEBUTTONDOWN:
-                if event.button == 1 and link_rect.collidepoint(event.pos):
-                    webbrowser.open(LINK_URL)
+                if event.button == 1 and hovered:
+                    webbrowser.open(LINKS[hovered])
 
         sw, sh = screen.get_size()
         screen.blit(imageStart, (0, 0))
 
-        hovered = link_rect.collidepoint(pg.mouse.get_pos())
         _set_cursor(pg.SYSTEM_CURSOR_HAND if hovered else pg.SYSTEM_CURSOR_ARROW)
 
+        def link_color(text):
+            return clr.blue2 if text == hovered else clr.purple
+
         lines = [
-            (font_title,   t("about", "title"),      clr.purple, 0),
-            (font_heading, "Pentis",                  clr.blk,    GAP_TITLE),
-            (font_body,    "v0.9",                    GRAY,       GAP_SM),
-            (font_body,    t("about", "tagline"),     GRAY,       GAP_SM),
-            (font_heading, "grapefruit256",           clr.blk,    GAP_LG),
-            (font_body,    t("about", "owner_label"), GRAY,       GAP_SM),
-            (font_body,    t("about", "dev_label"),   GRAY,       GAP_SM),
-            (font_body,    t("about", "feedback"),    GRAY,       GAP_LG),
+            (font_title,   t("about", "title"),      clr.purple,           0),
+            (font_heading, "Pentis",                  clr.blk,              GAP_TITLE),
+            (font_body,    "v0.9",                    GRAY,                 GAP_SM),
+            (font_body,    t("about", "tagline"),     GRAY,                 GAP_SM),
+            (font_body,    t("about", "owner_label"), GRAY,                 GAP_LG),
+            (font_body,    t("about", "rate"),        GRAY,                 GAP_LG),
+            (font_body,    LINK_WEB,                  link_color(LINK_WEB),  GAP_SM),
+            (font_body,    t("about", "feedback"),    GRAY,                 GAP_LG),
+            (font_body,    LINK_MAIL,                 link_color(LINK_MAIL), GAP_SM),
         ]
 
-        link_surf = font_body.render(LINK_TEXT, True, clr.blue2 if hovered else clr.purple)
-
-        rendered = [(font.render(text, True, color), gap_before) for font, text, color, gap_before in lines]
-        rendered.append((link_surf, GAP_LG))
-        total_h  = sum(gap_before + surf.get_height() for surf, gap_before in rendered)
+        rendered = [(text, font.render(text, True, color), gap_before) for font, text, color, gap_before in lines]
+        total_h  = sum(gap_before + surf.get_height() for _, surf, gap_before in rendered)
 
         y = (sh - total_h) / 2
-        for surf, gap_before in rendered:
+        for text, surf, gap_before in rendered:
             y += gap_before
             rect = surf.get_rect(center=(sw // 2, y + surf.get_height() // 2))
             screen.blit(surf, rect)
-            if surf is link_surf:
-                link_rect = rect
-                if hovered:
+            if text in LINKS:
+                link_rects[text] = rect
+                if text == hovered:
                     pg.draw.line(screen, clr.blue2, rect.bottomleft, rect.bottomright, 1)
             y += surf.get_height()
 

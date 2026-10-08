@@ -46,7 +46,7 @@ exe = EXE(
     target_arch=None,          # arm64 (Apple Silicon M1/M2/M3/M4)
     codesign_identity=None,
     entitlements_file=None,
-    icon='graphics/Pentis.icns',
+    icon='graphics/Pentis_block.icns',
 )
 
 coll = COLLECT(
@@ -63,7 +63,7 @@ coll = COLLECT(
 app = BUNDLE(
     coll,
     name='Pentis.app',
-    icon=None,              # set to a .icns file path if you have one
+    icon='graphics/Pentis_block.icns',   # lilac pento block (same as window icon)
     bundle_identifier='com.grapefruit256.pentis',
     info_plist={
         'NSHighResolutionCapable': True,

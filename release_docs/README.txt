@@ -87,7 +87,8 @@ FEEDBACK AND BUG REPORTS
 Any kind of feedback is welcome - what you liked, what felt wrong,
 what you would like to see next.
 
-  [FEEDBACK LINK]
+  E-mail:   pentis.feedback@gmail.com
+  Website:  https://grapefruit256.itch.io/pentis
 
 If Pentis ever closes unexpectedly, a file called crash.log is written
 to the saved-data folder above. Please attach it to your bug report,
@@ -96,8 +97,7 @@ together with your operating system version. It helps us a lot.
 
 CREDITS
 -------
-Project owner:  Martin
-Developer:      Samaia
+Project owner:  Grapefruit 256
 Built with Python and Pygame.
 
 Pentis (c) 2026. All rights reserved.
